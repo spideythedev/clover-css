@@ -1030,6 +1030,898 @@
 }
 
 /* ============================================================
-   END CLOVER CSS
+   END CLOVER CSS BATCH 1
    Lines: ~2,100 (core library, expandable to 5,000+)
+   ============================================================ */
+/* ============================================================
+   CLOVER CSS v1.0.0 — BATCH 2: "The Descent Into Madness"
+   Components 6-10
+   ============================================================ */
+
+/* ============================================================
+   6. .clover-liquid-blob — Animated SVG Filter Morphing Blob
+      with Inner Caustics, Gradient Shift, and Pulse Ring
+      
+      Layers: SVG turbulence displacement, dual gradient
+      overlays, caustic light refraction, pulsing outline
+      ring, specular highlight dot, noise grain
+   ============================================================ */
+
+.clover-liquid-blob {
+  --_lbbg: var(--clover-liquid-bg, #6c5ce7);
+  --_lbbg2: var(--clover-liquid-bg2, #a29bfe);
+  --_lbhighlight: var(--clover-liquid-highlight, #ffffff);
+  --_lbsize: var(--clover-liquid-size, 200px);
+  --_lbspeed: var(--clover-liquid-speed, 8s);
+  --_lbblur: var(--clover-liquid-blur, 30px);
+  --_lbring: var(--clover-liquid-ring, rgba(108, 92, 231, 0.4));
+  --_lbcaustic: var(--clover-liquid-caustic-opacity, 0.3);
+  --_lbnoise: var(--clover-liquid-noise-opacity, 0.04);
+  --_lbspecular: var(--clover-liquid-specular-size, 25%);
+
+  position: relative;
+  isolation: isolate;
+  width: var(--_lbsize);
+  height: var(--_lbsize);
+  border-radius: 50%;
+  cursor: pointer;
+  
+  /* Base gradient background */
+  background: 
+    radial-gradient(
+      ellipse at 35% 30%,
+      var(--_lbhighlight) 0%,
+      transparent var(--_lbspecular)
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      var(--_lbbg) 0%,
+      var(--_lbbg2) 60%,
+      var(--_lbbg) 100%
+    );
+  
+  /* SVG filter for the gooey displacement */
+  filter: 
+    url('#clover-goo-filter')
+    drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
+  
+  /* Inner shadow for depth */
+  box-shadow:
+    inset 0 -8px 20px rgba(0, 0, 0, 0.15),
+    inset 0 8px 20px rgba(255, 255, 255, 0.1),
+    inset 0 0 40px rgba(255, 255, 255, 0.05);
+  
+  animation: 
+    clover-blob-morph var(--_lbspeed) ease-in-out infinite alternate,
+    clover-blob-rotate calc(var(--_lbspeed) * 1.5) linear infinite;
+  transition: filter 0.4s var(--clover-ease-smooth);
+}
+
+/* Caustic light refraction (::before) */
+.clover-liquid-blob::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  inset: 10%;
+  border-radius: 50%;
+  background: 
+    radial-gradient(
+      ellipse at 30% 25%,
+      rgba(255, 255, 255, 0.5) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 70% 60%,
+      rgba(255, 255, 255, 0.2) 0%,
+      transparent 35%
+    ),
+    radial-gradient(
+      ellipse at 45% 75%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 30%
+    );
+  opacity: var(--_lbcaustic);
+  filter: blur(4px);
+  mix-blend-mode: overlay;
+  animation: clover-caustic-drift calc(var(--_lbspeed) * 0.8) ease-in-out infinite alternate;
+}
+
+/* Pulsing outline ring (::after) */
+.clover-liquid-blob::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -12px;
+  border-radius: 50%;
+  border: 2px solid var(--_lbring);
+  opacity: 0;
+  animation: clover-blob-ring-pulse calc(var(--_lbspeed) * 0.5) ease-in-out infinite;
+}
+
+/* ---- Keyframes ---- */
+@keyframes clover-blob-morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+    transform: scale(1) rotate(0deg);
+  }
+  20% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: scale(1.05) rotate(72deg);
+  }
+  40% {
+    border-radius: 50% 30% 60% 40% / 40% 70% 30% 50%;
+    transform: scale(0.95) rotate(144deg);
+  }
+  60% {
+    border-radius: 40% 60% 30% 60% / 60% 40% 60% 30%;
+    transform: scale(1.08) rotate(216deg);
+  }
+  80% {
+    border-radius: 70% 30% 50% 50% / 30% 50% 40% 70%;
+    transform: scale(0.97) rotate(288deg);
+  }
+  100% {
+    border-radius: 55% 45% 40% 60% / 50% 55% 45% 50%;
+    transform: scale(1.02) rotate(360deg);
+  }
+}
+
+@keyframes clover-blob-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* This runs on the blob itself which already has the morph animation.
+   The morph animation takes precedence on border-radius/scale, 
+   and rotate combines. We separate rotate for continuous spin. */
+.clover-liquid-blob {
+  animation: 
+    clover-blob-morph var(--_lbspeed) ease-in-out infinite alternate;
+  /* Rotation applied via a wrapper or we use a second transform approach */
+}
+
+@keyframes clover-caustic-drift {
+  0% { 
+    transform: translate(-5%, -5%) scale(1);
+    opacity: var(--_lbcaustic);
+  }
+  50% { 
+    transform: translate(5%, 8%) scale(1.1);
+    opacity: calc(var(--_lbcaustic) * 1.4);
+  }
+  100% { 
+    transform: translate(3%, -3%) scale(0.95);
+    opacity: calc(var(--_lbcaustic) * 0.7);
+  }
+}
+
+@keyframes clover-blob-ring-pulse {
+  0%, 100% { 
+    inset: -12px;
+    opacity: 0;
+    border-width: 2px;
+  }
+  50% { 
+    inset: -20px;
+    opacity: 0.6;
+    border-width: 1px;
+  }
+}
+
+/* Hover: Intensify everything */
+.clover-liquid-blob:hover {
+  --_lbcaustic: 0.5;
+  --_lbspeed: 4s;
+  filter: 
+    url('#clover-goo-filter')
+    drop-shadow(0 15px 40px rgba(0, 0, 0, 0.25))
+    drop-shadow(0 6px 15px rgba(0, 0, 0, 0.15));
+  box-shadow:
+    inset 0 -12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 12px 30px rgba(255, 255, 255, 0.15),
+    inset 0 0 60px rgba(255, 255, 255, 0.08);
+}
+
+.clover-liquid-blob:focus-visible {
+  outline: 3px solid var(--_lbbg);
+  outline-offset: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-liquid-blob {
+    --clover-liquid-bg: #4a3db7;
+    --clover-liquid-bg2: #7c6ff7;
+    --clover-liquid-ring: rgba(124, 111, 247, 0.5);
+  }
+}
+
+/* ---- Required SVG Filter (include in HTML) ----
+<svg class="clover-svg-filters">
+  <filter id="clover-goo-filter">
+    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" 
+      seed="2" result="noise">
+      <animate attributeName="baseFrequency" 
+        values="0.015;0.025;0.015" dur="8s" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="noise" 
+      scale="25" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+---- */
+
+/* ============================================================
+   7. .clover-typewriter — Multi-line Staggered Typewriter
+      with Blinking Cursor, Paper Texture, Ink Bleed,
+      and Character Fade-in Overlap
+      
+      Layers: Typed text reveal, blinking block cursor,
+      paper grain, ink spread glow, staggered line delays,
+      selection highlight with ink color
+   ============================================================ */
+
+.clover-typewriter {
+  --_twcolor: var(--clover-typewriter-color, #1a1a1a);
+  --_twbg: var(--clover-typewriter-bg, #faf8f5);
+  --_twcursor: var(--clover-typewriter-cursor, #1a1a1a);
+  --_twspeed: var(--clover-typewriter-speed, 0.06s);
+  --_twlines: var(--clover-typewriter-lines, 3);
+  --_twchars: var(--clover-typewriter-chars-per-line, 40);
+  --_twdelay: var(--clover-typewriter-line-delay, 2s);
+  --_twink: var(--clover-typewriter-ink-glow, rgba(26, 26, 26, 0.08));
+  --_twpaper: var(--clover-typewriter-paper-opacity, 0.03);
+
+  position: relative;
+  isolation: isolate;
+  background: var(--_twbg);
+  color: var(--_twcolor);
+  font-family: 'Courier Prime', 'Courier New', 'IBM Plex Mono', monospace;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  padding: 2.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+  
+  /* Paper texture */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.3'/%3E%3C/svg%3E");
+  background-size: 300px 300px;
+  background-blend-mode: multiply;
+  
+  /* Ink bleed shadow on text */
+  text-shadow: 
+    0 0 1px var(--_twink),
+    0 0 3px var(--_twink),
+    0 0 6px var(--_twink);
+  
+  /* Subtle paper edge shadow */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Typewriter content uses child elements with data attributes */
+.clover-typewriter [data-typewriter-line] {
+  display: block;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--_twcursor);
+  animation: 
+    clover-typewriter-typing calc(var(--_twspeed) * var(--_twchars)) steps(var(--_twchars)) forwards,
+    clover-typewriter-cursor 0.8s steps(2) infinite;
+  animation-delay: calc(var(--_twdelay) * var(--line-index, 0));
+  opacity: 0;
+  animation-fill-mode: forwards;
+}
+
+/* Staggered reveal via custom property */
+.clover-typewriter [data-typewriter-line] {
+  animation: 
+    clover-typewriter-typing calc(var(--_twspeed) * var(--_twchars)) steps(var(--_twchars)) forwards,
+    clover-typewriter-cursor 0.8s steps(2) infinite,
+    clover-typewriter-fade-in 0.01s forwards;
+  animation-delay: 
+    calc(var(--_twdelay) * var(--line-index, 0)),
+    calc(var(--_twdelay) * var(--line-index, 0)),
+    calc(var(--_twdelay) * var(--line-index, 0) - 0.01s);
+}
+
+@keyframes clover-typewriter-typing {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+@keyframes clover-typewriter-cursor {
+  0%, 100% { border-color: var(--_twcursor); }
+  50% { border-color: transparent; }
+}
+
+@keyframes clover-typewriter-fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* Ink splatter pseudo (::before) - random ink dots */
+.clover-typewriter::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 3%),
+    radial-gradient(circle at 72% 12%, rgba(0, 0, 0, 0.02) 0%, transparent 2%),
+    radial-gradient(circle at 88% 65%, rgba(0, 0, 0, 0.04) 0%, transparent 1.5%),
+    radial-gradient(circle at 5% 35%, rgba(0, 0, 0, 0.02) 0%, transparent 2.5%),
+    radial-gradient(circle at 40% 90%, rgba(0, 0, 0, 0.03) 0%, transparent 1%);
+  opacity: 0.7;
+}
+
+/* Paper fold line (::after) */
+.clover-typewriter::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 20%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.03) 80%,
+    transparent 100%
+  );
+}
+
+/* Selection styling */
+.clover-typewriter ::selection {
+  background: rgba(0, 0, 0, 0.12);
+  color: inherit;
+  text-shadow: none;
+}
+
+.clover-typewriter ::-moz-selection {
+  background: rgba(0, 0, 0, 0.12);
+  color: inherit;
+  text-shadow: none;
+}
+
+/* Hover: subtle paper lift */
+.clover-typewriter:hover {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  transition: all 0.3s var(--clover-ease-smooth);
+}
+
+.clover-typewriter:focus-visible {
+  outline: 2px solid var(--_twcolor);
+  outline-offset: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-typewriter {
+    --clover-typewriter-color: #e8e4dd;
+    --clover-typewriter-bg: #1e1b18;
+    --clover-typewriter-cursor: #e8e4dd;
+    --clover-typewriter-ink-glow: rgba(232, 228, 221, 0.08);
+  }
+}
+
+/* ============================================================
+   8. .clover-kaleidoscope — Rotating Geometric Mandala
+      with Conic Gradient Harmonics, Nested Clip-path
+      Polygons, and Chromatic Aberration Shift
+      
+      Layers: Base conic gradient, 3 rotating polygon
+      clip-paths, radial gradient overlay, chromatic
+      fringe, outer glow pulse, specular center dot
+   ============================================================ */
+
+.clover-kaleidoscope {
+  --_kcolors: var(--clover-kaleidoscope-colors, 
+    #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd);
+  --_ksize: var(--clover-kaleidoscope-size, 180px);
+  --_kspeed: var(--clover-kaleidoscope-speed, 12s);
+  --_ksides: var(--clover-kaleidoscope-sides, 8);
+  --_kchroma: var(--clover-kaleidoscope-chroma-offset, 3px);
+  --_kglow: var(--clover-kaleidoscope-glow-color, rgba(255, 107, 107, 0.3));
+
+  position: relative;
+  isolation: isolate;
+  width: var(--_ksize);
+  height: var(--_ksize);
+  border-radius: 50%;
+  cursor: pointer;
+  
+  /* Base conic gradient mandala */
+  background: conic-gradient(
+    from 0deg,
+    var(--_kcolors)
+  );
+  
+  /* Chromatic aberration via box-shadow in RGB channels */
+  box-shadow:
+    0 0 20px var(--_kglow),
+    0 0 40px var(--_kglow),
+    var(--_kchroma) 0 0 rgba(255, 0, 0, 0.2),
+    calc(var(--_kchroma) * -1) 0 0 rgba(0, 0, 255, 0.2),
+    0 var(--_kchroma) 0 rgba(0, 255, 0, 0.2);
+  
+  animation: clover-kaleidoscope-spin var(--_kspeed) linear infinite;
+}
+
+/* Layer 1: Counter-rotating polygon (::before) */
+.clover-kaleidoscope::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  inset: 15%;
+  background: conic-gradient(
+    from 180deg,
+    var(--_kcolors)
+  );
+  clip-path: polygon(
+    50% 0%, 85% 15%, 100% 50%, 85% 85%,
+    50% 100%, 15% 85%, 0% 50%, 15% 15%
+  );
+  opacity: 0.7;
+  mix-blend-mode: screen;
+  animation: clover-kaleidoscope-spin-reverse calc(var(--_kspeed) * 0.7) linear infinite;
+  border-radius: 50%;
+}
+
+/* Layer 2: Inner rotating star (::after) */
+.clover-kaleidoscope::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  inset: 30%;
+  background: conic-gradient(
+    from 90deg,
+    var(--_kcolors)
+  );
+  clip-path: polygon(
+    50% 0%, 61% 35%, 98% 35%, 68% 57%,
+    79% 91%, 50% 70%, 21% 91%, 32% 57%,
+    2% 35%, 39% 35%
+  );
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  animation: clover-kaleidoscope-spin calc(var(--_kspeed) * 0.4) linear infinite;
+  border-radius: 50%;
+}
+
+/* Specular center highlight (using a radial gradient on the element) */
+.clover-kaleidoscope {
+  background-image: 
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 15%
+    ),
+    conic-gradient(
+      from 0deg,
+      var(--_kcolors)
+    );
+}
+
+@keyframes clover-kaleidoscope-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes clover-kaleidoscope-spin-reverse {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Hover: speed up and intensify chromatic aberration */
+.clover-kaleidoscope:hover {
+  --_kspeed: 4s;
+  --_kchroma: 6px;
+  --_kglow: rgba(255, 107, 107, 0.5);
+  box-shadow:
+    0 0 30px var(--_kglow),
+    0 0 60px var(--_kglow),
+    0 0 90px var(--_kglow),
+    var(--_kchroma) 0 0 rgba(255, 0, 0, 0.3),
+    calc(var(--_kchroma) * -1) 0 0 rgba(0, 0, 255, 0.3),
+    0 var(--_kchroma) 0 rgba(0, 255, 0, 0.3);
+  transition: all 0.5s var(--clover-ease-smooth);
+}
+
+.clover-kaleidoscope:focus-visible {
+  outline: 3px solid var(--_kglow);
+  outline-offset: 6px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-kaleidoscope {
+    --clover-kaleidoscope-glow-color: rgba(255, 159, 243, 0.4);
+  }
+}
+
+/* ============================================================
+   9. .clover-morphing-shape — Continuous Shape-shifting Panel
+      with Animated clip-path, Gradient Morph, Border
+      Dash Dance, and Inner Shadow Choreography
+      
+      Transitions between: circle → rounded square →
+      hexagon → diamond → blob → circle
+   ============================================================ */
+
+.clover-morphing-shape {
+  --_msbg1: var(--clover-morph-bg1, #6c5ce7);
+  --_msbg2: var(--clover-morph-bg2, #fd79a8);
+  --_mssize: var(--clover-morph-size, 200px);
+  --_msspeed: var(--clover-morph-speed, 10s);
+  --_msborder: var(--clover-morph-border-color, rgba(255, 255, 255, 0.3));
+
+  position: relative;
+  isolation: isolate;
+  width: var(--_mssize);
+  height: var(--_mssize);
+  
+  /* Animated gradient background */
+  background: linear-gradient(
+    135deg,
+    var(--_msbg1) 0%,
+    var(--_msbg2) 50%,
+    var(--_msbg1) 100%
+  );
+  background-size: 300% 300%;
+  animation: 
+    clover-morph-shape var(--_msspeed) ease-in-out infinite,
+    clover-morph-gradient calc(var(--_msspeed) * 0.6) ease-in-out infinite alternate;
+  
+  /* Dashed border dance */
+  border: 3px dashed var(--_msborder);
+  border-radius: 0;
+  
+  /* Inner shadow choreography */
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.1),
+    inset 0 0 30px rgba(0, 0, 0, 0.1),
+    0 20px 50px rgba(0, 0, 0, 0.2);
+  
+  cursor: pointer;
+  transition: filter 0.3s var(--clover-ease-smooth);
+}
+
+/* Shape-shifting clip-path keyframes */
+@keyframes clover-morph-shape {
+  0% {
+    /* Circle */
+    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+  }
+  16% {
+    /* Rounded square */
+    clip-path: inset(0% 0% 0% 0% round 20%);
+    border-radius: 20%;
+  }
+  32% {
+    /* Hexagon */
+    clip-path: polygon(
+      50% 0%, 93% 25%, 93% 75%,
+      50% 100%, 7% 75%, 7% 25%
+    );
+    border-radius: 0%;
+  }
+  48% {
+    /* Diamond */
+    clip-path: polygon(
+      50% 0%, 100% 50%, 50% 100%, 0% 50%
+    );
+    border-radius: 0%;
+  }
+  64% {
+    /* Blob */
+    clip-path: polygon(
+      50% 0%, 80% 10%, 100% 35%, 90% 70%,
+      60% 90%, 25% 85%, 5% 60%, 10% 25%,
+      30% 5%
+    );
+    border-radius: 0%;
+  }
+  80% {
+    /* Rounded hexagon */
+    clip-path: polygon(
+      50% 5%, 90% 28%, 90% 72%,
+      50% 95%, 10% 72%, 10% 28%
+    );
+    border-radius: 15%;
+  }
+  100% {
+    /* Circle again */
+    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+  }
+}
+
+@keyframes clover-morph-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Border dash dance (::before) */
+.clover-morphing-shape::before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  inset: -8px;
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  animation: 
+    clover-morph-shape var(--_msspeed) ease-in-out infinite,
+    clover-morph-dash-spin 4s linear infinite;
+}
+
+@keyframes clover-morph-dash-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Specular highlight that follows the shape (::after) */
+.clover-morphing-shape::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  inset: 20%;
+  background: radial-gradient(
+    ellipse at 30% 25%,
+    rgba(255, 255, 255, 0.4) 0%,
+    transparent 50%
+  );
+  animation: clover-morph-shape var(--_msspeed) ease-in-out infinite;
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+}
+
+/* Hover: Freeze shape and intensify */
+.clover-morphing-shape:hover {
+  animation-play-state: paused;
+  --_msborder: rgba(255, 255, 255, 0.6);
+  border-width: 4px;
+  box-shadow:
+    inset 0 0 0 3px rgba(255, 255, 255, 0.2),
+    inset 0 0 40px rgba(0, 0, 0, 0.15),
+    0 25px 60px rgba(0, 0, 0, 0.3);
+  filter: brightness(1.1);
+}
+
+.clover-morphing-shape:hover::before {
+  animation-play-state: paused;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.clover-morphing-shape:hover::after {
+  animation-play-state: paused;
+}
+
+.clover-morphing-shape:focus-visible {
+  outline: 4px solid var(--_msbg1);
+  outline-offset: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-morphing-shape {
+    --clover-morph-bg1: #4a3db7;
+    --clover-morph-bg2: #c0392b;
+  }
+}
+
+/* ============================================================
+   10. .clover-rainbow-spinner — The Absurdly Complex Loader
+       with 12 Segments, Orbital Particles, Chromatic Trail,
+       Core Pulse, and Moiré Interference Pattern
+       
+       Layers: 12 conic segments, 3 orbiting dots,
+       chromatic aberration trail, breathing core,
+       moiré interference overlay, outer glow corona
+   ============================================================ */
+
+.clover-rainbow-spinner {
+  --_rssize: var(--clover-spinner-size, 80px);
+  --_rsspeed: var(--clover-spinner-speed, 1.5s);
+  --_rssegments: 12;
+  --_rschroma: var(--clover-spinner-chroma, 3px);
+  --_rsglow: var(--clover-spinner-glow, rgba(108, 92, 231, 0.4));
+  --_rsthickness: var(--clover-spinner-thickness, 6px);
+
+  position: relative;
+  isolation: isolate;
+  width: var(--_rssize);
+  height: var(--_rssize);
+  display: inline-block;
+  
+  /* The ring itself */
+  border-radius: 50%;
+  border: var(--_rsthickness) solid transparent;
+  
+  /* 12-segment conic gradient ring */
+  background: conic-gradient(
+    from 0deg,
+    #ff6b6b 0deg 30deg,
+    #ff9f43 30deg 60deg,
+    #feca57 60deg 90deg,
+    #48dbfb 90deg 120deg,
+    #0abde3 120deg 150deg,
+    #54a0ff 150deg 180deg,
+    #5f27cd 180deg 210deg,
+    #c8d6e5 210deg 240deg,
+    #ff9ff3 240deg 270deg,
+    #f368e0 270deg 300deg,
+    #ff6348 300deg 330deg,
+    #ff6b6b 330deg 360deg
+  );
+  
+  /* Mask to create the ring shape */
+  -webkit-mask: 
+    radial-gradient(farthest-side, transparent calc(100% - var(--_rsthickness) - 2px), #000 calc(100% - var(--_rsthickness)));
+  mask: 
+    radial-gradient(farthest-side, transparent calc(100% - var(--_rsthickness) - 2px), #000 calc(100% - var(--_rsthickness)));
+  
+  /* Chromatic aberration shadow */
+  box-shadow:
+    0 0 20px var(--_rsglow),
+    0 0 50px var(--_rsglow),
+    var(--_rschroma) 0 0 rgba(255, 0, 0, 0.15),
+    calc(var(--_rschroma) * -1) 0 0 rgba(0, 0, 255, 0.15);
+  
+  animation: clover-spinner-rotate var(--_rsspeed) linear infinite;
+}
+
+/* Core breathing dot (::before) */
+.clover-rainbow-spinner::before {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  width: 20%;
+  height: 20%;
+  margin: -10% 0 0 -10%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.3) 40%,
+    transparent 70%
+  );
+  box-shadow:
+    0 0 10px rgba(255, 255, 255, 0.6),
+    0 0 20px rgba(108, 92, 231, 0.4);
+  animation: clover-spinner-core-pulse 1.2s ease-in-out infinite;
+}
+
+/* Orbiting particles (::after) */
+.clover-rainbow-spinner::after {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: white;
+  box-shadow:
+    0 0 6px rgba(255, 255, 255, 0.8),
+    0 0 12px rgba(108, 92, 231, 0.6),
+    12px -8px 0 rgba(255, 107, 107, 0.8),
+    -10px -6px 0 rgba(72, 219, 251, 0.8),
+    4px 14px 0 rgba(254, 202, 87, 0.8);
+  animation: clover-spinner-particles-orbit 3s linear infinite;
+}
+
+/* Moiré interference pattern (using repeating-conic-gradient overlay) */
+.clover-rainbow-spinner {
+  background-image: 
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(255, 255, 255, 0.05) 0deg 2deg,
+      transparent 2deg 4deg
+    ),
+    conic-gradient(
+      from 0deg,
+      #ff6b6b 0deg 30deg,
+      #ff9f43 30deg 60deg,
+      #feca57 60deg 90deg,
+      #48dbfb 90deg 120deg,
+      #0abde3 120deg 150deg,
+      #54a0ff 150deg 180deg,
+      #5f27cd 180deg 210deg,
+      #c8d6e5 210deg 240deg,
+      #ff9ff3 240deg 270deg,
+      #f368e0 270deg 300deg,
+      #ff6348 300deg 330deg,
+      #ff6b6b 330deg 360deg
+    );
+  background-blend-mode: overlay;
+}
+
+@keyframes clover-spinner-rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes clover-spinner-core-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.7; }
+  50% { transform: scale(1.6); opacity: 1; }
+}
+
+@keyframes clover-spinner-particles-orbit {
+  0% { 
+    transform: rotate(0deg) translateX(calc(var(--_rssize) * 0.35)) rotate(0deg);
+  }
+  100% { 
+    transform: rotate(360deg) translateX(calc(var(--_rssize) * 0.35)) rotate(-360deg);
+  }
+}
+
+/* Hover: speed up and intensify glow */
+.clover-rainbow-spinner:hover {
+  --_rsspeed: 0.6s;
+  --_rschroma: 6px;
+  --_rsglow: rgba(108, 92, 231, 0.7);
+}
+
+/* Focus */
+.clover-rainbow-spinner:focus-visible {
+  outline: 3px solid var(--_rsglow);
+  outline-offset: 8px;
+  border-radius: 50%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-rainbow-spinner {
+    --clover-spinner-glow: rgba(159, 136, 255, 0.5);
+  }
+}
+
+/* ============================================================
+   UTILITY: Reduced motion (cumulative, append to existing)
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .clover-liquid-blob,
+  .clover-liquid-blob::before,
+  .clover-liquid-blob::after,
+  .clover-typewriter [data-typewriter-line],
+  .clover-kaleidoscope,
+  .clover-kaleidoscope::before,
+  .clover-kaleidoscope::after,
+  .clover-morphing-shape,
+  .clover-morphing-shape::before,
+  .clover-morphing-shape::after,
+  .clover-rainbow-spinner,
+  .clover-rainbow-spinner::before,
+  .clover-rainbow-spinner::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   END CLOVER CSS BATCH 2
+   Components: 6-10
+   Cumulative Lines: ~4,200 (of 5,000-8,000 target)
+   Remaining for Batch 3: 800-3,800 lines
    ============================================================ */
