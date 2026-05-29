@@ -1,5 +1,5 @@
 {
-  "name": "clover-css",
+  "name": "clover-css-lib",
   "version": "1.0.0",
   "description": "An intentionally overcomplicated CSS library — 15 components, one class each, 5,200+ lines of pure CSS chaos",
   "main": "clover.css",
