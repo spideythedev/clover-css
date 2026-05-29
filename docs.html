@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍀 Clover CSS — Documentation</title>
+  <meta name="description" content="Clover CSS Documentation — 15 overcomplicated CSS components. One class each. Zero JavaScript.">
+  <meta name="theme-color" content="#6c5ce7">
+  
+  <style>
+    /* ============================================
+       DOCS PAGE STYLES
+       ============================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; }
+
+    :root {
+      --docs-bg: #fafbfc;
+      --docs-sidebar-bg: #f0f1f5;
+      --docs-text: #1a1a2e;
+      --docs-text-secondary: #4a4a6a;
+      --docs-text-muted: #7c7c9a;
+      --docs-border: rgba(0,0,0,0.08);
+      --docs-code-bg: rgba(0,0,0,0.035);
+      --docs-accent: #6c5ce7;
+      --docs-accent2: #00c853;
+      --docs-warning-bg: rgba(254,202,87,0.1);
+      --docs-warning-border: #feca57;
+      --docs-table-stripe: rgba(0,0,0,0.02);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --docs-bg: #0a0a14;
+        --docs-sidebar-bg: #0f0f1e;
+        --docs-text: #e8e8f0;
+        --docs-text-secondary: #b8b8cc;
+        --docs-text-muted: #7c7c8e;
+        --docs-border: rgba(255,255,255,0.07);
+        --docs-code-bg: rgba(255,255,255,0.04);
+        --docs-warning-bg: rgba(254,202,87,0.06);
+        --docs-table-stripe: rgba(255,255,255,0.02);
+      }
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 2rem;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--docs-bg);
+      color: var(--docs-text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ---- SIDEBAR ---- */
+    .docs-sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--docs-sidebar-bg);
+      border-right: 1px solid var(--docs-border);
+      padding: 2rem 1.5rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .docs-sidebar-logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 0.25rem;
+      color: var(--docs-text);
+      text-decoration: none;
+    }
+
+    .docs-sidebar-logo span { margin-right: 0.4rem; }
+
+    .docs-sidebar-version {
+      font-size: 0.75rem;
+      color: var(--docs-text-muted);
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .docs-sidebar-nav {
+      list-style: none;
+      padding: 0;
+      flex: 1;
+    }
+
+    .docs-sidebar-nav li { margin-bottom: 0.15rem; }
+
+    .docs-sidebar-nav a {
+      display: block;
+      padding: 0.4rem 0.75rem;
+      color: var(--docs-text-secondary);
+      text-decoration: none;
+      font-size: 0.88rem;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .docs-sidebar-nav a:hover,
+    .docs-sidebar-nav a:focus-visible {
+      background: var(--docs-accent);
+      color: #fff;
+      outline: none;
+    }
+
+    .docs-sidebar-nav .nav-section {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--docs-text-muted);
+      padding: 1rem 0.75rem 0.4rem;
+      font-weight: 700;
+    }
+
+    .docs-sidebar-footer {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--docs-border);
+      font-size: 0.78rem;
+      color: var(--docs-text-muted);
+    }
+
+    .docs-sidebar-footer a {
+      color: var(--docs-accent);
+      text-decoration: none;
+    }
+
+    /* ---- MAIN CONTENT ---- */
+    .docs-main {
+      flex: 1;
+      padding: 3rem 4rem;
+      max-width: 900px;
+      overflow-x: hidden;
+    }
+
+    .docs-main h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .docs-main h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-top: 3rem;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid var(--docs-border);
+      letter-spacing: -0.02em;
+    }
+
+    .docs-main h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .docs-main h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.4rem;
+      color: var(--docs-accent);
+    }
+
+    .docs-main p {
+      margin-bottom: 1rem;
+      color: var(--docs-text-secondary);
+    }
+
+    .docs-main strong { color: var(--docs-text); }
+
+    .docs-main a {
+      color: var(--docs-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .docs-main ul, .docs-main ol {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: var(--docs-text-secondary);
+    }
+
+    .docs-main li { margin-bottom: 0.4rem; }
+
+    /* ---- CODE ---- */
+    .docs-main code {
+      background: var(--docs-code-bg);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-family: 'Courier Prime', 'Fira Code', monospace;
+      font-size: 0.88em;
+      color: var(--docs-accent);
+    }
+
+    .docs-main pre {
+      background: var(--docs-code-bg);
+      border: 1px solid var(--docs-border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      overflow-x: auto;
+      margin: 1rem 0 1.5rem;
+      font-family: 'Courier Prime', 'Fira Code', monospace;
+      font-size: 0.85rem;
+      line-height: 1.65;
+    }
+
+    .docs-main pre code {
+      background: none;
+      padding: 0;
+      color: var(--docs-text);
+      font-size: inherit;
+    }
+
+    /* ---- TABLES ---- */
+    .docs-main table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0 1.5rem;
+      font-size: 0.9rem;
+    }
+
+    .docs-main th {
+      text-align: left;
+      padding: 0.7rem 1rem;
+      background: var(--docs-code-bg);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--docs-text-muted);
+      border-bottom: 2px solid var(--docs-border);
+    }
+
+    .docs-main td {
+      padding: 0.65rem 1rem;
+      border-bottom: 1px solid var(--docs-border);
+    }
+
+    .docs-main tr:nth-child(even) td {
+      background: var(--docs-table-stripe);
+    }
+
+    /* ---- CALLOUTS ---- */
+    .docs-callout {
+      padding: 1rem 1.25rem;
+      border-radius: 10px;
+      margin: 1.5rem 0;
+      border-left: 4px solid;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .docs-callout-warning {
+      background: var(--docs-warning-bg);
+      border-color: var(--docs-warning-border);
+    }
+
+    .docs-callout-info {
+      background: rgba(108,92,231,0.06);
+      border-color: var(--docs-accent);
+    }
+
+    .docs-callout-success {
+      background: rgba(0,200,83,0.06);
+      border-color: var(--docs-accent2);
+    }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      body { flex-direction: column; }
+      .docs-sidebar {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        position: relative;
+        padding: 1.25rem;
+      }
+      .docs-sidebar-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+      }
+      .docs-sidebar-nav .nav-section {
+        width: 100%;
+        padding: 0.5rem 0 0.2rem;
+      }
+      .docs-sidebar-nav a {
+        font-size: 0.78rem;
+        padding: 0.3rem 0.6rem;
+      }
+      .docs-main {
+        padding: 1.5rem;
+        max-width: 100%;
+      }
+      .docs-main h1 { font-size: 1.8rem; }
+      .docs-main h2 { font-size: 1.3rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="docs-sidebar">
+    <a href="#" class="docs-sidebar-logo"><span>🍀</span> Clover CSS</a>
+    <span class="docs-sidebar-version">v1.0.0</span>
+
+    <ul class="docs-sidebar-nav">
+      <li class="nav-section">Getting Started</li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#quick-start">Quick Start</a></li>
+      <li><a href="#philosophy">Philosophy</a></li>
+      
+      <li class="nav-section">Components</li>
+      <li><a href="#glass-card">1. Glass Card</a></li>
+      <li><a href="#clay-button">2. Clay Button</a></li>
+      <li><a href="#neubrutal-card">3. Neubrutal Card</a></li>
+      <li><a href="#cyber-panel">4. Cyber Panel</a></li>
+      <li><a href="#magnetic">5. Magnetic Container</a></li>
+      <li><a href="#liquid-blob">6. Liquid Blob</a></li>
+      <li><a href="#typewriter">7. Typewriter</a></li>
+      <li><a href="#kaleidoscope">8. Kaleidoscope</a></li>
+      <li><a href="#morphing">9. Morphing Shape</a></li>
+      <li><a href="#spinner">10. Rainbow Spinner</a></li>
+      <li><a href="#parallax">11. Parallax Section</a></li>
+      <li><a href="#flip-card">12. Flip Card 3D</a></li>
+      <li><a href="#search">13. Expand Search</a></li>
+      <li><a href="#bell">14. Notification Bell</a></li>
+      <li><a href="#drag">15. Drag Ghost</a></li>
+      
+      <li class="nav-section">Guides</li>
+      <li><a href="#theming">Theming</a></li>
+      <li><a href="#dark-mode">Dark Mode</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#browser-support">Browser Support</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#contributing">Contributing</a></li>
+    </ul>
+
+    <div class="docs-sidebar-footer">
+      <a href="https://github.com/spideythedev/clover-css">⭐ GitHub</a> · 
+      <a href="demo/index.html">📺 Demo</a> · 
+      <a href="license.html">📄 MIT License</a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main class="docs-main">
+
+    <!-- ===== HERO ===== -->
+    <h1>🍀 Clover CSS Documentation</h1>
+    <p><strong>An intentionally overcomplicated CSS library.</strong> 15 components. One class each. 5,200+ lines of CSS. Zero JavaScript required. Beautiful, absurd results.</p>
+
+    <div class="docs-callout docs-callout-warning">
+      <strong>⚠️ Warning:</strong> This library is a flex. Every component is production-capable but philosophically unhinged. If you're looking for sensible utility classes, this is not the library for you.
+    </div>
+
+    <!-- ===== INSTALLATION ===== -->
+    <h2 id="installation">📦 Installation</h2>
+
+    <h3>CDN (Recommended)</h3>
+    <pre><code>&lt;link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spideythedev/clover-css/clover.min.css"&gt;</code></pre>
+
+    <h3>NPM</h3>
+    <pre><code>npm install clover-css</code></pre>
+    <pre><code>@import 'clover-css/clover.css';</code></pre>
+
+    <h3>Direct Download</h3>
+    <p>Download <code>clover.css</code> or <code>clover.min.css</code> from the <a href="https://github.com/spideythedev/clover-css/releases">GitHub Releases</a> page and include it in your project.</p>
+
+    <h3>File Structure</h3>
+    <pre><code>clover-css/
+├── clover.css          # Full source (5,200+ lines)
+├── clover.min.css      # Minified for production
+├── clover-dark.css     # Force dark mode override
+├── README.md           # Overview + quick start
+├── docs.html           # You are here
+├── license.html        # MIT License
+└── demo/
+    └── index.html      # 15-component showcase</code></pre>
+
+    <!-- ===== QUICK START ===== -->
+    <h2 id="quick-start">🚀 Quick Start</h2>
+    <p>Add the CSS file to your project, then use <strong>one class</strong> per component:</p>
+
+    <pre><code>&lt;link rel="stylesheet" href="clover.css"&gt;
+
+&lt;!-- Glass card with 7 visual layers --&gt;
+&lt;div class="clover-glass-card"&gt;
+  &lt;h2&gt;Hello Clover&lt;/h2&gt;
+  &lt;p&gt;This card has 7 simultaneous layers.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;!-- Clay button with 12 shadows --&gt;
+&lt;button class="clover-clay-button"&gt;Click Me&lt;/button&gt;
+
+&lt;!-- Cyberpunk terminal panel --&gt;
+&lt;div class="clover-cyber-panel"&gt;
+  &lt;p&gt;&gt; ACCESSING MAINFRAME...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+    <p>That's it. One class. No JavaScript. Maximum chaos.</p>
+
+    <!-- ===== PHILOSOPHY ===== -->
+    <h2 id="philosophy">🧠 Philosophy</h2>
+    <p>Modern CSS is too easy. Utility classes? Sanity? Maintainability? Where's the <em>art</em>?</p>
+    <p>Clover CSS is the antidote. Every component is a masterclass in CSS excess:</p>
+    <ul>
+      <li><strong>150-300 lines per component</strong> — Each class hides incredible complexity</li>
+      <li><strong>Nested pseudo-elements</strong> — <code>::before</code> and <code>::after</code> are always in use, often with multiple visual layers each</li>
+      <li><strong>Math-driven animations</strong> — <code>calc()</code>, <code>steps()</code>, <code>cubic-bezier()</code> spring physics</li>
+      <li><strong>SVG filters</strong> — <code>feTurbulence</code>, <code>feDisplacementMap</code> for real-time distortion</li>
+      <li><strong>Blend modes</strong> — <code>overlay</code>, <code>multiply</code>, <code>screen</code> for complex color interactions</li>
+      <li><strong>Transform chains</strong> — <code>perspective</code> + <code>rotateY</code> + <code>scale</code> + <code>skew</code> combos</li>
+    </ul>
+
+    <div class="docs-callout docs-callout-info">
+      <strong>💡 The Clover Promise:</strong> If a developer can easily recreate it, it's too simple for Clover. Every component should make you say "why would anyone write this in pure CSS?" — and then "wow, it actually works."
+    </div>
+
+    <!-- ===== COMPONENTS ===== -->
+    <h2 id="glass-card">🧩 Components</h2>
+    <p>All 15 components with usage, custom properties, and examples.</p>
+
+    <!-- 1. Glass Card -->
+    <h3>1. .clover-glass-card</h3>
+    <p>A 7-layer glassmorphic card with backdrop blur chain, animated conic-gradient border pulse, SVG fractal noise texture, gradient reflection sweep, and inner glow.</p>
+    <pre><code>&lt;div class="clover-glass-card"&gt;
+  &lt;h3&gt;Glass Card&lt;/h3&gt;
+  &lt;p&gt;Content here...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    <h4>Custom Properties</h4>
+    <table>
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--clover-glass-blur</code></td><td><code>18px</code></td><td>Backdrop blur intensity</td></tr>
+      <tr><td><code>--clover-glass-saturation</code></td><td><code>1.8</code></td><td>Color saturation behind glass</td></tr>
+      <tr><td><code>--clover-glass-opacity</code></td><td><code>0.35</code></td><td>Base transparency</td></tr>
+      <tr><td><code>--clover-glass-pulse-duration</code></td><td><code>6s</code></td><td>Border pulse speed</td></tr>
+      <tr><td><code>--clover-glass-noise-opacity</code></td><td><code>0.04</code></td><td>Texture grain intensity</td></tr>
+    </table>
+
+    <!-- 2. Clay Button -->
+    <h3 id="clay-button">2. .clover-clay-button</h3>
+    <p>12 layered box-shadows. 3-stage hover sequence. Active squish to 0.92× with elastic spring rebound. Breathing gooey ripple pseudo-element.</p>
+    <pre><code>&lt;button class="clover-clay-button"&gt;Click Me&lt;/button&gt;</code></pre>
+    <h4>Custom Properties</h4>
+    <table>
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--clover-clay-bg</code></td><td><code>#f0f0f0</code></td><td>Button background</td></tr>
+      <tr><td><code>--clover-clay-border-radius</code></td><td><code>22px</code></td><td>Corner roundness</td></tr>
+      <tr><td><code>--clover-clay-hover-lift</code></td><td><code>-4px</code></td><td>Vertical lift on hover</td></tr>
+      <tr><td><code>--clover-clay-active-squish</code></td><td><code>0.92</code></td><td>Scale factor on press</td></tr>
+    </table>
+
+    <!-- 3. Neubrutal Card -->
+    <h3 id="neubrutal-card">3. .clover-neubrutal-card</h3>
+    <p>Hard 8px offset shadow that splits on hover. Diagonal color slash with multiply blend mode. Broken corner border fragments. SVG noise grain.</p>
+    <pre><code>&lt;div class="clover-neubrutal-card"&gt;
+  &lt;h3&gt;BRUTAL.&lt;/h3&gt;
+  &lt;p&gt;Content here...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    <h4>Custom Properties</h4>
+    <table>
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--clover-neubrutal-bg</code></td><td><code>#ffeb3b</code></td><td>Card background</td></tr>
+      <tr><td><code>--clover-neubrutal-shadow-offset-x</code></td><td><code>8px</code></td><td>Shadow horizontal offset</td></tr>
+      <tr><td><code>--clover-neubrutal-shadow-hover-split</code></td><td><code>18px</code></td><td>Secondary shadow distance on hover</td></tr>
+      <tr><td><code>--clover-neubrutal-slash-color</code></td><td><code>#ff5252</code></td><td>Diagonal slash color</td></tr>
+    </table>
+
+    <!-- 4. Cyber Panel -->
+    <h3 id="cyber-panel">4. .clover-cyber-panel</h3>
+    <p>CRT scanlines. 21-keyframe neon flicker. Glitch RGB-split via clip-path jumps. Terminal cursor blink. Dual-color border oscillation.</p>
+    <pre><code>&lt;div class="clover-cyber-panel"&gt;
+  &lt;p&gt;&amp;gt; ACCESSING MAINFRAME...&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    <h4>Custom Properties</h4>
+    <table>
+      <tr><th>Property</th><th>Default</th><th>Description</th></tr>
+      <tr><td><code>--clover-cyber-bg</code></td><td><code>#0a0a0a</code></td><td>Terminal background</td></tr>
+      <tr><td><code>--clover-cyber-border-color-1</code></td><td><code>#00ffff</code></td><td>Primary neon (cyan)</td></tr>
+      <tr><td><code>--clover-cyber-border-color-2</code></td><td><code>#ff00ff</code></td><td>Secondary neon (magenta)</td></tr>
+      <tr><td><code>--clover-cyber-glitch-shift</code></td><td><code>4px</code></td><td>Max pixel displacement</td></tr>
+    </table>
+
+    <!-- 5. Magnetic Container -->
+    <h3 id="magnetic">5. .clover-magnetic-container</h3>
+    <p>3D perspective container. Two parallax pseudo-elements at Z-depths -40px and -20px. Dynamic shadow rotation. Optional JS cursor tracking.</p>
+    <pre><code>&lt;div class="clover-magnetic-container" style="background: linear-gradient(135deg, #667eea, #764ba2);"&gt;
+  &lt;h3&gt;Hover Me&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+    <div class="docs-callout docs-callout-info">
+      <strong>💡 Optional JS:</strong> Add the cursor-tracking script from the <a href="https://github.com/spideythedev/clover-css#readme">README</a> for full cursor-follow behavior. Works beautifully without JS using pure CSS hover transforms.
+    </div>
+
+    <!-- 6-15: Condensed for brevity, same pattern -->
+    <h3 id="liquid-blob">6. .clover-liquid-blob</h3>
+    <p>SVG feTurbulence + feDisplacementMap goo morphing. 5-keyframe border-radius animation. Caustic light refraction. Pulsing outline ring.</p>
+    <pre><code>&lt;div class="clover-liquid-blob"&gt;&lt;/div&gt;</code></pre>
+    <p><strong>Requires SVG filter in HTML:</strong> See the <a href="demo/index.html">demo page</a> for the filter definition.</p>
+
+    <h3 id="typewriter">7. .clover-typewriter</h3>
+    <p>CSS-only staggered typewriter using <code>steps()</code>. Per-line delay via <code>--line-index</code>. Ink bleed text-shadow. Paper texture. Ink splatters.</p>
+    <pre><code>&lt;div class="clover-typewriter"&gt;
+  &lt;span data-typewriter-line style="--line-index:0;--clover-typewriter-chars-per-line:35;"&gt;Line one text here&lt;/span&gt;
+  &lt;span data-typewriter-line style="--line-index:1;--clover-typewriter-chars-per-line:42;"&gt;Line two with more characters&lt;/span&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3 id="kaleidoscope">8. .clover-kaleidoscope</h3>
+    <p>Three conic-gradient layers at different speeds. Octagon + 10-point star clip-paths. Chromatic aberration via RGB-offset box-shadows.</p>
+    <pre><code>&lt;div class="clover-kaleidoscope"&gt;&lt;/div&gt;</code></pre>
+
+    <h3 id="morphing">9. .clover-morphing-shape</h3>
+    <p>7-stage clip-path morphing. Hover freezes the animation. Gradient background-position animation.</p>
+    <pre><code>&lt;div class="clover-morphing-shape"&gt;&lt;/div&gt;</code></pre>
+
+    <h3 id="spinner">10. .clover-rainbow-spinner</h3>
+    <p>12-segment conic-gradient ring. Moiré interference pattern. 3 orbiting particles. Breathing core dot.</p>
+    <pre><code>&lt;div class="clover-rainbow-spinner"&gt;&lt;/div&gt;</code></pre>
+
+    <h3 id="parallax">11. .clover-parallax-section</h3>
+    <p>4 parallax layers with depth-blur. 10 scattered star dots. Floating nebula orbs. Vignette overlay.</p>
+    <pre><code>&lt;div class="clover-parallax-section"&gt;
+  &lt;div&gt;Your content here&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3 id="flip-card">12. .clover-flip-card-3d</h3>
+    <p>True 3D rotateY(180deg) flip. Edge light strip. Ground reflection plane. Hover tilt micro-interaction.</p>
+    <pre><code>&lt;div class="clover-flip-card-3d"&gt;
+  &lt;div class="clover-flip-inner"&gt;
+    &lt;div class="clover-flip-front"&gt;Front&lt;/div&gt;
+    &lt;div class="clover-flip-back"&gt;Back&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3 id="search">13. .clover-expand-search</h3>
+    <p>Collapsed circle → expanded pill. 5-particle burst on focus. 3 concentric wave rings.</p>
+    <pre><code>&lt;div class="clover-expand-search"&gt;
+  &lt;input type="text" placeholder="Search..."&gt;
+&lt;/div&gt;</code></pre>
+
+    <h3 id="bell">14. .clover-notification-bell</h3>
+    <p>CSS-drawn bell icon. Swinging clapper. Badge bounce. 3-ring ripple. Staggered dropdown tray.</p>
+    <pre><code>&lt;button class="clover-notification-bell has-notification"&gt;
+  &lt;span class="clover-bell-badge"&gt;3&lt;/span&gt;
+&lt;/button&gt;</code></pre>
+
+    <h3 id="drag">15. .clover-drag-ghost</h3>
+    <p>5-layer ghost trail via box-shadow. Detached shadow. Particle burst. Magnetic snap.</p>
+    <pre><code>&lt;div class="clover-drag-ghost"&gt;Drag Me&lt;/div&gt;</code></pre>
+    <div class="docs-callout docs-callout-info">
+      <strong>🖱️ JS Required for full drag:</strong> The CSS provides all visual layers. See README for the JS snippet to enable actual dragging.
+    </div>
+
+    <!-- ===== THEMING ===== -->
+    <h2 id="theming">🎨 Theming</h2>
+    <p>Every component exposes custom properties. Theme globally or per-instance:</p>
+
+    <h3>Global Theme</h3>
+    <pre><code>:root {
+  --clover-glass-blur: 24px;
+  --clover-clay-bg: #e8e0f0;
+  --clover-neubrutal-bg: #00ff88;
+  --clover-cyber-border-color-1: #ff4444;
+}</code></pre>
+
+    <h3>Per-Instance</h3>
+    <pre><code>&lt;div class="clover-glass-card" style="--clover-glass-pulse-duration: 2s;"&gt;
+  Faster pulse!
+&lt;/div&gt;</code></pre>
+
+    <!-- ===== DARK MODE ===== -->
+    <h2 id="dark-mode">🌓 Dark Mode</h2>
+    <p>Dark mode is <strong>automatic</strong> via <code>prefers-color-scheme: dark</code>. Each component has built-in dark variants. For manual control:</p>
+    <pre><code>&lt;link rel="stylesheet" href="clover.css"&gt;
+&lt;link rel="stylesheet" href="clover-dark.css"&gt; &lt;!-- Force dark --&gt;</code></pre>
+
+    <!-- ===== ACCESSIBILITY ===== -->
+    <h2 id="accessibility">♿ Accessibility</h2>
+    <ul>
+      <li>All components respect <code>prefers-reduced-motion: reduce</code> (disables all animations)</li>
+      <li><code>:focus-visible</code> states on every interactive component</li>
+      <li>Sufficient contrast ratios in both light and dark modes</li>
+      <li>No <code>pointer-events: none</code> on interactive elements</li>
+    </ul>
+
+    <!-- ===== BROWSER SUPPORT ===== -->
+    <h2 id="browser-support">🌐 Browser Support</h2>
+    <table>
+      <tr><th>Feature</th><th>Chrome</th><th>Firefox</th><th>Safari</th><th>Edge</th></tr>
+      <tr><td><code>backdrop-filter</code></td><td>76+</td><td>103+</td><td>18+</td><td>79+</td></tr>
+      <tr><td><code>conic-gradient</code></td><td>69+</td><td>83+</td><td>12.1+</td><td>79+</td></tr>
+      <tr><td><code>mix-blend-mode</code></td><td>41+</td><td>32+</td><td>8+</td><td>79+</td></tr>
+      <tr><td><code>clip-path</code></td><td>55+</td><td>54+</td><td>9.1+</td><td>79+</td></tr>
+      <tr><td><code>mask-image</code></td><td>1+</td><td>53+</td><td>15.4+</td><td>79+</td></tr>
+    </table>
+
+    <!-- ===== PERFORMANCE ===== -->
+    <h2 id="performance">⚡ Performance</h2>
+    <p>Despite the complexity, Clover CSS is performant:</p>
+    <ul>
+      <li>Modern GPUs handle <code>backdrop-filter</code>, <code>box-shadow</code>, and <code>transform</code> efficiently</li>
+      <li>SVG filters are GPU-accelerated in all modern browsers</li>
+      <li><code>prefers-reduced-motion</code> eliminates all animations for accessibility</li>
+      <li>No JavaScript means zero runtime overhead</li>
+      <li>Minified file size: ~35KB gzipped (full library)</li>
+    </ul>
+
+    <!-- ===== CONTRIBUTING ===== -->
+    <h2 id="contributing">🤝 Contributing</h2>
+    <p>We need more insane components. Can you make a:</p>
+    <ul>
+      <li><code>.clover-weather-widget</code> with 47 keyframe weather animations?</li>
+      <li><code>.clover-audio-visualizer</code> using pure CSS bar animations?</li>
+      <li><code>.clover-particle-field</code> with 100+ box-shadow particles?</li>
+    </ul>
+    <p>Submit a PR at <a href="https://github.com/spideythedev/clover-css">github.com/spideythedev/clover-css</a>.</p>
+
+    <div class="docs-callout docs-callout-success">
+      <strong>🍀 The Clover Promise:</strong> No utility classes. No <code>.p-4 .m-2 .bg-blue-500</code>. One class. Absolute CSS chaos. Beautiful results.
+    </div>
+
+    <p style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--docs-border); font-size: 0.85rem; color: var(--docs-text-muted);">
+      Clover CSS v1.0.0 · <a href="https://github.com/spideythedev/clover-css">GitHub</a> · <a href="license.html">MIT License</a> · Made with 🍀 and questionable life choices
+    </p>
+
+  </main>
+</body>
+</html>
