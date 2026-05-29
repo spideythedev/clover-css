@@ -1,0 +1,38 @@
+{
+  "name": "clover-css",
+  "version": "1.0.0",
+  "description": "An intentionally overcomplicated CSS library — 15 components, one class each, 5,200+ lines of pure CSS chaos",
+  "main": "clover.css",
+  "style": "clover.css",
+  "files": [
+    "clover.css",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "css",
+    "css-library",
+    "components",
+    "ui-components",
+    "glassmorphism",
+    "neumorphism",
+    "brutalism",
+    "cyberpunk",
+    "animations",
+    "no-javascript",
+    "css-only",
+    "overcomplicated"
+  ],
+  "author": "spideythedev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spideythedev/clover-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spideythedev/clover-css/issues"
+  },
+  "homepage": "https://github.com/spideythedev/clover-css#readme",
+  "unpkg": "clover.css",
+  "jsdelivr": "clover.css"
+}
