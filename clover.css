@@ -1261,7 +1261,7 @@
       with Blinking Cursor, Paper Texture, Ink Bleed,
       and Character Fade-in Overlap
       
-      FIXED: Proper steps() animation with cascade
+      FIXED v2: Uses max-width with ch units for proper typing width
    ============================================================ */
 
 .clover-typewriter {
@@ -1272,7 +1272,6 @@
   --_twchars: var(--clover-typewriter-chars-per-line, 40);
   --_twdelay: var(--clover-typewriter-line-delay, 2s);
   --_twink: var(--clover-typewriter-ink-glow, rgba(26, 26, 26, 0.08));
-  --_twpaper: var(--clover-typewriter-paper-opacity, 0.03);
 
   position: relative;
   isolation: isolate;
@@ -1298,23 +1297,31 @@
     0 0 3px var(--_twink),
     0 0 6px var(--_twink);
   
-  /* Subtle paper edge shadow */
+  /* Paper edge shadow */
   box-shadow:
     0 1px 3px rgba(0, 0, 0, 0.06),
     0 4px 12px rgba(0, 0, 0, 0.04),
     inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
-/* ---- FIXED: Typewriter Lines ---- */
+/* ---- THE FIX: Each line types out to its own character width ---- */
 .clover-typewriter [data-typewriter-line] {
   display: block;
-  width: 0;
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid var(--_twcursor);
   opacity: 0;
   
-  /* Each line gets its own animation delay based on --line-index */
+  /* 
+    KEY FIX: Use max-width in ch units instead of width: 100%
+    Each line types to exactly its character count width.
+    ch unit = width of the "0" character in monospace font.
+  */
+  max-width: 0;
+  width: fit-content;
+  width: -moz-fit-content;
+  
+  /* Animation properties set individually so they cascade */
   animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in;
   animation-duration: 
     calc(var(--_twspeed) * var(--_twchars)),
@@ -1332,10 +1339,10 @@
   animation-fill-mode: forwards, none, forwards;
 }
 
-/* ---- Keyframes ---- */
+/* ---- Keyframes: Animate max-width instead of width ---- */
 @keyframes clover-typewriter-typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from { max-width: 0; }
+  to { max-width: calc(var(--_twchars) * 1ch); }
 }
 
 @keyframes clover-typewriter-cursor-blink {
@@ -1348,7 +1355,28 @@
   to { opacity: 1; }
 }
 
-/* Ink splatter pseudo (::before) - random ink dots */
+/* Remove cursor after typing is complete (on the last line only) */
+.clover-typewriter [data-typewriter-line]:last-child {
+  animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in, clover-typewriter-remove-cursor;
+  animation-duration: 
+    calc(var(--_twspeed) * var(--_twchars)),
+    0.7s,
+    0.001s,
+    0.001s;
+  animation-delay: 
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0) + var(--_twspeed) * var(--_twchars));
+  animation-fill-mode: forwards, none, forwards, forwards;
+}
+
+@keyframes clover-typewriter-remove-cursor {
+  from { border-right-color: var(--_twcursor); }
+  to { border-right-color: transparent; }
+}
+
+/* Ink splatter (::before) */
 .clover-typewriter::before {
   content: '';
   position: absolute;
@@ -1391,12 +1419,6 @@
   text-shadow: none;
 }
 
-.clover-typewriter ::-moz-selection {
-  background: rgba(0, 0, 0, 0.12);
-  color: inherit;
-  text-shadow: none;
-}
-
 /* Hover: subtle paper lift */
 .clover-typewriter:hover {
   box-shadow:
@@ -1419,7 +1441,7 @@
     --clover-typewriter-cursor: #e8e4dd;
     --clover-typewriter-ink-glow: rgba(232, 228, 221, 0.08);
   }
-}
+}*/
 
 /* ============================================================
    8. .clover-kaleidoscope — Rotating Geometric Mandala
