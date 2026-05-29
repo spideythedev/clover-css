@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clover CSS — Component Showcase</title>
+  <link rel="stylesheet" href="../clover.css">
+  <style>
+    /* Demo page styling — NOT part of Clover CSS */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: #f8f9fa;
+      color: #2d3436;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #0d1117;
+        color: #e6edf3;
+      }
+    }
+
+    .demo-header {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+
+    .demo-header h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #00c853, #00bfa5, #2979ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .demo-header .tagline {
+      font-size: 1.1rem;
+      opacity: 0.7;
+      font-style: italic;
+    }
+
+    .demo-section {
+      max-width: 900px;
+      margin: 0 auto 4rem;
+      padding: 2rem;
+      border-radius: 16px;
+      background: rgba(128, 128, 128, 0.05);
+    }
+
+    .demo-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .demo-section .subtitle {
+      font-size: 0.9rem;
+      opacity: 0.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .demo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    .demo-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      opacity: 0.5;
+      margin-bottom: 0.5rem;
+    }
+
+    .clover-glass-card h3,
+    .clover-neubrutal-card h3,
+    .clover-magnetic-container h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .clover-glass-card p,
+    .clover-neubrutal-card p,
+    .clover-magnetic-container p,
+    .clover-cyber-panel p {
+      margin: 0.25rem 0;
+      line-height: 1.5;
+    }
+
+    .clover-cyber-panel p {
+      font-family: 'Fira Code', 'Courier New', monospace;
+      font-size: 0.9rem;
+    }
+
+    .demo-code {
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.05);
+      border-radius: 8px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      .demo-code {
+        background: rgba(255, 255, 255, 0.05);
+      }
+    }
+
+    .magnetic-note {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      opacity: 0.6;
+      font-style: italic;
+    }
+
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      opacity: 0.5;
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="demo-header">
+    <h1>🍀 Clover CSS</h1>
+    <p class="tagline">"If a dev can easily recreate it, it's too simple for Clover."</p>
+    <p style="margin-top: 0.5rem; opacity: 0.6;">One class. Absolute chaos. Beautiful results.</p>
+  </header>
+
+  <!-- ============ GLASS CARD ============ -->
+  <section class="demo-section">
+    <h2>1. .clover-glass-card</h2>
+    <p class="subtitle">7 layers: backdrop blur, gradient overlay, reflection, inner glow, animated border pulse, noise texture, dark/light shift</p>
+    <div class="demo-grid">
+      <div class="clover-glass-card">
+        <h3>Glassmorphism</h3>
+        <p>Backdrop blur with 4 filters chained.</p>
+        <p>Conic-gradient border pulse.</p>
+        <p>SVG noise texture blended.</p>
+      </div>
+      <div class="clover-glass-card" style="--clover-glass-pulse-duration: 3s; --clover-glass-blur: 24px;">
+        <h3>Customized</h3>
+        <p>Faster pulse (3s).</p>
+        <p>Stronger blur (24px).</p>
+        <p>All via custom properties.</p>
+      </div>
+    </div>
+    <div class="demo-code">&lt;div class="clover-glass-card"&gt;
+      &lt;h3&gt;Glass Card&lt;/h3&gt;
+      &lt;p&gt;Content here...&lt;/p&gt;
+    &lt;/div&gt;</div>
+  </section>
+
+  <!-- ============ CLAY BUTTON ============ -->
+  <section class="demo-section">
+    <h2>2. .clover-clay-button</h2>
+    <p class="subtitle">12 layered shadows, 3-stage hover, active squish with elastic rebound, gooey ripple</p>
+    <div class="demo-row" style="gap: 2rem;">
+      <div>
+        <div class="label">Default</div>
+        <button class="clover-clay-button">Click Me</button>
+      </div>
+      <div>
+        <div class="label">Large</div>
+        <button class="clover-clay-button" style="padding: 1.25rem 3rem; font-size: 1.3rem; --clover-clay-border-radius: 30px; --clover-clay-hover-lift: -6px;">
+          Big Button
+        </button>
+      </div>
+      <div>
+        <div class="label">Small</div>
+        <button class="clover-clay-button" style="padding: 0.5rem 1.25rem; font-size: 0.85rem; --clover-clay-border-radius: 14px;">
+          smol
+        </button>
+      </div>
+    </div>
+    <div class="demo-code">&lt;button class="clover-clay-button"&gt;Click Me&lt;/button&gt;</div>
+  </section>
+
+  <!-- ============ NEUBRUTAL CARD ============ -->
+  <section class="demo-section">
+    <h2>3. .clover-neubrutal-card</h2>
+    <p class="subtitle">Diagonal slash, broken border fragments, noise overlay, extreme shadow that splits on hover</p>
+    <div class="demo-grid">
+      <div class="clover-neubrutal-card">
+        <h3>BRUTAL.</h3>
+        <p>Hard shadows. Bold colors.</p>
+        <p>Hover to split the shadow.</p>
+        <p>No compromises.</p>
+      </div>
+      <div class="clover-neubrutal-card" style="--clover-neubrutal-bg: #a7f3d0; --clover-neubrutal-slash-color: #4f46e5; --clover-neubrutal-shadow-offset-x: 10px; --clover-neubrutal-shadow-offset-y: 10px;">
+        <h3>CUSTOM</h3>
+        <p>Mint green + indigo slash.</p>
+        <p>Deeper shadow offset.</p>
+        <p>Same broken corners.</p>
+      </div>
+    </div>
+    <div class="demo-code">&lt;div class="clover-neubrutal-card"&gt;
+      &lt;h3&gt;BRUTAL.&lt;/h3&gt;
+      &lt;p&gt;Content here...&lt;/p&gt;
+    &lt;/div&gt;</div>
+  </section>
+
+  <!-- ============ CYBER PANEL ============ -->
+  <section class="demo-section">
+    <h2>4. .clover-cyber-panel</h2>
+    <p class="subtitle">CRT scanlines, 2-color neon flicker, glitch RGB split, terminal cursor blink</p>
+    <div class="demo-grid">
+      <div class="clover-cyber-panel">
+        <p>&gt; INITIALIZING SYSTEM...</p>
+        <p>&gt; MOUNTING VOLUME /dev/clover</p>
+        <p>&gt; CONNECTION ESTABLISHED</p>
+        <p>&gt; READY.</p>
+        <p>&gt; <span style="opacity: 0.6;">_</span></p>
+      </div>
+      <div class="clover-cyber-panel" style="--clover-cyber-border-color-1: #ff4444; --clover-cyber-border-color-2: #ff8800; --clover-cyber-text-glow: #ff4444; --clover-cyber-glitch-shift: 6px; --clover-cyber-cursor-color: #ff8800;">
+        <p>&gt; ALTERNATE THEME</p>
+        <p>&gt; RED/ORANGE NEON</p>
+        <p>&gt; STRONGER GLITCH (6px)</p>
+        <p>&gt; CURSOR SHIFTED</p>
+        <p>&gt; <span style="opacity: 0.6;">_</span></p>
+      </div>
+    </div>
+    <div class="demo-code">&lt;div class="clover-cyber-panel"&gt;
+      &lt;p&gt;&amp;gt; ACCESSING MAINFRAME...&lt;/p&gt;
+      &lt;p&gt;&amp;gt; CONNECTION ESTABLISHED.&lt;/p&gt;
+    &lt;/div&gt;</div>
+  </section>
+
+  <!-- ============ MAGNETIC CONTAINER ============ -->
+  <section class="demo-section">
+    <h2>5. .clover-magnetic-container</h2>
+    <p class="subtitle">Cursor-follow parallax layers, dynamic shadow rotation, scale + skew combo (optional JS for full tracking)</p>
+    <div class="demo-grid">
+      <div class="clover-magnetic-container" style="background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-align: center;">
+        <h3>✨ Magnetic ✨</h3>
+        <p>Hover over me!</p>
+        <p>I tilt and shift.</p>
+        <p style="font-size: 2rem; margin-top: 0.5rem;">🧲</p>
+      </div>
+      <div class="clover-magnetic-container" style="background: linear-gradient(135deg, #f093fb, #f5576c); color: white; text-align: center; --clover-magnetic-perspective: 600px; --clover-magnetic-rotate-factor: 0.08;">
+        <h3>Stronger Tilt</h3>
+        <p>600px perspective</p>
+        <p>0.08 rotate factor</p>
+        <p>More dramatic!</p>
+        <p style="font-size: 2rem; margin-top: 0.5rem;">🎯</p>
+      </div>
+    </div>
+    <p class="magnetic-note">💡 For full cursor-tracking, add the optional JS snippet from the README. Without JS, these use a centered "look-at" parallax on hover.</p>
+    <div class="demo-code">&lt;div class="clover-magnetic-container"&gt;
+      &lt;h3&gt;Hover Me&lt;/h3&gt;
+      &lt;p&gt;Moves with your cursor.&lt;/p&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Optional JS for cursor tracking --&gt;
+    &lt;script&gt;
+    document.querySelectorAll('.clover-magnetic-container').forEach(el =&gt; {
+      el.addEventListener('mousemove', (e) =&gt; {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--_mouse-x', (e.clientX - rect.left) / rect.width);
+        el.style.setProperty('--_mouse-y', (e.clientY - rect.top) / rect.height);
+      });
+      el.addEventListener('mouseleave', () =&gt; {
+        el.style.setProperty('--_mouse-x', 0.5);
+        el.style.setProperty('--_mouse-y', 0.5);
+      });
+    });
+    &lt;/script&gt;</div>
+  </section>
+
+  <!-- ============ MAGNETIC JS (Optional Enhancement) ============ -->
+  <script>
+    // Full cursor tracking for magnetic containers
+    document.querySelectorAll('.clover-magnetic-container').forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width;
+        const y = (e.clientY - rect.top) / rect.height;
+        el.style.setProperty('--_mouse-x', x);
+        el.style.setProperty('--_mouse-y', y);
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.setProperty('--_mouse-x', 0.5);
+        el.style.setProperty('--_mouse-y', 0.5);
+      });
+    });
+  </script>
+
+  <footer>
+    <p>🍀 Clover CSS — <a href="https://github.com/clover-css/clover-css">GitHub</a> — MIT License</p>
+    <p>No utility classes were harmed in the making of this library.</p>
+  </footer>
+
+</body>
+</html>
