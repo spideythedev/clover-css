@@ -31,6 +31,7 @@ npm install clover-css-lib
 ```
 ## 🚀 Quick Start
 
+```html
 <div class="clover-glass-card">
   <h2>Hello Clover 🍀</h2>
   <p>Beautiful UI with a single class.</p>
@@ -39,7 +40,7 @@ npm install clover-css-lib
 <button class="clover-clay-button">
   Click Me
 </button>
-
+```
 ## 🧩 Components
 
 - 🪟 Glass Card
