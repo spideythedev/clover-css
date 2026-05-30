@@ -1,1075 +1,565 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🍀 Clover CSS — 15 Overcomplicated Components</title>
-  <meta name="description" content="Clover CSS — An intentionally overcomplicated CSS library. 15 components, one class each. Zero JavaScript required.">
-  <meta name="theme-color" content="#6c5ce7">
-  <meta name="author" content="spideythedev">
-  
-  <!-- Open Graph -->
-  <meta property="og:title" content="Clover CSS — Overcomplicated by Design">
-  <meta property="og:description" content="15 CSS components so complex, no sane developer would write them. One class each. Beautiful results.">
-  <meta property="og:url" content="https://github.com/spideythedev/clover-css">
-  <meta property="og:type" content="website">
-  
-  <!-- Clover CSS -->
-  <link rel="stylesheet" href="../clover.css">
-  
-  <!-- Demo Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <style>
-    /* ============================================
-       DEMO PAGE STYLES
-       These styles are ONLY for the showcase page.
-       They are NOT part of Clover CSS itself.
-       ============================================ */
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-    }
-
-    :root {
-      --demo-bg: #f8f9fc;
-      --demo-surface: rgba(128, 128, 128, 0.035);
-      --demo-text: #1a1a2e;
-      --demo-text-secondary: #4a4a6a;
-      --demo-text-muted: #7c7c9a;
-      --demo-border: rgba(0, 0, 0, 0.06);
-      --demo-code-bg: rgba(0, 0, 0, 0.03);
-      --demo-accent: #6c5ce7;
-      --demo-accent2: #00c853;
-      --demo-accent3: #ff6b6b;
-      --demo-nav-bg: rgba(248, 249, 252, 0.85);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --demo-bg: #0a0a14;
-        --demo-surface: rgba(255, 255, 255, 0.025);
-        --demo-text: #e8e8f0;
-        --demo-text-secondary: #b8b8cc;
-        --demo-text-muted: #7c7c8e;
-        --demo-border: rgba(255, 255, 255, 0.07);
-        --demo-code-bg: rgba(255, 255, 255, 0.04);
-        --demo-nav-bg: rgba(10, 10, 20, 0.85);
-      }
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 5rem;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--demo-bg);
-      color: var(--demo-text);
-      min-height: 100vh;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      transition: background 0.4s ease, color 0.4s ease;
-    }
-
-    /* Subtle animated background */
-    body::before {
-      content: '';
-      position: fixed;
-      z-index: 0;
-      pointer-events: none;
-      inset: 0;
-      background: 
-        radial-gradient(ellipse at 15% 80%, rgba(108, 92, 231, 0.03) 0%, transparent 50%),
-        radial-gradient(ellipse at 85% 20%, rgba(0, 200, 83, 0.03) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 50%, rgba(255, 107, 107, 0.02) 0%, transparent 50%),
-        radial-gradient(ellipse at 30% 40%, rgba(254, 202, 87, 0.02) 0%, transparent 40%);
-      animation: demo-bg-shift 25s ease-in-out infinite alternate;
-    }
-
-    @keyframes demo-bg-shift {
-      0% { 
-        background-position: 0% 0%, 100% 100%, 50% 50%, 80% 20%;
-      }
-      100% { 
-        background-position: 10% 90%, 90% 10%, 40% 60%, 70% 30%;
-      }
-    }
-
-    .demo-wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 1.5rem;
-    }
-
-    /* ---- HERO ---- */
-    .demo-hero {
-      text-align: center;
-      padding: 5rem 1rem 3rem;
-      position: relative;
-    }
-
-    .demo-hero::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--demo-accent), var(--demo-accent2), var(--demo-accent3), transparent);
-      border-radius: 2px;
-    }
-
-    .demo-logo {
-      font-size: 5rem;
-      display: inline-block;
-      animation: demo-logo-float 4s ease-in-out infinite;
-      filter: drop-shadow(0 12px 24px rgba(108, 92, 231, 0.35));
-      margin-bottom: 0.5rem;
-      cursor: default;
-    }
-
-    @keyframes demo-logo-float {
-      0%, 100% { transform: translateY(0) rotate(-2deg); }
-      30% { transform: translateY(-12px) rotate(2deg); }
-      60% { transform: translateY(-4px) rotate(-1deg); }
-    }
-
-    .demo-hero h1 {
-      font-size: clamp(2.2rem, 5vw, 3.5rem);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      background: linear-gradient(135deg, #6c5ce7 0%, #00c853 33%, #feca57 66%, #ff6b6b 100%);
-      background-size: 300% 300%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: demo-hero-gradient 8s ease-in-out infinite alternate;
-      margin-bottom: 0.75rem;
-      line-height: 1.15;
-    }
-
-    @keyframes demo-hero-gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    .demo-hero .tagline {
-      font-size: 1.15rem;
-      font-weight: 400;
-      color: var(--demo-text-secondary);
-      font-style: italic;
-      margin-bottom: 0.4rem;
-    }
-
-    .demo-hero .subtitle {
-      font-size: 0.9rem;
-      color: var(--demo-text-muted);
-      max-width: 580px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .demo-hero .github-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-top: 1.5rem;
-      padding: 0.6rem 1.4rem;
-      background: var(--demo-text);
-      color: var(--demo-bg);
-      text-decoration: none;
-      border-radius: 50px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: all 0.3s ease;
-      border: 2px solid transparent;
-    }
-
-    .demo-hero .github-link:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      border-color: var(--demo-accent);
-    }
-
-    @media (prefers-color-scheme: dark) {
-      .demo-hero .github-link {
-        background: #f0f0f5;
-        color: #0a0a14;
-      }
-    }
-
-    /* ---- STATS ---- */
-    .demo-stats {
-      display: flex;
-      gap: 1.5rem;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 2rem;
-    }
-
-    .demo-stat {
-      text-align: center;
-      padding: 1rem 1.5rem;
-      background: var(--demo-surface);
-      border-radius: 14px;
-      border: 1px solid var(--demo-border);
-      min-width: 90px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .demo-stat:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    .demo-stat-number {
-      font-size: 1.8rem;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--demo-accent), var(--demo-accent2));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      display: block;
-      line-height: 1.2;
-    }
-
-    .demo-stat-label {
-      font-size: 0.75rem;
-      color: var(--demo-text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 600;
-    }
-
-    /* ---- STICKY NAV ---- */
-    .demo-nav {
-      position: sticky;
-      top: 1rem;
-      z-index: 100;
-      display: flex;
-      gap: 0.35rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 0.6rem 0.75rem;
-      background: var(--demo-nav-bg);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
-      border: 1px solid var(--demo-border);
-      border-radius: 50px;
-      margin-bottom: 3rem;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    }
-
-    .demo-nav a {
-      padding: 0.45rem 0.85rem;
-      font-size: 0.78rem;
-      font-weight: 500;
-      color: var(--demo-text-muted);
-      text-decoration: none;
-      border-radius: 50px;
-      transition: all 0.25s ease;
-      white-space: nowrap;
-      letter-spacing: 0.01em;
-    }
-
-    .demo-nav a:hover,
-    .demo-nav a:focus-visible {
-      background: var(--demo-accent);
-      color: #fff;
-      outline: none;
-      box-shadow: 0 4px 12px rgba(108, 92, 231, 0.35);
-    }
-
-    /* ---- SECTIONS ---- */
-    .demo-section {
-      margin-bottom: 3rem;
-      padding: 2.5rem;
-      background: var(--demo-surface);
-      border: 1px solid var(--demo-border);
-      border-radius: 24px;
-      scroll-margin-top: 5.5rem;
-      transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .demo-section:hover {
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-    }
-
-    .demo-section-header {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .demo-section-number {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 38px;
-      height: 38px;
-      background: linear-gradient(135deg, var(--demo-accent), var(--demo-accent2));
-      color: #fff;
-      font-weight: 700;
-      font-size: 0.9rem;
-      border-radius: 12px;
-      flex-shrink: 0;
-      box-shadow: 0 4px 10px rgba(108, 92, 231, 0.25);
-    }
-
-    .demo-section h2 {
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: var(--demo-text);
-      margin: 0;
-      font-family: 'Courier Prime', 'Fira Code', monospace;
-      letter-spacing: -0.02em;
-    }
-
-    .section-subtitle {
-      font-size: 0.88rem;
-      color: var(--demo-text-muted);
-      margin-bottom: 2rem;
-      margin-left: 2.95rem;
-      line-height: 1.55;
-      max-width: 650px;
-    }
-
-    /* ---- COMPONENT DISPLAY ---- */
-    .demo-components-row {
-      display: flex;
-      gap: 2rem;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-      padding: 1rem 0;
-    }
-
-    .demo-component-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.7rem;
-    }
-
-    .demo-component-label {
-      font-size: 0.68rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--demo-text-muted);
-      font-weight: 600;
-      background: var(--demo-code-bg);
-      padding: 0.25rem 0.65rem;
-      border-radius: 4px;
-    }
-
-    /* ---- CODE BLOCK ---- */
-    .demo-code-block {
-      margin-top: 1.5rem;
-      background: var(--demo-code-bg);
-      border: 1px solid var(--demo-border);
-      border-radius: 14px;
-      overflow: hidden;
-    }
-
-    .demo-code-block summary {
-      padding: 0.7rem 1.1rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--demo-text-muted);
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      user-select: none;
-      list-style: none;
-      transition: background 0.2s ease;
-    }
-
-    .demo-code-block summary:hover {
-      background: rgba(128, 128, 128, 0.05);
-    }
-
-    .demo-code-block summary::-webkit-details-marker { display: none; }
-    .demo-code-block summary::before { content: '📋 '; }
-
-    .demo-code-block pre {
-      margin: 0;
-      padding: 1.1rem 1.25rem;
-      overflow-x: auto;
-      font-family: 'Courier Prime', 'Fira Code', monospace;
-      font-size: 0.82rem;
-      line-height: 1.65;
-      color: var(--demo-text);
-      background: transparent;
-      border-top: 1px solid var(--demo-border);
-    }
-
-    .demo-code-block pre code {
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-
-    /* ---- NOTES ---- */
-    .demo-note {
-      margin-top: 1rem;
-      padding: 0.75rem 1rem;
-      background: rgba(254, 202, 87, 0.08);
-      border-left: 3px solid #feca57;
-      border-radius: 0 10px 10px 0;
-      font-size: 0.82rem;
-      color: var(--demo-text-secondary);
-      line-height: 1.55;
-    }
-
-    .demo-note strong { color: var(--demo-text); }
-    .demo-note code {
-      background: var(--demo-code-bg);
-      padding: 0.1rem 0.4rem;
-      border-radius: 3px;
-      font-size: 0.8rem;
-    }
-
-    /* ---- COMPONENT-SPECIFIC INNER STYLES ---- */
-    .cyber-content p {
-      margin: 0.2rem 0;
-      font-family: 'Courier Prime', 'Fira Code', monospace;
-      font-size: 0.85rem;
-      line-height: 1.6;
-    }
-
-    .magnetic-inner {
-      text-align: center;
-      color: #fff;
-      padding: 0.5rem;
-    }
-    .magnetic-inner h3 { font-size: 1.15rem; margin-bottom: 0.4rem; font-weight: 700; }
-    .magnetic-inner p { font-size: 0.85rem; opacity: 0.9; margin: 0.15rem 0; }
-    .magnetic-emoji { font-size: 2.2rem; display: block; margin-top: 0.4rem; }
-
-    .typewriter-content span {
-      display: block;
-      font-family: 'Courier Prime', 'Fira Code', monospace;
-    }
-
-    .glass-inner h3 { margin-bottom: 0.5rem; font-size: 1.05rem; }
-    .glass-inner p { margin: 0.2rem 0; line-height: 1.5; font-size: 0.85rem; }
-
-    .neubrutal-inner h3 { margin-bottom: 0.5rem; font-size: 1.15rem; font-weight: 800; }
-    .neubrutal-inner p { margin: 0.2rem 0; line-height: 1.5; font-size: 0.85rem; }
-
-    /* ---- FOOTER ---- */
-    .demo-footer {
-      text-align: center;
-      padding: 3rem 1rem 2.5rem;
-      color: var(--demo-text-muted);
-      font-size: 0.85rem;
-      line-height: 1.8;
-    }
-
-    .demo-footer .footer-clover {
-      font-size: 2.5rem;
-      display: block;
-      margin-bottom: 0.8rem;
-      opacity: 0.6;
-    }
-
-    .demo-footer a {
-      color: var(--demo-accent);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      font-weight: 500;
-    }
-    .demo-footer a:hover { color: var(--demo-accent2); }
-
-    /* ---- RESPONSIVE ---- */
-    @media (max-width: 768px) {
-      .demo-wrapper { padding: 1rem; }
-      .demo-hero { padding: 3rem 1rem 2rem; }
-      .demo-logo { font-size: 3.5rem; }
-      .demo-section { padding: 1.5rem; border-radius: 18px; }
-      .demo-section h2 { font-size: 1.15rem; }
-      .section-subtitle { margin-left: 0; font-size: 0.8rem; }
-      .demo-stats { gap: 0.8rem; }
-      .demo-stat { padding: 0.7rem 0.9rem; min-width: 70px; }
-      .demo-stat-number { font-size: 1.4rem; }
-      .demo-nav { border-radius: 25px; gap: 0.2rem; padding: 0.4rem; }
-      .demo-nav a { padding: 0.35rem 0.6rem; font-size: 0.7rem; }
-      .demo-components-row { gap: 1.2rem; }
-    }
-
-    @media (max-width: 480px) {
-      .demo-hero h1 { font-size: 1.8rem; }
-      .demo-section-number { width: 30px; height: 30px; font-size: 0.75rem; }
-      .demo-code-block pre { font-size: 0.7rem; padding: 0.7rem; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .demo-logo, body::before { animation: none; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🍀 Clover CSS — Component Showcase</title>
+    <meta name="description" content="Clover CSS — 20 overcomplicated CSS components. One class each. Zero JavaScript.">
+    <meta name="theme-color" content="#6c5ce7">
+    <link rel="stylesheet" href="https://unpkg.com/clover-css-lib/clover.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; }
+        :root {
+            --bg: #f8f9fc;
+            --surface: rgba(128,128,128,0.04);
+            --text: #1a1a2e;
+            --text-secondary: #4a4a6a;
+            --text-muted: #7c7c9a;
+            --border: rgba(0,0,0,0.06);
+            --accent: #6c5ce7;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #0a0a14;
+                --surface: rgba(255,255,255,0.03);
+                --text: #e8e8f0;
+                --text-secondary: #b8b8cc;
+                --text-muted: #7c7c8e;
+                --border: rgba(255,255,255,0.07);
+            }
+        }
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .hero { text-align: center; padding: 4rem 1rem 3rem; }
+        .hero-logo { font-size: 4rem; display: block; animation: float 3s ease-in-out infinite; margin-bottom: 0.5rem; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .hero h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #6c5ce7, #00c853, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 500px; margin: 0 auto; }
+        .hero-badges { display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        .hero-badges img { height: 20px; }
+        .section { margin-bottom: 2.5rem; padding: 2rem; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; }
+        .section h2 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; display: flex; align-items: center; gap: 0.5rem; }
+        .section .subtitle { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem; }
+        .component-row { display: flex; gap: 1.5rem; flex-wrap: wrap; align-items: center; justify-content: center; padding: 0.5rem 0; }
+        .component-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+        .component-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); font-weight: 600; }
+        .glass-inner h3 { margin-bottom: 0.4rem; font-size: 1rem; }
+        .glass-inner p { margin: 0.15rem 0; font-size: 0.85rem; line-height: 1.5; }
+        .brutal-inner h3 { margin-bottom: 0.4rem; font-size: 1.1rem; font-weight: 800; }
+        .brutal-inner p { margin: 0.15rem 0; font-size: 0.85rem; line-height: 1.5; }
+        .cyber-inner p { margin: 0.15rem 0; font-family: 'Courier Prime', monospace; font-size: 0.82rem; }
+        .mag-inner { text-align: center; color: #fff; padding: 0.5rem; }
+        .mag-inner h3 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+        .mag-inner p { font-size: 0.85rem; opacity: 0.9; }
+        .mag-emoji { font-size: 2rem; display: block; margin-top: 0.3rem; }
+        .code-block { margin-top: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 1rem; font-family: 'Courier Prime', monospace; font-size: 0.8rem; overflow-x: auto; color: var(--text-secondary); }
+        .footer { text-align: center; padding: 3rem 1rem 2rem; color: var(--text-muted); font-size: 0.85rem; }
+        .footer a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .footer a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .container { padding: 1rem; }
+            .section { padding: 1.25rem; }
+            .hero { padding: 2rem 0.5rem 1.5rem; }
+            .hero-logo { font-size: 3rem; }
+        }
+    </style>
 </head>
 <body>
+    <svg aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden;">
+        <filter id="clover-goo-filter">
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" result="noise">
+                <animate attributeName="baseFrequency" values="0.015;0.025;0.015" dur="8s" repeatCount="indefinite"/>
+            </feTurbulence>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+    </svg>
 
-  <!-- Hidden SVG Filters -->
-  <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;">
-    <filter id="clover-goo-filter">
-      <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" result="noise">
-        <animate attributeName="baseFrequency" values="0.015;0.025;0.015" dur="8s" repeatCount="indefinite"/>
-      </feTurbulence>
-      <feDisplacementMap in="SourceGraphic" in2="noise" scale="25" xChannelSelector="R" yChannelSelector="G"/>
-    </filter>
-  </svg>
-
-  <div class="demo-wrapper">
-
-    <!-- ==================== HERO ==================== -->
-    <header class="demo-hero">
-      <span class="demo-logo" aria-hidden="true">🍀</span>
-      <h1>Clover CSS</h1>
-      <p class="tagline">"If a dev can easily recreate it, it's too simple for Clover."</p>
-      <p class="subtitle">An intentionally overcomplicated CSS library. <strong>15 components.</strong> One class each. Zero JavaScript. Beautiful results. Absolute CSS chaos.</p>
-      
-      <a href="https://github.com/spideythedev/clover-css" class="github-link" target="_blank" rel="noopener">
-        ⭐ View on GitHub
-      </a>
-
-      <div class="demo-stats">
-        <div class="demo-stat"><span class="demo-stat-number">15</span><span class="demo-stat-label">Components</span></div>
-        <div class="demo-stat"><span class="demo-stat-number">1</span><span class="demo-stat-label">Class Each</span></div>
-        <div class="demo-stat"><span class="demo-stat-number">0</span><span class="demo-stat-label">JS Required</span></div>
-        <div class="demo-stat"><span class="demo-stat-number">5K+</span><span class="demo-stat-label">Lines of CSS</span></div>
-        <div class="demo-stat"><span class="demo-stat-number">∞</span><span class="demo-stat-label">Sanity Lost</span></div>
-      </div>
-    </header>
-
-    <!-- ==================== NAVIGATION ==================== -->
-    <nav class="demo-nav" aria-label="Component quick links">
-      <a href="#glass">1. Glass Card</a>
-      <a href="#clay">2. Clay Button</a>
-      <a href="#neubrutal">3. Neubrutal</a>
-      <a href="#cyber">4. Cyber Panel</a>
-      <a href="#magnetic">5. Magnetic</a>
-      <a href="#blob">6. Liquid Blob</a>
-      <a href="#typewriter">7. Typewriter</a>
-      <a href="#kaleidoscope">8. Kaleidoscope</a>
-      <a href="#morphing">9. Morphing</a>
-      <a href="#spinner">10. Spinner</a>
-      <a href="#parallax">11. Parallax</a>
-      <a href="#flip">12. Flip Card</a>
-      <a href="#search">13. Search</a>
-      <a href="#bell">14. Bell</a>
-      <a href="#drag">15. Drag Ghost</a>
-    </nav>
-
-    <!-- ==================== 1. GLASS CARD ==================== -->
-    <section class="demo-section" id="glass">
-      <div class="demo-section-header">
-        <span class="demo-section-number">1</span>
-        <h2>.clover-glass-card</h2>
-      </div>
-      <p class="section-subtitle">7 simultaneous visual layers: backdrop blur chain, conic-gradient border pulse, SVG fractal noise texture, gradient reflection sweep, inner glow, dark/light shift, animated specular highlight.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-glass-card" style="min-width: 260px;">
-            <div class="glass-inner">
-              <h3>Glassmorphism</h3>
-              <p>7 layers rendering simultaneously.</p>
-              <p>Hover to intensify reflection.</p>
+    <div class="container">
+        <header class="hero">
+            <span class="hero-logo">🍀</span>
+            <h1>Clover CSS</h1>
+            <p>20 overcomplicated CSS components. One class each. Zero JavaScript.</p>
+            <div class="hero-badges">
+                <img src="https://img.shields.io/npm/v/clover-css-lib" alt="NPM Version">
+                <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
+                <img src="https://img.shields.io/badge/Lines-7000%2B-6c5ce7" alt="Lines">
+                <img src="https://img.shields.io/badge/Components-20-00c853" alt="Components">
+                <img src="https://img.shields.io/badge/JavaScript-0%25-ff6b6b" alt="Zero JS">
             </div>
-          </div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <div class="clover-glass-card" style="min-width: 260px; --clover-glass-pulse-duration: 3s; --clover-glass-blur: 24px;">
-            <div class="glass-inner">
-              <h3>Faster + Stronger</h3>
-              <p>3s pulse, 24px blur.</p>
-              <p>All via custom properties.</p>
+        </header>
+
+        <div class="section">
+            <h2>🪟 Glass Card</h2>
+            <p class="subtitle">7-layer glassmorphic card with backdrop blur, border pulse, noise texture.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-glass-card" style="min-width:260px;">
+                        <div class="glass-inner">
+                            <h3>Glassmorphism</h3>
+                            <p>7 layers rendering simultaneously.</p>
+                            <p>Hover to intensify reflection.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Custom</span>
+                    <div class="clover-glass-card" style="min-width:260px;--clover-glass-pulse-duration:3s;--clover-glass-blur:24px;">
+                        <div class="glass-inner">
+                            <h3>Faster + Stronger</h3>
+                            <p>3s pulse, 24px blur.</p>
+                            <p>All via custom properties.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-glass-card"&gt;...&lt;/div&gt;</div>
         </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-glass-card"&gt;
-  &lt;h3&gt;Glass Card&lt;/h3&gt;
-  &lt;p&gt;Content here...&lt;/p&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 2. CLAY BUTTON ==================== -->
-    <section class="demo-section" id="clay">
-      <div class="demo-section-header">
-        <span class="demo-section-number">2</span>
-        <h2>.clover-clay-button</h2>
-      </div>
-      <p class="section-subtitle">12 layered box-shadows. 3-stage hover sequence. Active squish to 0.92× with elastic spring rebound. Breathing gooey ripple pseudo-element.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <button class="clover-clay-button">Click Me</button>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Large</span>
-          <button class="clover-clay-button" style="padding:1.25rem 3rem;font-size:1.3rem;--clover-clay-border-radius:30px;">Big</button>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Small</span>
-          <button class="clover-clay-button" style="padding:0.5rem 1.25rem;font-size:0.85rem;--clover-clay-border-radius:14px;">smol</button>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <button class="clover-clay-button" style="--clover-clay-bg:#dff9fb;--clover-clay-text:#0a3d62;">Themed</button>
-        </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;button class="clover-clay-button"&gt;Click Me&lt;/button&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 3. NEUBRUTAL ==================== -->
-    <section class="demo-section" id="neubrutal">
-      <div class="demo-section-header">
-        <span class="demo-section-number">3</span>
-        <h2>.clover-neubrutal-card</h2>
-      </div>
-      <p class="section-subtitle">Hard 8px offset shadow splits on hover. Diagonal color slash with multiply blend mode. Broken corner border fragments. SVG noise grain blended into background.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-neubrutal-card" style="min-width:250px;">
-            <div class="neubrutal-inner">
-              <h3>BRUTAL.</h3>
-              <p>Hard shadows. Bold colors.</p>
-              <p>Hover to split shadow.</p>
+        <div class="section">
+            <h2>🔘 Clay Button</h2>
+            <p class="subtitle">12 layered shadows. 3-stage hover. Elastic rebound. Gooey ripple.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <button class="clover-clay-button">Click Me</button>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Large</span>
+                    <button class="clover-clay-button" style="padding:1.25rem 3rem;font-size:1.3rem;">Big</button>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Custom</span>
+                    <button class="clover-clay-button" style="--clover-clay-bg:#dff9fb;--clover-clay-text:#0a3d62;">Themed</button>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;button class="clover-clay-button"&gt;Click Me&lt;/button&gt;</div>
         </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <div class="clover-neubrutal-card" style="min-width:250px;--clover-neubrutal-bg:#a7f3d0;--clover-neubrutal-slash-color:#4f46e5;">
-            <div class="neubrutal-inner">
-              <h3>CUSTOM</h3>
-              <p>Mint + indigo slash.</p>
-              <p>Same broken corners.</p>
+
+        <div class="section">
+            <h2>🟨 Neubrutal Card</h2>
+            <p class="subtitle">Hard shadow splits on hover. Diagonal slash. Broken border fragments.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-neubrutal-card" style="min-width:250px;">
+                        <div class="brutal-inner">
+                            <h3>BRUTAL.</h3>
+                            <p>Hard shadows. Bold colors.</p>
+                            <p>Hover to split shadow.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Custom</span>
+                    <div class="clover-neubrutal-card" style="min-width:250px;--clover-neubrutal-bg:#a7f3d0;--clover-neubrutal-slash-color:#4f46e5;">
+                        <div class="brutal-inner">
+                            <h3>CUSTOM</h3>
+                            <p>Mint + indigo slash.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-neubrutal-card"&gt;...&lt;/div&gt;</div>
         </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-neubrutal-card"&gt;
-  &lt;h3&gt;BRUTAL.&lt;/h3&gt;
-  &lt;p&gt;Content...&lt;/p&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 4. CYBER PANEL ==================== -->
-    <section class="demo-section" id="cyber">
-      <div class="demo-section-header">
-        <span class="demo-section-number">4</span>
-        <h2>.clover-cyber-panel</h2>
-      </div>
-      <p class="section-subtitle">CRT scanlines. 21-keyframe neon flicker. Glitch RGB-split via clip-path. Terminal cursor blink. Dual-color cyan/magenta border oscillation.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-cyber-panel" style="min-width:300px;">
-            <div class="cyber-content">
-              <p>&gt; INITIALIZING...</p>
-              <p>&gt; MOUNTING /dev/clover</p>
-              <p>&gt; CONNECTION ESTABLISHED</p>
-              <p>&gt; READY.</p>
+        <div class="section">
+            <h2>💻 Cyber Panel</h2>
+            <p class="subtitle">CRT scanlines. 21-keyframe neon flicker. Glitch RGB-split. Terminal cursor.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-cyber-panel" style="min-width:300px;">
+                        <div class="cyber-inner">
+                            <p>&gt; INITIALIZING SYSTEM...</p>
+                            <p>&gt; CONNECTION ESTABLISHED</p>
+                            <p>&gt; READY.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Alternate</span>
+                    <div class="clover-cyber-panel" style="min-width:300px;--clover-cyber-border-color-1:#ff4444;--clover-cyber-border-color-2:#ff8800;--clover-cyber-text-glow:#ff4444;">
+                        <div class="cyber-inner">
+                            <p>&gt; RED/ORANGE THEME</p>
+                            <p>&gt; STRONGER GLITCH</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-cyber-panel"&gt;...&lt;/div&gt;</div>
         </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Alternate</span>
-          <div class="clover-cyber-panel" style="min-width:300px;--clover-cyber-border-color-1:#ff4444;--clover-cyber-border-color-2:#ff8800;--clover-cyber-text-glow:#ff4444;">
-            <div class="cyber-content">
-              <p>&gt; RED/ORANGE THEME</p>
-              <p>&gt; STRONGER GLITCH</p>
-              <p>&gt; CURSOR SHIFTED</p>
+
+        <div class="section">
+            <h2>🧲 Magnetic Container</h2>
+            <p class="subtitle">3D perspective. Parallax pseudo-elements. Dynamic shadow.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-magnetic-container" style="min-width:250px;background:linear-gradient(135deg,#667eea,#764ba2);">
+                        <div class="mag-inner">
+                            <h3>✨ Magnetic ✨</h3>
+                            <p>Hover over me!</p>
+                            <span class="mag-emoji">🧲</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Strong Tilt</span>
+                    <div class="clover-magnetic-container" style="min-width:250px;background:linear-gradient(135deg,#f093fb,#f5576c);--clover-magnetic-perspective:600px;--clover-magnetic-rotate-factor:0.08;">
+                        <div class="mag-inner">
+                            <h3>Strong Tilt</h3>
+                            <p>600px perspective</p>
+                            <span class="mag-emoji">🎯</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-magnetic-container"&gt;...&lt;/div&gt;</div>
         </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-cyber-panel"&gt;
-  &lt;p&gt;&amp;gt; ACCESSING MAINFRAME...&lt;/p&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 5. MAGNETIC ==================== -->
-    <section class="demo-section" id="magnetic">
-      <div class="demo-section-header">
-        <span class="demo-section-number">5</span>
-        <h2>.clover-magnetic-container</h2>
-      </div>
-      <p class="section-subtitle">3D perspective. Two parallax pseudo-elements at different Z-depths. Dynamic shadow rotation. Hover triggers rotateY/rotateX/scale/skew. Optional JS for cursor tracking.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-magnetic-container" style="min-width:250px;background:linear-gradient(135deg,#667eea,#764ba2);">
-            <div class="magnetic-inner">
-              <h3>✨ Magnetic ✨</h3>
-              <p>Hover over me!</p>
-              <span class="magnetic-emoji">🧲</span>
+        <div class="section">
+            <h2>🫧 Liquid Blob</h2>
+            <p class="subtitle">SVG goo morphing. Caustic light. Pulsing ring.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-liquid-blob" style="--clover-liquid-size:140px;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Custom</span>
+                    <div class="clover-liquid-blob" style="--clover-liquid-size:140px;--clover-liquid-bg:#e17055;--clover-liquid-bg2:#fab1a0;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Fast</span>
+                    <div class="clover-liquid-blob" style="--clover-liquid-size:100px;--clover-liquid-speed:4s;"></div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-liquid-blob"&gt;&lt;/div&gt;</div>
         </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Strong Tilt</span>
-          <div class="clover-magnetic-container" style="min-width:250px;background:linear-gradient(135deg,#f093fb,#f5576c);--clover-magnetic-perspective:600px;--clover-magnetic-rotate-factor:0.08;">
-            <div class="magnetic-inner">
-              <h3>Strong Tilt</h3>
-              <p>600px perspective</p>
-              <span class="magnetic-emoji">🎯</span>
+
+        <div class="section">
+            <h2>⌨️ Typewriter</h2>
+            <p class="subtitle">CSS-only staggered typewriter. steps() timing. Ink bleed.</p>
+            <div class="component-row">
+                <div class="component-item" style="width:100%;max-width:500px;">
+                    <div class="clover-typewriter" style="width:100%;">
+                        <span data-typewriter-line style="--line-index:0;--line-chars:30;">Hello from Clover CSS CDN! 🍀</span>
+                        <span data-typewriter-line style="--line-index:1;--line-chars:42;">This is a CSS-only typewriter effect.</span>
+                        <span data-typewriter-line style="--line-index:2;--line-chars:35;">No JavaScript. Pure CSS magic.</span>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-typewriter"&gt;&lt;span data-typewriter-line style="--line-index:0;--line-chars:30;"&gt;...&lt;/span&gt;&lt;/div&gt;</div>
         </div>
-      </div>
-      <div class="demo-note"><strong>💡 Optional JS:</strong> Full cursor tracking available with the snippet in the README. Works beautifully without JS.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-magnetic-container" style="background:linear-gradient(135deg,#667eea,#764ba2);"&gt;
-  &lt;h3&gt;Hover Me&lt;/h3&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 6. LIQUID BLOB ==================== -->
-    <section class="demo-section" id="blob">
-      <div class="demo-section-header">
-        <span class="demo-section-number">6</span>
-        <h2>.clover-liquid-blob</h2>
-      </div>
-      <p class="section-subtitle">SVG feTurbulence + feDisplacementMap for real-time goo morphing. 5-keyframe border-radius animation. Caustic light refraction. Pulsing outline ring.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-liquid-blob" style="--clover-liquid-size:160px;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <div class="clover-liquid-blob" style="--clover-liquid-size:160px;--clover-liquid-bg:#e17055;--clover-liquid-bg2:#fab1a0;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Fast</span>
-          <div class="clover-liquid-blob" style="--clover-liquid-size:120px;--clover-liquid-speed:4s;"></div>
-        </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-liquid-blob"&gt;&lt;/div&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 7. TYPEWRITER ==================== -->
-    <section class="demo-section" id="typewriter">
-      <div class="demo-section-header">
-        <span class="demo-section-number">7</span>
-        <h2>.clover-typewriter</h2>
-      </div>
-      <p class="section-subtitle">CSS-only multi-line staggered typewriter using steps(). Per-line delay via --line-index. Ink bleed text-shadow. SVG paper grain. Ink splatter pseudo-elements.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper" style="width:100%;max-width:500px;">
-          <div class="clover-typewriter" style="width:100%;">
-            <div class="typewriter-content">
-              <span data-typewriter-line style="--line-index:0;--clover-typewriter-chars-per-line:35;">Dear developer,</span>
-              <span data-typewriter-line style="--line-index:1;--clover-typewriter-chars-per-line:42;">This is CSS-only typewriter magic.</span>
-              <span data-typewriter-line style="--line-index:2;--clover-typewriter-chars-per-line:38;">No JavaScript. Just steps() and patience.</span>
-              <span data-typewriter-line style="--line-index:3;--clover-typewriter-chars-per-line:25;">— The Clover Team 🍀</span>
+        <div class="section">
+            <h2>🌈 Kaleidoscope</h2>
+            <p class="subtitle">Triple conic-gradient layers. Chromatic aberration.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:130px;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Fast</span>
+                    <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:130px;--clover-kaleidoscope-speed:4s;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Small</span>
+                    <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:80px;"></div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-kaleidoscope"&gt;&lt;/div&gt;</div>
         </div>
-      </div>
-      <div class="demo-note"><strong>📝 Usage:</strong> Add <code>data-typewriter-line</code> with <code>--line-index</code> starting at 0. Set <code>--clover-typewriter-chars-per-line</code> per line.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-typewriter"&gt;
-  &lt;span data-typewriter-line style="--line-index:0;--clover-typewriter-chars-per-line:35;"&gt;Line 1&lt;/span&gt;
-  &lt;span data-typewriter-line style="--line-index:1;--clover-typewriter-chars-per-line:42;"&gt;Line 2&lt;/span&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 8. KALEIDOSCOPE ==================== -->
-    <section class="demo-section" id="kaleidoscope">
-      <div class="demo-section-header">
-        <span class="demo-section-number">8</span>
-        <h2>.clover-kaleidoscope</h2>
-      </div>
-      <p class="section-subtitle">Three conic-gradient layers at different speeds. Octagon + 10-point star clip-paths. Chromatic aberration via RGB-offset box-shadows.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:150px;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Fast</span>
-          <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:150px;--clover-kaleidoscope-speed:4s;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Small</span>
-          <div class="clover-kaleidoscope" style="--clover-kaleidoscope-size:90px;"></div>
-        </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-kaleidoscope"&gt;&lt;/div&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 9. MORPHING ==================== -->
-    <section class="demo-section" id="morphing">
-      <div class="demo-section-header">
-        <span class="demo-section-number">9</span>
-        <h2>.clover-morphing-shape</h2>
-      </div>
-      <p class="section-subtitle">7-stage clip-path morphing: circle→rounded square→hexagon→diamond→blob→rounded hexagon→circle. Hover freezes animation.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-morphing-shape" style="--clover-morph-size:160px;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Fast</span>
-          <div class="clover-morphing-shape" style="--clover-morph-size:160px;--clover-morph-speed:4s;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <div class="clover-morphing-shape" style="--clover-morph-size:160px;--clover-morph-bg1:#00b894;--clover-morph-bg2:#00cec9;"></div>
-        </div>
-      </div>
-      <div class="demo-note"><strong>⏸️ Try this:</strong> Hover to freeze the shape mid-morph.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-morphing-shape"&gt;&lt;/div&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 10. SPINNER ==================== -->
-    <section class="demo-section" id="spinner">
-      <div class="demo-section-header">
-        <span class="demo-section-number">10</span>
-        <h2>.clover-rainbow-spinner</h2>
-      </div>
-      <p class="section-subtitle">12-segment conic-gradient ring. Moiré interference pattern. 3 orbiting particles. Breathing core dot. Chromatic aberration shadows.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-rainbow-spinner" style="--clover-spinner-size:70px;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Large</span>
-          <div class="clover-rainbow-spinner" style="--clover-spinner-size:110px;--clover-spinner-thickness:8px;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Fast</span>
-          <div class="clover-rainbow-spinner" style="--clover-spinner-size:70px;--clover-spinner-speed:0.5s;"></div>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Subtle</span>
-          <div class="clover-rainbow-spinner" style="--clover-spinner-size:70px;--clover-spinner-speed:3s;--clover-spinner-thickness:3px;"></div>
-        </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-rainbow-spinner"&gt;&lt;/div&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 11. PARALLAX ==================== -->
-    <section class="demo-section" id="parallax">
-      <div class="demo-section-header">
-        <span class="demo-section-number">11</span>
-        <h2>.clover-parallax-section</h2>
-      </div>
-      <p class="section-subtitle">4 parallax layers with depth-blur. 10 scattered star dots. Floating nebula orbs. Vignette overlay. Scroll-driven animation support.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper" style="width:100%;max-width:700px;">
-          <div class="clover-parallax-section" style="--clover-parallax-height:350px;border-radius:20px;">
-            <div style="text-align:center;color:#fff;">
-              <h3 style="font-size:1.5rem;margin-bottom:0.5rem;">🚀 Deep Space</h3>
-              <p style="opacity:0.8;">Scroll to see parallax layers shift.</p>
-              <p style="opacity:0.6;font-size:0.85rem;">Stars, nebulas, depth blur.</p>
+        <div class="section">
+            <h2>🔄 Morphing Shape</h2>
+            <p class="subtitle">7-stage clip-path morphing. Hover freezes animation.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-morphing-shape" style="--clover-morph-size:140px;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Fast</span>
+                    <div class="clover-morphing-shape" style="--clover-morph-size:140px;--clover-morph-speed:4s;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Custom</span>
+                    <div class="clover-morphing-shape" style="--clover-morph-size:140px;--clover-morph-bg1:#00b894;--clover-morph-bg2:#00cec9;"></div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-morphing-shape"&gt;&lt;/div&gt;</div>
         </div>
-      </div>
-      <div class="demo-note"><strong>🌌 Scroll-driven:</strong> Uses <code>@scroll-timeline</code> where supported. Falls back to fixed attachment parallax.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-parallax-section" style="--clover-parallax-height:100vh;"&gt;
-  &lt;div&gt;Your content here&lt;/div&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 12. FLIP CARD ==================== -->
-    <section class="demo-section" id="flip">
-      <div class="demo-section-header">
-        <span class="demo-section-number">12</span>
-        <h2>.clover-flip-card-3d</h2>
-      </div>
-      <p class="section-subtitle">True 3D rotateY(180deg) flip. Edge light strip. Ground reflection plane. Hover tilt. Specular shine. Card thickness simulation.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Default</span>
-          <div class="clover-flip-card-3d" style="--clover-flip-width:260px;--clover-flip-height:340px;">
-            <div class="clover-flip-inner">
-              <div class="clover-flip-front">
-                <h3 style="font-size:1.3rem;">🎴 Front Face</h3>
-                <p style="opacity:0.85;">Hover to flip me!</p>
-              </div>
-              <div class="clover-flip-back">
-                <h3 style="font-size:1.3rem;">🔮 Back Face</h3>
-                <p style="opacity:0.85;">Surprise content!</p>
-              </div>
+        <div class="section">
+            <h2>🌀 Rainbow Spinner</h2>
+            <p class="subtitle">12-segment conic ring. Moiré pattern. Orbiting particles.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Default</span>
+                    <div class="clover-rainbow-spinner" style="--clover-spinner-size:60px;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Large</span>
+                    <div class="clover-rainbow-spinner" style="--clover-spinner-size:100px;--clover-spinner-thickness:8px;"></div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Fast</span>
+                    <div class="clover-rainbow-spinner" style="--clover-spinner-size:60px;--clover-spinner-speed:0.5s;"></div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-rainbow-spinner"&gt;&lt;/div&gt;</div>
         </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Custom</span>
-          <div class="clover-flip-card-3d" style="--clover-flip-width:260px;--clover-flip-height:340px;--clover-flip-front-bg:linear-gradient(135deg,#00b894,#00cec9);--clover-flip-back-bg:linear-gradient(135deg,#e17055,#d63031);">
-            <div class="clover-flip-inner">
-              <div class="clover-flip-front">
-                <h3 style="font-size:1.3rem;">Teal Front</h3>
-                <p style="opacity:0.85;">Custom gradients!</p>
-              </div>
-              <div class="clover-flip-back">
-                <h3 style="font-size:1.3rem;">Red Back</h3>
-                <p style="opacity:0.85;">All customizable.</p>
-              </div>
+
+        <div class="section">
+            <h2>🌌 Parallax Section</h2>
+            <p class="subtitle">4 depth-blur layers. Star dots. Nebula orbs. Vignette.</p>
+            <div class="component-row">
+                <div class="component-item" style="width:100%;max-width:700px;">
+                    <div class="clover-parallax-section" style="--clover-parallax-height:300px;border-radius:20px;">
+                        <div style="text-align:center;color:#fff;">
+                            <h3 style="font-size:1.3rem;">🚀 Deep Space</h3>
+                            <p style="opacity:0.8;">Scroll to see parallax layers shift.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+            <div class="code-block">&lt;div class="clover-parallax-section"&gt;&lt;div&gt;Content&lt;/div&gt;&lt;/div&gt;</div>
         </div>
-      </div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-flip-card-3d"&gt;
-  &lt;div class="clover-flip-inner"&gt;
-    &lt;div class="clover-flip-front"&gt;Front content&lt;/div&gt;
-    &lt;div class="clover-flip-back"&gt;Back content&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 13. SEARCH ==================== -->
-    <section class="demo-section" id="search">
-      <div class="demo-section-header">
-        <span class="demo-section-number">13</span>
-        <h2>.clover-expand-search</h2>
-      </div>
-      <p class="section-subtitle">Collapsed circle→expanded pill. 5-particle burst on focus. 3 concentric wave rings. Icon position shift. :focus-within driven state machine.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Click to expand</span>
-          <div class="clover-expand-search" style="--clover-search-size:50px;--clover-search-expand-width:300px;">
-            <input type="text" placeholder="Search anything..." aria-label="Search">
-          </div>
-        </div>
-      </div>
-      <div class="demo-note"><strong>🔍 Try it:</strong> Click the search icon. Watch the particle burst and wave rings on focus.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-expand-search"&gt;
-  &lt;input type="text" placeholder="Search..."&gt;
-&lt;/div&gt;</code></pre></details>
-    </section>
-
-    <!-- ==================== 14. BELL ==================== -->
-    <section class="demo-section" id="bell">
-      <div class="demo-section-header">
-        <span class="demo-section-number">14</span>
-        <h2>.clover-notification-bell</h2>
-      </div>
-      <p class="section-subtitle">CSS-drawn bell icon. Swinging clapper. Badge bounce animation. 3-ring ripple. Dropdown tray with staggered slide-in items. Unread dot pulse.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">With notification</span>
-          <button class="clover-notification-bell has-notification" style="--clover-bell-size:50px;" aria-label="Notifications">
-            <span class="clover-bell-badge">3</span>
-          </button>
-        </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">With tray</span>
-          <button class="clover-notification-bell has-notification" style="--clover-bell-size:50px;" aria-label="Notifications">
-            <span class="clover-bell-badge">5</span>
-            <div class="clover-bell-tray open">
-              <div class="clover-tray-item unread">🔔 New message from Alex</div>
-              <div class="clover-tray-item unread">⭐ Your PR was merged</div>
-              <div class="clover-tray-item">📦 Package shipped</div>
-              <div class="clover-tray-item">💬 3 new comments</div>
-              <div class="clover-tray-item">🎉 Welcome to Clover CSS</div>
+        <div class="section">
+            <h2>🎴 Flip Card 3D</h2>
+            <p class="subtitle">True 3D rotateY flip. Edge light. Ground reflection.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <div class="clover-flip-card-3d" style="--clover-flip-width:240px;--clover-flip-height:180px;">
+                        <div class="clover-flip-inner">
+                            <div class="clover-flip-front"><h3>🎴 Front</h3><p>Hover to flip!</p></div>
+                            <div class="clover-flip-back"><h3>🔮 Back</h3><p>Surprise!</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="component-item">
+                    <div class="clover-flip-card-3d" style="--clover-flip-width:240px;--clover-flip-height:180px;--clover-flip-front-bg:linear-gradient(135deg,#00b894,#00cec9);--clover-flip-back-bg:linear-gradient(135deg,#e17055,#d63031);">
+                        <div class="clover-flip-inner">
+                            <div class="clover-flip-front"><h3>Teal Front</h3><p>Custom!</p></div>
+                            <div class="clover-flip-back"><h3>Red Back</h3><p>Custom!</p></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </button>
+            <div class="code-block">&lt;div class="clover-flip-card-3d"&gt;&lt;div class="clover-flip-inner"&gt;&lt;div class="clover-flip-front"&gt;...&lt;/div&gt;&lt;div class="clover-flip-back"&gt;...&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</div>
         </div>
-      </div>
-      <div class="demo-note"><strong>🔔 Hover/click:</strong> The bell swings on hover. Use <code>.has-notification</code> for ripple rings. Add <code>.open</code> to the tray for visibility.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;button class="clover-notification-bell has-notification"&gt;
-  &lt;span class="clover-bell-badge"&gt;3&lt;/span&gt;
-  &lt;div class="clover-bell-tray open"&gt;
-    &lt;div class="clover-tray-item unread"&gt;Notification&lt;/div&gt;
-  &lt;/div&gt;
-&lt;/button&gt;</code></pre></details>
-    </section>
 
-    <!-- ==================== 15. DRAG GHOST ==================== -->
-    <section class="demo-section" id="drag">
-      <div class="demo-section-header">
-        <span class="demo-section-number">15</span>
-        <h2>.clover-drag-ghost</h2>
-      </div>
-      <p class="section-subtitle">5-layer ghost trail via box-shadow. Detached shadow during drag. Particle burst. Magnetic snap with spring easing. grab/grabbing cursor states.</p>
-      <div class="demo-components-row">
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Idle state</span>
-          <div class="clover-drag-ghost" style="--clover-drag-size:150px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:1.1rem;">
-            Drag Me
-          </div>
+        <div class="section">
+            <h2>🔍 Expand Search</h2>
+            <p class="subtitle">Collapsed circle to expanded pill. Particle burst. Wave rings.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <div class="clover-expand-search" style="--clover-search-size:48px;--clover-search-expand-width:280px;">
+                        <input type="text" placeholder="Search anything..." aria-label="Search">
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="clover-expand-search"&gt;&lt;input type="text" placeholder="Search..."&gt;&lt;/div&gt;</div>
         </div>
-        <div class="demo-component-wrapper">
-          <span class="demo-component-label">Dragging (simulated)</span>
-          <div class="clover-drag-ghost dragging" style="--clover-drag-size:150px;--clover-drag-dragging:1;--clover-drag-offset-x:15px;--clover-drag-offset-y:-10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:1.1rem;">
-            Moving!
-          </div>
+
+        <div class="section">
+            <h2>🔔 Notification Bell</h2>
+            <p class="subtitle">CSS-drawn bell. Swinging clapper. Badge bounce. Staggered tray.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">With badge</span>
+                    <button class="clover-notification-bell has-notification" style="--clover-bell-size:48px;" aria-label="Notifications">
+                        <span class="clover-bell-badge">3</span>
+                    </button>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">With tray</span>
+                    <button class="clover-notification-bell has-notification" style="--clover-bell-size:48px;" aria-label="Notifications">
+                        <span class="clover-bell-badge">5</span>
+                        <div class="clover-bell-tray open">
+                            <div class="clover-tray-item unread">🔔 New message</div>
+                            <div class="clover-tray-item unread">⭐ PR merged</div>
+                            <div class="clover-tray-item">📦 Package shipped</div>
+                            <div class="clover-tray-item">💬 3 comments</div>
+                            <div class="clover-tray-item">🎉 Welcome!</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div class="code-block">&lt;button class="clover-notification-bell has-notification"&gt;&lt;span class="clover-bell-badge"&gt;3&lt;/span&gt;&lt;/button&gt;</div>
         </div>
-      </div>
-      <div class="demo-note"><strong>🖱️ Full drag:</strong> Requires JS for position tracking. The CSS provides all visual layers: ghost trail, detached shadow, and particles. See README for JS snippet.</div>
-      <details class="demo-code-block"><summary>View Code</summary><pre><code>&lt;div class="clover-drag-ghost"&gt;Drag Me&lt;/div&gt;
 
-&lt;!-- During drag (set via JS): --&gt;
-&lt;div class="clover-drag-ghost dragging" 
-  style="--clover-drag-dragging:1;--clover-drag-offset-x:15px;--clover-drag-offset-y:-10px;"&gt;
-  Moving!
-&lt;/div&gt;</code></pre></details>
-    </section>
+        <div class="section">
+            <h2>👻 Drag Ghost</h2>
+            <p class="subtitle">5-layer ghost trail. Detached shadow. Particle burst.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Idle</span>
+                    <div class="clover-drag-ghost" style="--clover-drag-size:130px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:1rem;">Drag Me</div>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">Dragging</span>
+                    <div class="clover-drag-ghost dragging" style="--clover-drag-size:130px;--clover-drag-dragging:1;--clover-drag-offset-x:15px;--clover-drag-offset-y:-10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:1rem;">Moving!</div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="clover-drag-ghost"&gt;Drag Me&lt;/div&gt;</div>
+        </div>
 
-    <!-- ==================== FOOTER ==================== -->
-    <footer class="demo-footer">
-      <span class="footer-clover" aria-hidden="true">🍀</span>
-      <p><strong>Clover CSS</strong> — An intentionally overcomplicated CSS library.</p>
-      <p>15 components. 5,000+ lines of CSS. Zero JavaScript required.</p>
-      <p>
-        <a href="https://github.com/spideythedev/clover-css" target="_blank" rel="noopener">⭐ GitHub</a> · 
-        <a href="docs.html">📖 Documentation</a> · 
-        <a href="license.html">📄 MIT License</a>
-      </p>
-      <p style="margin-top:1rem;opacity:0.55;font-size:0.8rem;">
-        No utility classes were harmed. No JavaScript was written. All CSS. All chaos. All Clover.
-      </p>
-    </footer>
+        <div class="section">
+            <h2>🔦 Spotlight Card</h2>
+            <p class="subtitle">Mouse-tracked radial reveal. Specular edge glow.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <div class="clover-spotlight-card" style="min-width:260px;">
+                        <h3 style="font-size:1.1rem;">🔦 Spotlight</h3>
+                        <p style="font-size:0.9rem;">Move your cursor over me!</p>
+                        <p style="font-size:0.85rem;opacity:0.7;">The light follows you.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="clover-spotlight-card"&gt;...&lt;/div&gt;</div>
+        </div>
 
-  </div>
+        <div class="section">
+            <h2>🎚️ Toggle Realm</h2>
+            <p class="subtitle">Sun/moon toggle. Orbiting particles. Atmosphere glow.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="component-label">Off</span>
+                    <label class="clover-toggle-realm">
+                        <input type="checkbox">
+                        <span class="clover-toggle-track"></span>
+                        <span class="clover-toggle-thumb"></span>
+                    </label>
+                </div>
+                <div class="component-item">
+                    <span class="component-label">On</span>
+                    <label class="clover-toggle-realm">
+                        <input type="checkbox" checked>
+                        <span class="clover-toggle-track"></span>
+                        <span class="clover-toggle-thumb"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="code-block">&lt;label class="clover-toggle-realm"&gt;&lt;input type="checkbox"&gt;&lt;span class="clover-toggle-track"&gt;&lt;/span&gt;&lt;span class="clover-toggle-thumb"&gt;&lt;/span&gt;&lt;/label&gt;</div>
+        </div>
 
-  <!-- ==================== OPTIONAL JS ==================== -->
-  <script>
-    /* ---- Magnetic Container: Cursor Tracking ---- */
-    document.querySelectorAll('.clover-magnetic-container').forEach(el => {
-      el.style.setProperty('--_mouse-x', 0.5);
-      el.style.setProperty('--_mouse-y', 0.5);
-      el.addEventListener('mousemove', e => {
-        const r = el.getBoundingClientRect();
-        el.style.setProperty('--_mouse-x', (e.clientX - r.left) / r.width);
-        el.style.setProperty('--_mouse-y', (e.clientY - r.top) / r.height);
-      });
-      el.addEventListener('mouseleave', () => {
-        el.style.setProperty('--_mouse-x', 0.5);
-        el.style.setProperty('--_mouse-y', 0.5);
-      });
-    });
+        <div class="section">
+            <h2>💬 Tooltip Magic</h2>
+            <p class="subtitle">Glass tooltip. 4-direction support. Spring entrance.</p>
+            <div class="component-row">
+                <div class="component-item">
+                    <span class="clover-tooltip-magic">
+                        Hover for tip
+                        <span class="clover-tooltip-body">I'm a magical tooltip! ✨</span>
+                    </span>
+                </div>
+                <div class="component-item">
+                    <span class="clover-tooltip-magic">
+                        Top tip
+                        <span class="clover-tooltip-body" data-tooltip-dir="top">I appear on top!</span>
+                    </span>
+                </div>
+            </div>
+            <div class="code-block">&lt;span class="clover-tooltip-magic"&gt;Hover&lt;span class="clover-tooltip-body"&gt;Tip!&lt;/span&gt;&lt;/span&gt;</div>
+        </div>
 
-    /* ---- Smooth Scroll for Nav ---- */
-    document.querySelectorAll('.demo-nav a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        e.preventDefault();
-        const target = document.querySelector(a.getAttribute('href'));
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    });
-  </script>
+        <div class="section">
+            <h2>📢 Marquee Banner</h2>
+            <p class="subtitle">Infinite smooth scroll. Gradient fade edges. Pause on hover.</p>
+            <div class="component-row" style="width:100%;">
+                <div class="clover-marquee-banner" style="width:100%;">
+                    <div class="clover-marquee-track">
+                        <span>🚀 Clover CSS v1.0.0 is live!</span>
+                        <span>🍀 20 components. Zero JS.</span>
+                        <span>⭐ Star us on GitHub!</span>
+                        <span>🚀 Clover CSS v1.0.0 is live!</span>
+                        <span>🍀 20 components. Zero JS.</span>
+                        <span>⭐ Star us on GitHub!</span>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="clover-marquee-banner"&gt;&lt;div class="clover-marquee-track"&gt;&lt;span&gt;...&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;</div>
+        </div>
 
+        <div class="section">
+            <h2>📊 Progress Cosmic</h2>
+            <p class="subtitle">Orbiting particles. Milestone bursts. Glow pulse.</p>
+            <div class="component-row">
+                <div class="component-item" style="width:100%;max-width:400px;">
+                    <span class="component-label">70%</span>
+                    <div class="clover-progress-cosmic" style="--clover-progress:70%;width:100%;">
+                        <div class="clover-progress-fill"></div>
+                        <div class="clover-progress-head"></div>
+                    </div>
+                </div>
+                <div class="component-item" style="width:100%;max-width:400px;">
+                    <span class="component-label">30%</span>
+                    <div class="clover-progress-cosmic" style="--clover-progress:30%;width:100%;">
+                        <div class="clover-progress-fill"></div>
+                        <div class="clover-progress-head"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-block">&lt;div class="clover-progress-cosmic" style="--clover-progress:70%;"&gt;&lt;div class="clover-progress-fill"&gt;&lt;/div&gt;&lt;div class="clover-progress-head"&gt;&lt;/div&gt;&lt;/div&gt;</div>
+        </div>
+
+        <footer class="footer">
+            <p>🍀 <strong>Clover CSS</strong> — 20 components. 7,000+ lines. Zero JavaScript.</p>
+            <p><a href="https://github.com/spideythedev/clover-css">GitHub</a> · <a href="https://www.npmjs.com/package/clover-css-lib">NPM</a> · <a href="docs.html">Documentation</a> · <a href="license.html">MIT License</a></p>
+        </footer>
+    </div>
+
+    <script>
+        document.querySelectorAll('.clover-magnetic-container').forEach(el => {
+            el.style.setProperty('--_mouse-x', 0.5);
+            el.style.setProperty('--_mouse-y', 0.5);
+            el.addEventListener('mousemove', e => {
+                const r = el.getBoundingClientRect();
+                el.style.setProperty('--_mouse-x', (e.clientX - r.left) / r.width);
+                el.style.setProperty('--_mouse-y', (e.clientY - r.top) / r.height);
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.setProperty('--_mouse-x', 0.5);
+                el.style.setProperty('--_mouse-y', 0.5);
+            });
+        });
+        document.querySelectorAll('.clover-spotlight-card').forEach(card => {
+            card.style.setProperty('--_mouse-x', 0.5);
+            card.style.setProperty('--_mouse-y', 0.5);
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                card.style.setProperty('--_mouse-x', (e.clientX - r.left) / r.width);
+                card.style.setProperty('--_mouse-y', (e.clientY - r.top) / r.height);
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--_mouse-x', 0.5);
+                card.style.setProperty('--_mouse-y', 0.5);
+            });
+        });
+    </script>
 </body>
 </html>
