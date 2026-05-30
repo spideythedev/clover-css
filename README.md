@@ -245,27 +245,28 @@ npm install clover-css-lib
 
 ## 🧩 All 20 Components
 
-# Component Type Lines Description
-1 .clover-glass-card Card ~280 7-layer glassmorphic card with backdrop blur, border pulse, noise texture
-2 .clover-clay-button Button ~300 12-shadow neumorphic button, 3-stage hover, elastic rebound
-3 .clover-neubrutal-card Card ~250 Brutalist card with diagonal slash, broken borders, split shadow
-4 .clover-cyber-panel Panel ~270 CRT scanlines, 21-keyframe neon flicker, glitch RGB-split
-5 .clover-magnetic-container Container ~240 3D perspective parallax, dynamic shadow, scale+skew
-6 .clover-liquid-blob Decorative ~180 SVG goo morphing, caustic light, pulsing ring
-7 .clover-typewriter Text ~190 CSS-only staggered typewriter, ink bleed, paper texture
-8 .clover-kaleidoscope Decorative ~170 Triple conic layers, octagon+star clip-paths, chromatic aberration
-9 .clover-morphing-shape Decorative ~200 7-stage clip-path morphing, hover freeze
-10 .clover-rainbow-spinner Loader ~210 12-segment ring, moiré pattern, orbiting particles
-11 .clover-parallax-section Section ~250 4 depth-blur layers, star dots, nebula orbs, vignette
-12 .clover-flip-card-3d Card ~240 True 3D flip, edge light, ground reflection, hover tilt
-13 .clover-expand-search Input ~260 Collapsed→expanded, 5-particle burst, 3 wave rings
-14 .clover-notification-bell Button ~270 CSS-drawn bell, swinging clapper, staggered tray
-15 .clover-drag-ghost Draggable ~250 5-layer ghost trail, detached shadow, particle burst
-16 .clover-spotlight-card Card ~380 Mouse-tracked radial reveal, specular edge, shadow parallax
-17 .clover-toggle-realm Toggle ~390 Sun/moon toggle, orbiting particles, atmosphere glow
-18 .clover-tooltip-magic Tooltip ~340 Glass tooltip, 4-direction, spring entrance, border shimmer
-19 .clover-marquee-banner Banner ~280 Infinite smooth scroll, gradient fade edges, pause on hover
-20 .clover-progress-cosmic Progress ~410 Orbiting particles, milestone bursts, glow pulse
+| # | Component | Type | Lines | Layers |
+|---|---|---|---|---|
+| 1 | `.clover-glass-card` | Card | ~280 | 7 |
+| 2 | `.clover-clay-button` | Button | ~300 | 12 |
+| 3 | `.clover-neubrutal-card` | Card | ~250 | 5 |
+| 4 | `.clover-cyber-panel` | Panel | ~270 | 5 |
+| 5 | `.clover-magnetic-container` | Container | ~240 | 3 |
+| 6 | `.clover-liquid-blob` | Decorative | ~180 | 4 |
+| 7 | `.clover-typewriter` | Text | ~190 | 5 |
+| 8 | `.clover-kaleidoscope` | Decorative | ~170 | 4 |
+| 9 | `.clover-morphing-shape` | Decorative | ~200 | 4 |
+| 10 | `.clover-rainbow-spinner` | Loader | ~210 | 5 |
+| 11 | `.clover-parallax-section` | Section | ~250 | 4 |
+| 12 | `.clover-flip-card-3d` | Card | ~240 | 5 |
+| 13 | `.clover-expand-search` | Input | ~260 | 5 |
+| 14 | `.clover-notification-bell` | Button | ~270 | 6 |
+| 15 | `.clover-drag-ghost` | Draggable | ~250 | 4 |
+| 16 | `.clover-spotlight-card` | Card | ~380 | 6 |
+| 17 | `.clover-toggle-realm` | Toggle | ~390 | 7 |
+| 18 | `.clover-tooltip-magic` | Tooltip | ~340 | 5 |
+| 19 | `.clover-marquee-banner` | Banner | ~280 | 4 |
+| 20 | `.clover-progress-cosmic` | Progress | ~410 | 6 |
 
 ---
 
