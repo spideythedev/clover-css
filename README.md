@@ -98,7 +98,7 @@ Supports modern versions of:
 
 ## 📂 Project Structure
 
-```text
+```
 clover-css/
 ├── clover.css
 ├── index.html
