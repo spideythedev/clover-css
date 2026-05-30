@@ -1,4 +1,4 @@
-# 🍀 Clover CSS
+# 🍀 Clover CSS Lib
 
 > *"If a dev can easily recreate it, it's too simple for Clover."*
 
