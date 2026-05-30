@@ -1292,38 +1292,39 @@
   overflow: hidden;
   white-space: nowrap;
   width: 0;
-  border-right: 2px solid transparent;
+  border-right: 2px solid var(--_twcursor);
   visibility: hidden;
 
-  animation-name: tw-type, tw-cursor-show, tw-visible;
+  animation-name: tw-type, tw-cursor-blink, tw-visible;
   animation-duration: 
     calc(var(--_twspeed) * var(--line-chars, 40)),
-    0.01s,
+    0.7s,
     0.01s;
   animation-timing-function: 
     steps(var(--line-chars, 40), end),
-    ease,
+    steps(2, start),
     ease;
   animation-delay: 
     calc(var(--_twdelay) * var(--line-index, 0)),
     calc(var(--_twdelay) * var(--line-index, 0)),
     calc(var(--_twdelay) * var(--line-index, 0));
-  animation-iteration-count: 1, 1, 1;
-  animation-fill-mode: forwards;
+  animation-iteration-count: 1, infinite, 1;
+  animation-fill-mode: forwards, none, forwards;
 }
 
-/* After typing, keep cursor blinking */
-.clover-typewriter [data-typewriter-line]::after {
-  content: '';
-  display: inline-block;
-  width: 2px;
-  height: 1.2em;
-  background: var(--_twcursor);
-  margin-left: 0;
-  vertical-align: text-bottom;
-  opacity: 0;
-  animation: tw-blink 0.7s steps(2, start) infinite;
-  animation-delay: calc(var(--_twdelay) * var(--line-index, 0) + var(--_twspeed) * var(--line-chars, 40));
+@keyframes tw-type {
+  from { width: 0; }
+  to   { width: calc(var(--line-chars, 40) * 1ch); }
+}
+
+@keyframes tw-cursor-blink {
+  0%, 100% { border-right-color: var(--_twcursor); }
+  50%      { border-right-color: transparent; }
+}
+
+@keyframes tw-visible {
+  from { visibility: visible; }
+  to   { visibility: visible; }
 }
 
 @keyframes tw-type {
