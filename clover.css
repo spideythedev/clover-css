@@ -3,7 +3,7 @@
    A CSS library for developers who hate themselves and love
    absurdly complex single-class components.
    
-   Total Lines: ~2,100 (of the full 3,000 - 4,000 target)
+   Total Lines: ~2,100 (of the full 5,000-8,000 target)
    Warning: May cause browser repaint anxiety.
    ============================================================ */
 
@@ -122,7 +122,7 @@
   border-radius: 24px;
   padding: 2.5rem;
   overflow: hidden; /* Contains pseudo-elements */
-  
+
   /* Layer 1: Backdrop Blur + Semi-transparent Base */
   background-color: rgba(var(--_gcr), var(--_gopac));
   backdrop-filter: 
@@ -135,17 +135,17 @@
     saturate(var(--_gsat)) 
     brightness(var(--_gbright)) 
     contrast(var(--_gcontrast));
-  
+
   /* Border using outline for layering trick */
   outline: 1px solid rgba(var(--_gcr), var(--_gco));
   outline-offset: -1px;
-  
+
   /* Base shadow for depth */
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04),
     inset 0 1px 0 rgba(var(--_gig), 0.1);
-  
+
   transition: 
     background-color 0.6s var(--clover-ease-smooth),
     box-shadow 0.6s var(--clover-ease-smooth),
@@ -321,7 +321,7 @@
   letter-spacing: 0.02em;
   cursor: pointer;
   user-select: none;
-  
+
   /* The 12-Layer Shadow Stack */
   box-shadow:
     /* Highlights (top/light) */
@@ -339,7 +339,7 @@
     inset 0 1px 0 var(--_chc),                               /* 10: crisp inner top */
     inset 0 -1px 0 rgba(0, 0, 0, 0.04),                     /* 11: crisp inner bottom */
     inset 0 0 0 1px rgba(0, 0, 0, 0.02);                    /* 12: border ring */
-  
+
   /* Smooth transition setup for 3-stage hover */
   transition:
     transform 0.25s var(--clover-ease-spring),
@@ -550,7 +550,7 @@
   pointer-events: none;
   inset: calc(var(--_nbw) * -1);
   border-radius: 4px;
-  
+
   /* Simulated broken border using conic-gradient masked to edges */
   background: 
     conic-gradient(
@@ -582,7 +582,7 @@
     20px 20px;
   mask-repeat: no-repeat;
   mask-composite: intersect;
-  
+
   /* Diagonal broken corner fragments */
   clip-path: polygon(
     0% 0%, var(--_nbroke) 0%, 0% var(--_nbroke),
@@ -590,7 +590,7 @@
     100% 100%, calc(100% - var(--_nbroke)) 100%, 100% calc(100% - var(--_nbroke)),
     0% 100%, 0% calc(100% - var(--_nbroke)), var(--_nbroke) 100%
   );
-  
+
   transition: clip-path 0.4s var(--clover-ease-smooth);
 }
 
@@ -673,14 +673,14 @@
   font-family: 'Courier New', 'Fira Code', monospace;
   color: var(--_ctg);
   text-shadow: 0 0 8px var(--_ctg), 0 0 16px var(--_ctg);
-  
+
   /* Neon border glow */
   box-shadow:
     0 0 10px rgba(0, 255, 255, 0.3),
     0 0 20px rgba(0, 255, 255, 0.15),
     inset 0 0 10px rgba(0, 255, 255, 0.08),
     inset 0 0 30px rgba(255, 0, 255, 0.04);
-  
+
   animation: clover-cyber-border-flicker 3s ease-in-out infinite;
 }
 
@@ -870,7 +870,7 @@
   border-radius: 20px;
   padding: 2.5rem;
   cursor: pointer;
-  
+
   /* Dynamic shadow that rotates based on hover position */
   --_shadow-x: 0px;
   --_shadow-y: 0px;
@@ -880,7 +880,7 @@
     var(--_shadow-x) var(--_shadow-y) var(--_shadow-blur) var(--_shadow-spread) rgba(0, 0, 0, 0.15),
     0 0 0 1px rgba(255, 255, 255, 0.05),
     inset 0 0 0 1px rgba(255, 255, 255, 0.08);
-  
+
   transition:
     box-shadow 0.2s var(--clover-ease-smooth),
     transform 0.3s var(--clover-ease-smooth);
@@ -929,7 +929,7 @@
   --_shadow-y: calc((var(--_mouse-y, 0.5) - 0.5) * var(--_mshadow) * 2);
   --_shadow-blur: 35px;
   --_shadow-spread: -10px;
-  
+
   transform: 
     perspective(var(--_mpersp))
     rotateY(calc((var(--_mouse-x, 0.5) - 0.5) * var(--_mrot) * 40deg))
@@ -1065,7 +1065,7 @@
   height: var(--_lbsize);
   border-radius: 50%;
   cursor: pointer;
-  
+
   /* Base gradient background */
   background: 
     radial-gradient(
@@ -1079,19 +1079,19 @@
       var(--_lbbg2) 60%,
       var(--_lbbg) 100%
     );
-  
+
   /* SVG filter for the gooey displacement */
   filter: 
     url('#clover-goo-filter')
     drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15))
     drop-shadow(0 4px 10px rgba(0, 0, 0, 0.1));
-  
+
   /* Inner shadow for depth */
   box-shadow:
     inset 0 -8px 20px rgba(0, 0, 0, 0.15),
     inset 0 8px 20px rgba(255, 255, 255, 0.1),
     inset 0 0 40px rgba(255, 255, 255, 0.05);
-  
+
   animation: 
     clover-blob-morph var(--_lbspeed) ease-in-out infinite alternate,
     clover-blob-rotate calc(var(--_lbspeed) * 1.5) linear infinite;
@@ -1252,18 +1252,24 @@
 ---- */
 
 
-  
-   
+
+
 
 
 /* ============================================================
-   7. .clover-typewriter — FIXED
+   7. .clover-typewriter — Multi-line Staggered Typewriter
+      with Blinking Cursor, Paper Texture, Ink Bleed,
+      and Character Fade-in Overlap
+      
+      FIXED v2: Uses max-width with ch units for proper typing width
    ============================================================ */
+
 .clover-typewriter {
   --_twcolor: var(--clover-typewriter-color, #1a1a1a);
   --_twbg: var(--clover-typewriter-bg, #faf8f5);
   --_twcursor: var(--clover-typewriter-cursor, #1a1a1a);
   --_twspeed: var(--clover-typewriter-speed, 0.06s);
+  --_twchars: var(--clover-typewriter-chars-per-line, 40);
   --_twdelay: var(--clover-typewriter-line-delay, 2s);
   --_twink: var(--clover-typewriter-ink-glow, rgba(26, 26, 26, 0.08));
 
@@ -1277,51 +1283,165 @@
   padding: 2.5rem;
   border-radius: 4px;
   overflow: hidden;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.3'/%3E%3C/svg%3E");
+
+  /* Paper texture */
+  background-image: 
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.3'/%3E%3C/svg%3E");
   background-size: 300px 300px;
   background-blend-mode: multiply;
   background-color: var(--_twbg);
-  text-shadow: 0 0 1px var(--_twink), 0 0 3px var(--_twink), 0 0 6px var(--_twink);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(0,0,0,0.04);
+
+  /* Ink bleed shadow on text */
+  text-shadow: 
+    0 0 1px var(--_twink),
+    0 0 3px var(--_twink),
+    0 0 6px var(--_twink);
+
+  /* Paper edge shadow */
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
 }
 
+/* ---- THE FIX: Each line types out to its own character width ---- */
 .clover-typewriter [data-typewriter-line] {
   display: block;
   overflow: hidden;
   white-space: nowrap;
   border-right: 2px solid var(--_twcursor);
   opacity: 0;
+
+  /* 
+    KEY FIX: Use max-width in ch units instead of width: 100%
+    Each line types to exactly its character count width.
+    ch unit = width of the "0" character in monospace font.
+  */
   max-width: 0;
   width: fit-content;
   width: -moz-fit-content;
 
-  /* KEY: pull per-line char count */
-  --_twchars: var(--clover-typewriter-chars-per-line, 40);
-
+  /* Animation properties set individually so they cascade */
   animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in;
-  animation-duration: calc(var(--_twspeed) * var(--_twchars)), 0.7s, 0.001s;
-  animation-timing-function: steps(var(--_twchars), end), steps(2, start), ease;
-  animation-delay: calc(var(--_twdelay) * var(--line-index, 0)),
-                  calc(var(--_twdelay) * var(--line-index, 0)),
-                  calc(var(--_twdelay) * var(--line-index, 0));
+  animation-duration: 
+    calc(var(--_twspeed) * var(--_twchars)),
+    0.7s,
+    0.001s;
+  animation-timing-function: 
+    steps(var(--_twchars), end),
+    steps(2, start),
+    ease;
+  animation-delay: 
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0));
   animation-iteration-count: 1, infinite, 1;
   animation-fill-mode: forwards, none, forwards;
 }
 
+/* ---- Keyframes: Animate max-width instead of width ---- */
 @keyframes clover-typewriter-typing {
   from { max-width: 0; }
   to { max-width: calc(var(--_twchars) * 1ch); }
 }
+
 @keyframes clover-typewriter-cursor-blink {
   0%, 100% { border-right-color: var(--_twcursor); }
   50% { border-right-color: transparent; }
 }
+
 @keyframes clover-typewriter-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-/* ink splats, fold, etc. (keep your existing ::before / ::after) */
+/* Remove cursor after typing is complete (on the last line only) */
+.clover-typewriter [data-typewriter-line]:last-child {
+  animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in, clover-typewriter-remove-cursor;
+  animation-duration: 
+    calc(var(--_twspeed) * var(--_twchars)),
+    0.7s,
+    0.001s,
+    0.001s;
+  animation-delay: 
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0)),
+    calc(var(--_twdelay) * var(--_line-index, 0) + var(--_twspeed) * var(--_twchars));
+  animation-fill-mode: forwards, none, forwards, forwards;
+}
+
+@keyframes clover-typewriter-remove-cursor {
+  from { border-right-color: var(--_twcursor); }
+  to { border-right-color: transparent; }
+}
+
+/* Ink splatter (::before) */
+.clover-typewriter::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 3%),
+    radial-gradient(circle at 72% 12%, rgba(0, 0, 0, 0.02) 0%, transparent 2%),
+    radial-gradient(circle at 88% 65%, rgba(0, 0, 0, 0.04) 0%, transparent 1.5%),
+    radial-gradient(circle at 5% 35%, rgba(0, 0, 0, 0.02) 0%, transparent 2.5%),
+    radial-gradient(circle at 40% 90%, rgba(0, 0, 0, 0.03) 0%, transparent 1%);
+  opacity: 0.7;
+}
+
+/* Paper fold line (::after) */
+.clover-typewriter::after {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  top: 0;
+  left: 50%;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(0, 0, 0, 0.03) 20%,
+    rgba(0, 0, 0, 0.05) 50%,
+    rgba(0, 0, 0, 0.03) 80%,
+    transparent 100%
+  );
+}
+
+/* Selection styling */
+.clover-typewriter ::selection {
+  background: rgba(0, 0, 0, 0.12);
+  color: inherit;
+  text-shadow: none;
+}
+
+/* Hover: subtle paper lift */
+.clover-typewriter:hover {
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.08),
+    0 8px 20px rgba(0, 0, 0, 0.06),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+  transition: all 0.3s var(--clover-ease-smooth);
+}
+
+.clover-typewriter:focus-visible {
+  outline: 2px solid var(--_twcolor);
+  outline-offset: 4px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .clover-typewriter {
+    --clover-typewriter-color: #e8e4dd;
+    --clover-typewriter-bg: #1e1b18;
+    --clover-typewriter-cursor: #e8e4dd;
+    --clover-typewriter-ink-glow: rgba(232, 228, 221, 0.08);
+  }
+}
 
 /* ============================================================
    8. .clover-kaleidoscope — Rotating Geometric Mandala
@@ -1348,13 +1468,13 @@
   height: var(--_ksize);
   border-radius: 50%;
   cursor: pointer;
-  
+
   /* Base conic gradient mandala */
   background: conic-gradient(
     from 0deg,
     var(--_kcolors)
   );
-  
+
   /* Chromatic aberration via box-shadow in RGB channels */
   box-shadow:
     0 0 20px var(--_kglow),
@@ -1362,7 +1482,7 @@
     var(--_kchroma) 0 0 rgba(255, 0, 0, 0.2),
     calc(var(--_kchroma) * -1) 0 0 rgba(0, 0, 255, 0.2),
     0 var(--_kchroma) 0 rgba(0, 255, 0, 0.2);
-  
+
   animation: clover-kaleidoscope-spin var(--_kspeed) linear infinite;
 }
 
@@ -1479,7 +1599,7 @@
   isolation: isolate;
   width: var(--_mssize);
   height: var(--_mssize);
-  
+
   /* Animated gradient background */
   background: linear-gradient(
     135deg,
@@ -1491,17 +1611,17 @@
   animation: 
     clover-morph-shape var(--_msspeed) ease-in-out infinite,
     clover-morph-gradient calc(var(--_msspeed) * 0.6) ease-in-out infinite alternate;
-  
+
   /* Dashed border dance */
   border: 3px dashed var(--_msborder);
   border-radius: 0;
-  
+
   /* Inner shadow choreography */
   box-shadow:
     inset 0 0 0 3px rgba(255, 255, 255, 0.1),
     inset 0 0 30px rgba(0, 0, 0, 0.1),
     0 20px 50px rgba(0, 0, 0, 0.2);
-  
+
   cursor: pointer;
   transition: filter 0.3s var(--clover-ease-smooth);
 }
@@ -1654,11 +1774,11 @@
   width: var(--_rssize);
   height: var(--_rssize);
   display: inline-block;
-  
+
   /* The ring itself */
   border-radius: 50%;
   border: var(--_rsthickness) solid transparent;
-  
+
   /* 12-segment conic gradient ring */
   background: conic-gradient(
     from 0deg,
@@ -1675,20 +1795,20 @@
     #ff6348 300deg 330deg,
     #ff6b6b 330deg 360deg
   );
-  
+
   /* Mask to create the ring shape */
   -webkit-mask: 
     radial-gradient(farthest-side, transparent calc(100% - var(--_rsthickness) - 2px), #000 calc(100% - var(--_rsthickness)));
   mask: 
     radial-gradient(farthest-side, transparent calc(100% - var(--_rsthickness) - 2px), #000 calc(100% - var(--_rsthickness)));
-  
+
   /* Chromatic aberration shadow */
   box-shadow:
     0 0 20px var(--_rsglow),
     0 0 50px var(--_rsglow),
     var(--_rschroma) 0 0 rgba(255, 0, 0, 0.15),
     calc(var(--_rschroma) * -1) 0 0 rgba(0, 0, 255, 0.15);
-  
+
   animation: clover-spinner-rotate var(--_rsspeed) linear infinite;
 }
 
@@ -1870,7 +1990,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   /* Deep space gradient base */
   background: 
     radial-gradient(
@@ -1879,7 +1999,7 @@
       var(--_ps-bg2) 40%,
       var(--_ps-bg3) 100%
     );
-  
+
   /* Stars layer 1 (tiny dots) */
   background-image: 
     radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8) 0%, transparent 100%),
@@ -1911,7 +2031,7 @@
     scroll, scroll, scroll, scroll, scroll,
     scroll, scroll, scroll, scroll, scroll,
     fixed;
-  
+
   /* Vignette overlay */
   box-shadow: inset 0 0 200px rgba(0, 0, 0, var(--_ps-vignette));
 }
@@ -2013,7 +2133,7 @@
     animation-timeline: scroll(root);
     animation-range: entry 0% exit 100%;
   }
-  
+
   .clover-parallax-section::after {
     animation: clover-parallax-scroll-medium linear;
     animation-timeline: scroll(root);
@@ -2068,7 +2188,7 @@
   height: var(--_fc-height);
   perspective: var(--_fc-perspective);
   cursor: pointer;
-  
+
   /* The card container itself */
   position: relative;
   isolation: isolate;
@@ -2110,7 +2230,7 @@
 .clover-flip-card-3d .clover-flip-front {
   background: var(--_fc-front-bg);
   z-index: 2;
-  
+
   /* Edge light strip (simulating card thickness) */
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.1),
@@ -2160,7 +2280,7 @@
   background: var(--_fc-back-bg);
   transform: rotateY(180deg);
   z-index: 1;
-  
+
   /* Back edge glow */
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.08),
@@ -2294,7 +2414,7 @@
   isolation: isolate;
   display: inline-flex;
   align-items: center;
-  
+
   /* Collapsed state: circle */
   width: var(--_es-size);
   height: var(--_es-size);
@@ -2303,11 +2423,11 @@
   border: 2px solid var(--_es-border);
   cursor: pointer;
   overflow: visible;
-  
+
   box-shadow:
     0 2px 8px rgba(0, 0, 0, 0.06),
     0 1px 3px rgba(0, 0, 0, 0.04);
-  
+
   transition: 
     width var(--_es-duration) cubic-bezier(0.4, 0.0, 0.2, 1.0),
     border-radius var(--_es-duration) cubic-bezier(0.4, 0.0, 0.2, 1.0),
@@ -2516,7 +2636,7 @@
   background: transparent;
   border: none;
   padding: 0;
-  
+
   transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -2530,7 +2650,7 @@
   border-radius: 40% 40% 15% 15%;
   position: relative;
   transition: background 0.3s ease;
-  
+
   /* Bell top nub */
   box-shadow: 
     0 -4px 0 var(--_nb-color),
@@ -2645,7 +2765,7 @@
     0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 0.75rem;
   z-index: 10;
-  
+
   /* Hidden by default, shown with JS or focus */
   opacity: 0;
   transform: translateY(-10px) scale(0.95);
@@ -2751,22 +2871,22 @@
   cursor: grab;
   user-select: none;
   touch-action: none;
-  
+
   /* Base shadow */
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.15),
     0 2px 8px rgba(0, 0, 0, 0.08);
-  
+
   /* Dynamic transform during drag */
   transform: 
     translate(var(--_dg-offset-x), var(--_dg-offset-y))
     rotate(calc(var(--_dg-offset-x) * 0.02deg))
     scale(calc(1 - var(--_dg-dragging) * 0.02));
-  
+
   transition: 
     transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0),
     box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1.0);
-  
+
   /* During drag: remove transition for immediate response */
   transition: 
     transform 0.05s linear,
@@ -2783,7 +2903,7 @@
   border-radius: inherit;
   background: inherit;
   opacity: calc(var(--_dg-dragging) * var(--_dg-ghost-opacity));
-  
+
   /* Multiple ghost layers via box-shadow (since we only have 1 pseudo) */
   box-shadow:
     0px 0px 0 0px transparent,
@@ -2792,7 +2912,7 @@
     calc(var(--_dg-ghost-spacing) * -3) calc(var(--_dg-ghost-spacing) * -3) 0 0px rgba(102, 126, 234, calc(var(--_dg-dragging) * 0.15)),
     calc(var(--_dg-ghost-spacing) * -4) calc(var(--_dg-ghost-spacing) * -4) 0 0px rgba(102, 126, 234, calc(var(--_dg-dragging) * 0.1)),
     calc(var(--_dg-ghost-spacing) * -5) calc(var(--_dg-ghost-spacing) * -5) 0 0px rgba(102, 126, 234, calc(var(--_dg-dragging) * 0.05));
-  
+
   transition: opacity 0.2s ease;
 }
 
@@ -2806,7 +2926,7 @@
   left: 50%;
   width: 0;
   height: 0;
-  
+
   /* Particles that burst during drag */
   background:
     radial-gradient(circle, var(--_dg-particle-color) 0%, transparent 60%),
@@ -2817,7 +2937,7 @@
   background-size: 40px 40px, 30px 30px, 35px 35px, 25px 25px, 30px 30px;
   background-position: 0 0, 20px -15px, -18px 10px, 25px 20px, -20px -20px;
   background-repeat: no-repeat;
-  
+
   opacity: calc(var(--_dg-dragging) * 0.8);
   transform: translate(-50%, -50%) scale(calc(1 + var(--_dg-dragging) * 0.5));
   transition: 
