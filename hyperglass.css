@@ -1,0 +1,113 @@
+.clover-hyperglass {
+  --cg-depth: 0px;
+  --cg-glow: 0 0 0 1px rgba(255,255,255,0.1);
+  --cg-blur: blur(12px) brightness(1.1);
+  --cg-rotate: 0deg;
+  --cg-scale: 1;
+  position: relative;
+  background: rgba(10, 20, 30, 0.35);
+  backdrop-filter: var(--cg-blur);
+  border-radius: 2rem 1rem 2.5rem 1rem;
+  padding: 2rem;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  transform: rotate(var(--cg-rotate)) scale(var(--cg-scale));
+  box-shadow: var(--cg-glow), 0 25px 40px -12px rgba(0,0,0,0.4);
+  isolation: isolate;
+}
+
+.clover-hyperglass::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3), rgba(255,180,80,0.2), rgba(100,200,255,0.3));
+  border-radius: inherit;
+  z-index: -2;
+  filter: blur(8px);
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+  animation: glassShift 8s infinite alternate;
+}
+
+.clover-hyperglass::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0) 70%);
+  transform: translate(-25%, -25%) rotate(20deg);
+  pointer-events: none;
+  z-index: -1;
+  transition: transform 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+.clover-hyperglass > * {
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(2px);
+  background: rgba(0,0,0,0.2);
+  border-radius: 1.2rem;
+  padding: 0.75rem;
+  transition: all 0.3s;
+}
+
+.clover-hyperglass:hover {
+  --cg-rotate: 0.5deg;
+  --cg-scale: 1.02;
+  --cg-glow: 0 0 0 2px rgba(255,220,100,0.5), 0 0 20px rgba(255,180,80,0.3);
+}
+
+.clover-hyperglass:hover::after {
+  transform: translate(-20%, -30%) rotate(24deg) scale(1.1);
+}
+
+.clover-hyperglass:focus-within {
+  --cg-glow: 0 0 0 3px cyan, 0 0 30px rgba(0,255,255,0.4);
+  transition: all 0.2s;
+}
+
+@keyframes glassShift {
+  0% { opacity: 0.4; filter: blur(6px); transform: scale(0.98);}
+  100% { opacity: 0.9; filter: blur(12px); transform: scale(1.02);}
+}
+
+.clover-liquid-button {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 3rem;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+  box-shadow: 0 0 0 0 rgba(255,255,255,0.3), inset 0 0 20px rgba(255,255,255,0.1);
+}
+
+.clover-liquid-button::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: conic-gradient(from 0deg, cyan, magenta, yellow, cyan);
+  border-radius: 3rem;
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.clover-liquid-button:hover::before {
+  opacity: 0.7;
+  animation: spinGlow 2s linear infinite;
+}
+
+@keyframes spinGlow {
+  100% { transform: rotate(360deg); }
+}
+
+.clover-hyperglass:has(.clover-liquid-button:hover) {
+  --cg-glow: 0 0 0 3px rgba(255,0,255,0.6), 0 0 40px rgba(255,0,255,0.3);
+  transform: rotate(0.2deg) scale(1.01);
+}
