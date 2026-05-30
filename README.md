@@ -725,11 +725,13 @@ clover-css/
 
 ## 🤝 Contributing
 
-We need more insane components! Can you make:
+### We need more insane components! Can you make:
 
-· .clover-weather-widget — 47 keyframe weather animations?
-· .clover-audio-visualizer — Pure CSS bar animations?
-· .clover-particle-field — 100+ box-shadow particles?
+**· .clover-weather-widget** — 47 keyframe weather animations?
+
+**· .clover-audio-visualizer** — Pure CSS bar animations?
+
+**· .clover-particle-field** — 100+ box-shadow particles?
 
 ### How to Contribute
 
@@ -763,7 +765,7 @@ A: Because **real CSS wizards don't need it.**
 
 ## 📄 License
 
-MIT © 2026 Clover CSS Contributors
+**MIT © 2026 Clover CSS Contributors**
 
 Free to use, modify, and distribute. See LICENSE for full text.
 
@@ -771,11 +773,15 @@ Free to use, modify, and distribute. See LICENSE for full text.
 
 ## 🔗 Links
 
-· NPM: npmjs.com/package/clover-css-lib
+**· NPM: npmjs.com/package/clover-css-lib
+
 · GitHub: github.com/spideythedev/clover-css
+
 · Live Demo: spideythedev.github.io/clover-css
+
 · Documentation: docs.html
-· License: license.html
+
+· License: license.html**
 
 ---
 
