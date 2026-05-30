@@ -96,12 +96,13 @@ Supports modern versions of:
 
 ## 📂 Project Structure
 
-`clover-css/
+```text
+clover-css/
 ├── clover.css
 ├── index.html
 ├── docs.html
 ├── README.md
-└── package.json`
+└── package.json```
 
 ## 🤝 Contributing
 
