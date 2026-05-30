@@ -680,15 +680,20 @@ No extra classes needed. It just works.
 
 ## 🌐 Browser Support
 
-Feature Chrome Firefox Safari Edge
-backdrop-filter 76+ 103+ 18+ 79+
-conic-gradient 69+ 83+ 12.1+ 79+
-mix-blend-mode 41+ 32+ 8+ 79+
-clip-path 55+ 54+ 9.1+ 79+
-mask-image 1+ 53+ 15.4+ 79+
-color-mix() 111+ 113+ 16.2+ 111+
-CSS @property 85+ 128+ 16.4+ 85+
-
+| Feature | Chrome | Firefox | Safari | Edge |
+|---|---|---|---|---|
+| `backdrop-filter` | 76+ | 103+ | 18+ | 79+ |
+| `conic-gradient` | 69+ | 83+ | 12.1+ | 79+ |
+| `mix-blend-mode` | 41+ | 32+ | 8+ | 79+ |
+| `clip-path` | 55+ | 54+ | 9.1+ | 79+ |
+| `mask-image` | 1+ | 53+ | 15.4+ | 79+ |
+| `color-mix()` | 111+ | 113+ | 16.2+ | 111+ |
+| CSS `@property` | 85+ | 128+ | 16.4+ | 85+ |
+| SVG `feTurbulence` | 1+ | 1+ | 1+ | 79+ |
+| `perspective` / 3D | 36+ | 16+ | 9+ | 12+ |
+| `steps()` timing | 8+ | 4+ | 5+ | 12+ |
+| `prefers-reduced-motion` | 74+ | 63+ | 10.1+ | 79+ |
+| `prefers-color-scheme` | 76+ | 67+ | 12.1+ | 79+ |
 ---
 
 ## ⚡ Performance
