@@ -16,12 +16,14 @@ Modern CSS components with advanced visual effects, theming, and accessibility b
 
 ### NPM
 
+```bash
 npm install clover-css-lib
-
+```
 ### Import CSS
 
+```css
 @import 'clover-css-lib/clover.css';
-
+```
 ### CDN
 
 <link rel="stylesheet" href="https://unpkg.com/clover-css-lib/clover.css">
@@ -66,10 +68,11 @@ npm install clover-css-lib
 
 Customize components globally using CSS variables.
 
+```css
 :root {
   --clover-accent: #6c5ce7;
 }
-
+```
 ## 🌙 Dark Mode
 
 Dark mode is supported automatically through `prefers-color-scheme`.
@@ -93,12 +96,12 @@ Supports modern versions of:
 
 ## 📂 Project Structure
 
-clover-css/
+`clover-css/
 ├── clover.css
 ├── index.html
 ├── docs.html
 ├── README.md
-└── package.json
+└── package.json`
 
 ## 🤝 Contributing
 
