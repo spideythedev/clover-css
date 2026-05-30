@@ -1257,19 +1257,13 @@
 
 
 /* ============================================================
-   7. .clover-typewriter — Multi-line Staggered Typewriter
-      with Blinking Cursor, Paper Texture, Ink Bleed,
-      and Character Fade-in Overlap
-      
-      FIXED v2: Uses max-width with ch units for proper typing width
+   7. .clover-typewriter — ABSOLUTE FINAL FIX
    ============================================================ */
-
 .clover-typewriter {
   --_twcolor: var(--clover-typewriter-color, #1a1a1a);
   --_twbg: var(--clover-typewriter-bg, #faf8f5);
   --_twcursor: var(--clover-typewriter-cursor, #1a1a1a);
-  --_twspeed: var(--clover-typewriter-speed, 0.06s);
-  --_twchars: var(--clover-typewriter-chars-per-line, 40);
+  --_twspeed: var(--clover-typewriter-speed, 0.07s);
   --_twdelay: var(--clover-typewriter-line-delay, 2s);
   --_twink: var(--clover-typewriter-ink-glow, rgba(26, 26, 26, 0.08));
 
@@ -1277,106 +1271,82 @@
   isolation: isolate;
   background: var(--_twbg);
   color: var(--_twcolor);
-  font-family: 'Courier Prime', 'Courier New', 'IBM Plex Mono', monospace;
+  font-family: 'Courier Prime', 'Courier New', monospace;
   font-size: 1.05rem;
   line-height: 1.7;
   padding: 2.5rem;
   border-radius: 4px;
   overflow: hidden;
 
-  /* Paper texture */
-  background-image: 
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.3'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paper)' opacity='0.3'/%3E%3C/svg%3E");
   background-size: 300px 300px;
   background-blend-mode: multiply;
   background-color: var(--_twbg);
-
-  /* Ink bleed shadow on text */
-  text-shadow: 
-    0 0 1px var(--_twink),
-    0 0 3px var(--_twink),
-    0 0 6px var(--_twink);
-
-  /* Paper edge shadow */
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.06),
-    0 4px 12px rgba(0, 0, 0, 0.04),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+  text-shadow: 0 0 1px var(--_twink), 0 0 3px var(--_twink), 0 0 6px var(--_twink);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.04), inset 0 0 0 1px rgba(0,0,0,0.04);
 }
 
-/* ---- THE FIX: Each line types out to its own character width ---- */
+/* ---- TYPEWRITER LINES ---- */
 .clover-typewriter [data-typewriter-line] {
   display: block;
   overflow: hidden;
   white-space: nowrap;
-  border-right: 2px solid var(--_twcursor);
-  opacity: 0;
+  width: 0;
+  border-right: 2px solid transparent;
+  visibility: hidden;
 
-  /* 
-    KEY FIX: Use max-width in ch units instead of width: 100%
-    Each line types to exactly its character count width.
-    ch unit = width of the "0" character in monospace font.
-  */
-  max-width: 0;
-  width: fit-content;
-  width: -moz-fit-content;
-
-  /* Animation properties set individually so they cascade */
-  animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in;
+  animation-name: tw-type, tw-cursor-show, tw-visible;
   animation-duration: 
-    calc(var(--_twspeed) * var(--_twchars)),
-    0.7s,
-    0.001s;
+    calc(var(--_twspeed) * var(--line-chars, 40)),
+    0.01s,
+    0.01s;
   animation-timing-function: 
-    steps(var(--_twchars), end),
-    steps(2, start),
+    steps(var(--line-chars, 40), end),
+    ease,
     ease;
   animation-delay: 
-    calc(var(--_twdelay) * var(--_line-index, 0)),
-    calc(var(--_twdelay) * var(--_line-index, 0)),
-    calc(var(--_twdelay) * var(--_line-index, 0));
-  animation-iteration-count: 1, infinite, 1;
-  animation-fill-mode: forwards, none, forwards;
+    calc(var(--_twdelay) * var(--line-index, 0)),
+    calc(var(--_twdelay) * var(--line-index, 0)),
+    calc(var(--_twdelay) * var(--line-index, 0));
+  animation-iteration-count: 1, 1, 1;
+  animation-fill-mode: forwards;
 }
 
-/* ---- Keyframes: Animate max-width instead of width ---- */
-@keyframes clover-typewriter-typing {
-  from { max-width: 0; }
-  to { max-width: calc(var(--_twchars) * 1ch); }
+/* After typing, keep cursor blinking */
+.clover-typewriter [data-typewriter-line]::after {
+  content: '';
+  display: inline-block;
+  width: 2px;
+  height: 1.2em;
+  background: var(--_twcursor);
+  margin-left: 0;
+  vertical-align: text-bottom;
+  opacity: 0;
+  animation: tw-blink 0.7s steps(2, start) infinite;
+  animation-delay: calc(var(--_twdelay) * var(--line-index, 0) + var(--_twspeed) * var(--line-chars, 40));
 }
 
-@keyframes clover-typewriter-cursor-blink {
-  0%, 100% { border-right-color: var(--_twcursor); }
-  50% { border-right-color: transparent; }
+@keyframes tw-type {
+  from { width: 0; }
+  to   { width: calc(var(--line-chars, 40) * 1ch); }
 }
 
-@keyframes clover-typewriter-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes tw-cursor-show {
+  from { border-right-color: transparent; }
+  to   { border-right-color: var(--_twcursor); }
 }
 
-/* Remove cursor after typing is complete (on the last line only) */
-.clover-typewriter [data-typewriter-line]:last-child {
-  animation-name: clover-typewriter-typing, clover-typewriter-cursor-blink, clover-typewriter-fade-in, clover-typewriter-remove-cursor;
-  animation-duration: 
-    calc(var(--_twspeed) * var(--_twchars)),
-    0.7s,
-    0.001s,
-    0.001s;
-  animation-delay: 
-    calc(var(--_twdelay) * var(--_line-index, 0)),
-    calc(var(--_twdelay) * var(--_line-index, 0)),
-    calc(var(--_twdelay) * var(--_line-index, 0)),
-    calc(var(--_twdelay) * var(--_line-index, 0) + var(--_twspeed) * var(--_twchars));
-  animation-fill-mode: forwards, none, forwards, forwards;
+@keyframes tw-visible {
+  from { visibility: visible; }
+  to   { visibility: visible; }
 }
 
-@keyframes clover-typewriter-remove-cursor {
-  from { border-right-color: var(--_twcursor); }
-  to { border-right-color: transparent; }
+@keyframes tw-blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0; }
 }
 
-/* Ink splatter (::before) */
+/* Ink splats & fold */
 .clover-typewriter::before {
   content: '';
   position: absolute;
@@ -1384,15 +1354,14 @@
   pointer-events: none;
   inset: 0;
   background:
-    radial-gradient(circle at 15% 80%, rgba(0, 0, 0, 0.03) 0%, transparent 3%),
-    radial-gradient(circle at 72% 12%, rgba(0, 0, 0, 0.02) 0%, transparent 2%),
-    radial-gradient(circle at 88% 65%, rgba(0, 0, 0, 0.04) 0%, transparent 1.5%),
-    radial-gradient(circle at 5% 35%, rgba(0, 0, 0, 0.02) 0%, transparent 2.5%),
-    radial-gradient(circle at 40% 90%, rgba(0, 0, 0, 0.03) 0%, transparent 1%);
+    radial-gradient(circle at 15% 80%, rgba(0,0,0,0.03) 0%, transparent 3%),
+    radial-gradient(circle at 72% 12%, rgba(0,0,0,0.02) 0%, transparent 2%),
+    radial-gradient(circle at 88% 65%, rgba(0,0,0,0.04) 0%, transparent 1.5%),
+    radial-gradient(circle at 5% 35%, rgba(0,0,0,0.02) 0%, transparent 2.5%),
+    radial-gradient(circle at 40% 90%, rgba(0,0,0,0.03) 0%, transparent 1%);
   opacity: 0.7;
 }
 
-/* Paper fold line (::after) */
 .clover-typewriter::after {
   content: '';
   position: absolute;
@@ -1402,31 +1371,19 @@
   left: 50%;
   width: 1px;
   height: 100%;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    rgba(0, 0, 0, 0.03) 20%,
-    rgba(0, 0, 0, 0.05) 50%,
-    rgba(0, 0, 0, 0.03) 80%,
-    transparent 100%
-  );
+  background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.03) 20%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.03) 80%, transparent 100%);
 }
 
-/* Selection styling */
 .clover-typewriter ::selection {
-  background: rgba(0, 0, 0, 0.12);
+  background: rgba(0,0,0,0.12);
   color: inherit;
   text-shadow: none;
 }
 
-/* Hover: subtle paper lift */
 .clover-typewriter:hover {
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.08),
-    0 8px 20px rgba(0, 0, 0, 0.06),
-    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08), 0 8px 20px rgba(0,0,0,0.06), inset 0 0 0 1px rgba(0,0,0,0.06);
   transform: translateY(-2px);
-  transition: all 0.3s var(--clover-ease-smooth);
+  transition: all 0.3s ease;
 }
 
 .clover-typewriter:focus-visible {
@@ -1439,146 +1396,9 @@
     --clover-typewriter-color: #e8e4dd;
     --clover-typewriter-bg: #1e1b18;
     --clover-typewriter-cursor: #e8e4dd;
-    --clover-typewriter-ink-glow: rgba(232, 228, 221, 0.08);
+    --clover-typewriter-ink-glow: rgba(232,228,221,0.08);
   }
 }
-
-/* ============================================================
-   8. .clover-kaleidoscope — Rotating Geometric Mandala
-      with Conic Gradient Harmonics, Nested Clip-path
-      Polygons, and Chromatic Aberration Shift
-      
-      Layers: Base conic gradient, 3 rotating polygon
-      clip-paths, radial gradient overlay, chromatic
-      fringe, outer glow pulse, specular center dot
-   ============================================================ */
-
-.clover-kaleidoscope {
-  --_kcolors: var(--clover-kaleidoscope-colors, 
-    #ff6b6b, #feca57, #48dbfb, #ff9ff3, #54a0ff, #5f27cd);
-  --_ksize: var(--clover-kaleidoscope-size, 180px);
-  --_kspeed: var(--clover-kaleidoscope-speed, 12s);
-  --_ksides: var(--clover-kaleidoscope-sides, 8);
-  --_kchroma: var(--clover-kaleidoscope-chroma-offset, 3px);
-  --_kglow: var(--clover-kaleidoscope-glow-color, rgba(255, 107, 107, 0.3));
-
-  position: relative;
-  isolation: isolate;
-  width: var(--_ksize);
-  height: var(--_ksize);
-  border-radius: 50%;
-  cursor: pointer;
-
-  /* Base conic gradient mandala */
-  background: conic-gradient(
-    from 0deg,
-    var(--_kcolors)
-  );
-
-  /* Chromatic aberration via box-shadow in RGB channels */
-  box-shadow:
-    0 0 20px var(--_kglow),
-    0 0 40px var(--_kglow),
-    var(--_kchroma) 0 0 rgba(255, 0, 0, 0.2),
-    calc(var(--_kchroma) * -1) 0 0 rgba(0, 0, 255, 0.2),
-    0 var(--_kchroma) 0 rgba(0, 255, 0, 0.2);
-
-  animation: clover-kaleidoscope-spin var(--_kspeed) linear infinite;
-}
-
-/* Layer 1: Counter-rotating polygon (::before) */
-.clover-kaleidoscope::before {
-  content: '';
-  position: absolute;
-  z-index: 1;
-  pointer-events: none;
-  inset: 15%;
-  background: conic-gradient(
-    from 180deg,
-    var(--_kcolors)
-  );
-  clip-path: polygon(
-    50% 0%, 85% 15%, 100% 50%, 85% 85%,
-    50% 100%, 15% 85%, 0% 50%, 15% 15%
-  );
-  opacity: 0.7;
-  mix-blend-mode: screen;
-  animation: clover-kaleidoscope-spin-reverse calc(var(--_kspeed) * 0.7) linear infinite;
-  border-radius: 50%;
-}
-
-/* Layer 2: Inner rotating star (::after) */
-.clover-kaleidoscope::after {
-  content: '';
-  position: absolute;
-  z-index: 2;
-  pointer-events: none;
-  inset: 30%;
-  background: conic-gradient(
-    from 90deg,
-    var(--_kcolors)
-  );
-  clip-path: polygon(
-    50% 0%, 61% 35%, 98% 35%, 68% 57%,
-    79% 91%, 50% 70%, 21% 91%, 32% 57%,
-    2% 35%, 39% 35%
-  );
-  opacity: 0.6;
-  mix-blend-mode: overlay;
-  animation: clover-kaleidoscope-spin calc(var(--_kspeed) * 0.4) linear infinite;
-  border-radius: 50%;
-}
-
-/* Specular center highlight (using a radial gradient on the element) */
-.clover-kaleidoscope {
-  background-image: 
-    radial-gradient(
-      circle at 50% 50%,
-      rgba(255, 255, 255, 0.3) 0%,
-      transparent 15%
-    ),
-    conic-gradient(
-      from 0deg,
-      var(--_kcolors)
-    );
-}
-
-@keyframes clover-kaleidoscope-spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-@keyframes clover-kaleidoscope-spin-reverse {
-  0% { transform: rotate(360deg); }
-  100% { transform: rotate(0deg); }
-}
-
-/* Hover: speed up and intensify chromatic aberration */
-.clover-kaleidoscope:hover {
-  --_kspeed: 4s;
-  --_kchroma: 6px;
-  --_kglow: rgba(255, 107, 107, 0.5);
-  box-shadow:
-    0 0 30px var(--_kglow),
-    0 0 60px var(--_kglow),
-    0 0 90px var(--_kglow),
-    var(--_kchroma) 0 0 rgba(255, 0, 0, 0.3),
-    calc(var(--_kchroma) * -1) 0 0 rgba(0, 0, 255, 0.3),
-    0 var(--_kchroma) 0 rgba(0, 255, 0, 0.3);
-  transition: all 0.5s var(--clover-ease-smooth);
-}
-
-.clover-kaleidoscope:focus-visible {
-  outline: 3px solid var(--_kglow);
-  outline-offset: 6px;
-}
-
-@media (prefers-color-scheme: dark) {
-  .clover-kaleidoscope {
-    --clover-kaleidoscope-glow-color: rgba(255, 159, 243, 0.4);
-  }
-}
-
 /* ============================================================
    9. .clover-morphing-shape — Continuous Shape-shifting Panel
       with Animated clip-path, Gradient Morph, Border
