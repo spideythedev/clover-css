@@ -26,8 +26,9 @@ npm install clover-css-lib
 ```
 ### CDN
 
+```html
 <link rel="stylesheet" href="https://unpkg.com/clover-css-lib/clover.css">
-
+```
 ## 🚀 Quick Start
 
 <div class="clover-glass-card">
