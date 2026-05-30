@@ -118,9 +118,9 @@ MIT License.
 
 ## 🔗 Links
 
-- 📦 NPM: npmjs.com/package/clover-css-lib
-- ⭐ GitHub: github.com/spideythedev/clover-css
-- 🌐 Demo: spideythedev.github.io/clover-css
+- 📦 NPM: https://npmjs.com/package/clover-css-lib
+- ⭐ GitHub: https://github.com/spideythedev/clover-css
+- 🌐 Demo: https://clover-css.vercel.app
 
 ---
 
