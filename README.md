@@ -1,6 +1,6 @@
 # 🍀 Clover CSS
 
-Modern CSS components with advanced visual effects, theming, and accessibility built in.
+Modern CSS components with advanced visual effects, theming, and accessibility built in
 
 ## ✨ Features
 
