@@ -1,7 +1,7 @@
 {
   "name": "@spideythedev/clover-css",
-  "version": "2.0.0",
-  "description": "A highly customizable CSS design system with expressive components and visual effects.",
+  "version": "3.0.0",
+  "description": "ChloroPhilix is a unified, violet-family CSS design system with customizable tokens, responsive primitives and expressive components.",
   "main": "clover.css",
   "style": "clover.css",
   "files": [
@@ -21,7 +21,11 @@
     "responsive",
     "accessibility",
     "css-only",
-    "ui"
+    "ui",
+    "chloroPhilix",
+    "violet-theme",
+    "design-language",
+    "css-theming"
   ],
   "author": "spideythedev",
   "license": "MIT",

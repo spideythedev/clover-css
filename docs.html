@@ -1,143 +1,160 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-clover-theme="light">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f9f6">
-  <meta name="description" content="Clover CSS documentation. A customizable design system for the modern web.">
-  <title>Clover CSS — Documentation</title>
+  <meta name="theme-color" content="#f8f7fc">
+  <meta name="description" content="ChloroPhilix, the Clover CSS v3 design system documentation.">
+  <title>ChloroPhilix — Clover CSS v3</title>
   <link rel="stylesheet" href="./clover.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    :root { --clover-content-width: 78rem; }
+    :root { --doc-width: 78rem; }
     body { background: var(--clover-bg); }
-    .docs-shell { display: grid; grid-template-columns: 15rem minmax(0, 1fr); min-height: 100vh; }
-    .docs-sidebar { position: sticky; top: 0; height: 100vh; padding: 2rem 1.25rem; border-right: 1px solid var(--clover-border); background: var(--clover-surface); }
-    .docs-brand { display: flex; align-items: center; gap: .7rem; margin-bottom: 2.5rem; color: var(--clover-text); font-size: 1.1rem; font-weight: 800; text-decoration: none; }
-    .docs-mark { display: grid; width: 2.2rem; aspect-ratio: 1; place-items: center; border-radius: .75rem; background: var(--clover-accent); color: var(--clover-primary); }
-    .docs-nav { display: grid; gap: .3rem; }
-    .docs-nav a { padding: .55rem .7rem; border-radius: .6rem; color: var(--clover-text-soft); font-size: .88rem; text-decoration: none; }
-    .docs-nav a:hover { background: var(--clover-surface-muted); color: var(--clover-primary); }
-    .docs-nav-label { margin: 1.25rem .7rem .35rem; color: var(--clover-text-muted); font-size: .68rem; font-weight: 750; letter-spacing: .12em; text-transform: uppercase; }
-    .docs-main { width: min(100%, 66rem); padding: clamp(2rem, 6vw, 5.5rem); }
-    .docs-eyebrow { margin-bottom: 1rem; color: var(--clover-primary); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-    .docs-lead { max-width: 44rem; margin-top: 1.25rem; font-size: 1.15rem; line-height: 1.8; }
-    .docs-section { padding-block: 3rem; border-bottom: 1px solid var(--clover-border); scroll-margin-top: 2rem; }
-    .docs-section h2 { margin-bottom: 1rem; font-size: clamp(1.7rem, 3vw, 2.4rem); }
-    .docs-section h3 { margin: 1.8rem 0 .65rem; font-size: 1.1rem; letter-spacing: -.02em; }
-    .docs-section p { max-width: 54rem; margin-block: .7rem; }
-    pre { overflow-x: auto; margin-block: 1rem; padding: 1.2rem; border: 1px solid var(--clover-border); border-radius: var(--clover-radius-md); background: var(--clover-surface-muted); color: var(--clover-text); font-size: .84rem; line-height: 1.75; }
-    code { font-family: var(--clover-font-mono); }
-    .docs-demo { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem; margin-block: 1rem; padding: 1.25rem; border: 1px solid var(--clover-border); border-radius: var(--clover-radius-lg); background: var(--clover-surface); }
-    .docs-table { width: 100%; border-collapse: collapse; margin-block: 1rem; text-align: left; }
-    .docs-table th, .docs-table td { padding: .75rem; border-bottom: 1px solid var(--clover-border); }
-    .docs-table th { color: var(--clover-text-muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
-    .docs-footer { padding-block: 2rem; color: var(--clover-text-muted); font-size: .82rem; }
-    @media (max-width: 760px) {
-      .docs-shell { grid-template-columns: 1fr; }
-      .docs-sidebar { position: relative; height: auto; padding: 1rem; border-right: 0; border-bottom: 1px solid var(--clover-border); }
-      .docs-brand { margin-bottom: 1rem; }
-      .docs-nav { display: flex; flex-wrap: wrap; }
-      .docs-nav-label { width: 100%; margin-top: .5rem; }
-      .docs-main { padding: 2rem 1.2rem; }
+    .doc-layout { display: grid; grid-template-columns: 17rem minmax(0,1fr); min-height: 100vh; }
+    .doc-sidebar { position: sticky; top: 0; height: 100vh; padding: 2rem 1.3rem; border-right: 1px solid var(--clover-border); background: var(--clover-surface); }
+    .doc-brand { display: flex; align-items: center; gap: .8rem; margin-bottom: 2.5rem; font-size: 1rem; font-weight: 800; text-decoration: none; letter-spacing: -.04em; }
+    .doc-symbol { display: grid; width: 2.5rem; aspect-ratio: 1; place-items: center; border-radius: .9rem; background: var(--clover-primary); color: white; font-size: 1.1rem; }
+    .doc-nav { display: grid; gap: .3rem; }
+    .doc-nav a { padding: .55rem .75rem; border-radius: .7rem; color: var(--clover-text-soft); font-size: .85rem; text-decoration: none; }
+    .doc-nav a:hover { background: var(--clover-surface-muted); color: var(--clover-primary); }
+    .doc-label { margin: 1.5rem .75rem .45rem; color: var(--clover-text-muted); font-size: .66rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    .doc-main { width: min(100%, 70rem); padding: clamp(2rem, 6vw, 6rem); }
+    .doc-kicker { color: var(--clover-primary); font-size: .72rem; font-weight: 800; letter-spacing: .18em; text-transform: uppercase; }
+    .doc-main h1 { max-width: 14ch; margin-top: 1rem; font-size: clamp(2.8rem, 7vw, 5.8rem); letter-spacing: -.075em; }
+    .doc-lead { max-width: 48rem; margin-top: 1.3rem; font-size: 1.08rem; line-height: 1.85; }
+    .doc-section { padding-block: 3.5rem; border-bottom: 1px solid var(--clover-border); scroll-margin-top: 2rem; }
+    .doc-section h2 { margin-bottom: 1rem; font-size: clamp(1.8rem, 4vw, 2.7rem); letter-spacing: -.06em; }
+    .doc-section h3 { margin: 1.8rem 0 .6rem; font-size: 1.1rem; }
+    .doc-section p { max-width: 55rem; margin-block: .8rem; }
+    .doc-code { overflow-x: auto; margin-block: 1.2rem; padding: 1.2rem 1.35rem; border: 1px solid var(--clover-border); border-radius: 1.1rem; background: var(--clover-surface-muted); color: var(--clover-text); font: .82rem/1.8 var(--clover-font-mono); }
+    .doc-demo { display: flex; flex-wrap: wrap; align-items: center; gap: .8rem; margin-block: 1.2rem; padding: 1.3rem; border: 1px solid var(--clover-border); border-radius: 1.3rem; background: var(--clover-surface); }
+    .doc-table { width: 100%; margin-block: 1rem; border-collapse: collapse; text-align: left; }
+    .doc-table th,.doc-table td { padding: .8rem .6rem; border-bottom: 1px solid var(--clover-border); }
+    .doc-table th { color: var(--clover-text-muted); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; }
+    .doc-footer { padding-block: 2.5rem; color: var(--clover-text-muted); font-size: .82rem; }
+    .doc-theme { float: right; }
+    @media(max-width: 800px) {
+      .doc-layout { grid-template-columns: 1fr; }
+      .doc-sidebar { position: relative; height: auto; padding: 1rem; border-right: 0; border-bottom: 1px solid var(--clover-border); }
+      .doc-brand { margin-bottom: 1rem; }
+      .doc-nav { display: flex; flex-wrap: wrap; }
+      .doc-label { width: 100%; margin: .6rem .7rem .2rem; }
+      .doc-main { padding: 2rem 1.2rem; }
     }
   </style>
 </head>
 <body>
-  <div class="docs-shell">
-    <aside class="docs-sidebar">
-      <a class="docs-brand" href="./index.html"><span class="docs-mark">✳</span> Clover CSS</a>
-      <nav class="docs-nav" aria-label="Documentation">
-        <span class="docs-nav-label">Start here</span>
+  <div class="doc-layout">
+    <aside class="doc-sidebar">
+      <a class="doc-brand" href="./index.html"><span class="doc-symbol">C</span><span>Clover CSS<br><small style="color:var(--clover-text-muted);font-size:.68rem;font-weight:650;letter-spacing:.12em">CHLOROPHILIX / V3</small></span></a>
+      <nav class="doc-nav" aria-label="Documentation">
+        <span class="doc-label">Foundation</span>
         <a href="#intro">Introduction</a><a href="#install">Installation</a><a href="#quickstart">Quick start</a>
-        <span class="docs-nav-label">System</span>
-        <a href="#tokens">Design tokens</a><a href="#themes">Themes</a><a href="#layout">Layout</a><a href="#components">Components</a><a href="#effects">Visual effects</a>
-        <span class="docs-nav-label">Guides</span>
-        <a href="#accessibility">Accessibility</a><a href="#support">Browser support</a>
+        <span class="doc-label">Design language</span>
+        <a href="#palette">Color family</a><a href="#tokens">Tokens</a><a href="#themes">Themes</a><a href="#shape">Shape and density</a>
+        <span class="doc-label">Build</span>
+        <a href="#layout">Layout</a><a href="#components">Components</a><a href="#effects">Effects</a><a href="#accessibility">Accessibility</a>
       </nav>
     </aside>
-    <main class="docs-main">
+    <main class="doc-main">
+      <button class="clover-button doc-theme" data-variant="outline" id="themeToggle" type="button">Switch theme</button>
       <section id="intro">
-        <p class="docs-eyebrow">Clover CSS · Version 2.0</p>
-        <h1>Build with a visual language.</h1>
-        <p class="docs-lead">Clover is a customizable CSS framework for expressive, durable interfaces. Start with a considered foundation, shape the design system with tokens, then compose pages with responsive primitives and purposeful components.</p>
-        <div class="docs-demo"><span class="clover-badge" data-variant="success">Design system</span><span class="clover-badge" data-variant="primary">CSS native</span><span class="clover-badge">No runtime</span></div>
+        <p class="doc-kicker">Clover CSS · Version 3.0</p>
+        <h1>One family. A thousand expressions.</h1>
+        <p class="doc-lead">ChloroPhilix is a unified visual language for the web. A violet-indigo color family, distinctive geometry and a consistent component rhythm create interfaces that feel related without feeling repetitive.</p>
+        <div class="doc-demo"><span class="clover-badge" data-variant="primary">ChloroPhilix</span><span class="clover-badge">CSS native</span><span class="clover-badge">Light + dark</span><span class="clover-badge">Token driven</span></div>
       </section>
-      <section class="docs-section" id="install">
+      <section class="doc-section" id="install">
         <h2>Installation</h2>
-        <p>Install the package or use the stylesheet directly. Clover does not require a JavaScript runtime or a build pipeline.</p>
-        <pre><code>npm install @spideythedev/clover-css</code></pre>
-        <pre><code>&lt;link rel="stylesheet" href="clover.css"&gt;</code></pre>
+        <p>Install the package or load the stylesheet directly. The core design system does not require a JavaScript runtime.</p>
+        <pre class="doc-code">npm install @spideythedev/clover-css</pre>
+        <pre class="doc-code">&lt;link rel="stylesheet" href="clover.css"&gt;</pre>
       </section>
-      <section class="docs-section" id="quickstart">
+      <section class="doc-section" id="quickstart">
         <h2>Quick start</h2>
-        <p>Compose semantic HTML with Clover classes. Keep behavior in your application and presentation in the stylesheet.</p>
-        <pre><code>&lt;main class="clover-container clover-stack"&gt;
+        <p>Compose semantic HTML with layout primitives and component classes.</p>
+        <pre class="doc-code">&lt;main class="clover-container clover-stack"&gt;
   &lt;section class="clover-card" data-variant="raised"&gt;
-    &lt;span class="clover-badge" data-variant="success"&gt;Ready&lt;/span&gt;
-    &lt;h2&gt;A more considered interface.&lt;/h2&gt;
-    &lt;p&gt;A clean foundation for your next idea.&lt;/p&gt;
-    &lt;button class="clover-button"&gt;Explore Clover&lt;/button&gt;
+    &lt;span class="clover-badge" data-variant="primary"&gt;ChloroPhilix&lt;/span&gt;
+    &lt;h2&gt;One visual language.&lt;/h2&gt;
+    &lt;p&gt;Every detail in sync.&lt;/p&gt;
+    &lt;button class="clover-button"&gt;Get started&lt;/button&gt;
   &lt;/section&gt;
-&lt;/main&gt;</code></pre>
-        <div class="docs-demo"><section class="clover-card clover-stack" style="max-width:28rem"><span class="clover-badge" data-variant="success">Ready</span><h3>A more considered interface.</h3><p>A clean foundation for your next idea.</p><button class="clover-button">Explore Clover</button></section></div>
+&lt;/main&gt;</pre>
+        <div class="doc-demo"><section class="clover-card clover-stack" style="max-width:27rem"><span class="clover-badge" data-variant="primary">ChloroPhilix</span><h3>One visual language.</h3><p>Every detail in sync.</p><button class="clover-button">Get started</button></section></div>
       </section>
-      <section class="docs-section" id="tokens">
+      <section class="doc-section" id="palette">
+        <h2>One color family</h2>
+        <p>The system is built around a violet-indigo tonal range. Neutral surfaces and ink provide structure; all expressive accents stay inside the same family.</p>
+        <div class="doc-demo" style="gap:.35rem">
+          <span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#f5f3ff"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#d8d2ff"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#bcb2ff"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#9a8cff"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#7869f2"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#6252dc"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#5142bd"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#403596"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#30296f"></span><span style="width:2.5rem;height:3.5rem;border-radius:.65rem;background:#201d49"></span>
+        </div>
+        <p>Available tokens run from <code>--clover-violet-50</code> through <code>--clover-violet-950</code>.</p>
+      </section>
+      <section class="doc-section" id="tokens">
         <h2>Design tokens</h2>
-        <p>Override a few tokens to establish a distinct visual identity across the entire interface.</p>
-        <pre><code>:root {
-  --clover-primary: #3159c9;
-  --clover-primary-hover: #2447aa;
+        <p>Override the system at the root or scope changes to a specific region.</p>
+        <pre class="doc-code">:root {
+  --clover-primary: #6252dc;
+  --clover-primary-hover: #5142bd;
+  --clover-accent: #ebe8ff;
   --clover-radius-md: 1rem;
-  --clover-radius-lg: 1.5rem;
-  --clover-font-sans: "Manrope", system-ui, sans-serif;
-  --clover-content-width: 82rem;
-}</code></pre>
-        <table class="docs-table"><thead><tr><th>Token family</th><th>Purpose</th></tr></thead><tbody><tr><td>Color</td><td>Surfaces, text, borders, status and brand colors</td></tr><tr><td>Radius</td><td>Consistent geometry and component shape</td></tr><tr><td>Space</td><td>Predictable spacing and density</td></tr><tr><td>Motion</td><td>Transition durations and easing</td></tr><tr><td>Shadow</td><td>Layering and elevation</td></tr><tr><td>Typography</td><td>Interface and monospace font stacks</td></tr></tbody></table>
+  --clover-radius-lg: 1.4rem;
+  --clover-content-width: 84rem;
+}</pre>
       </section>
-      <section class="docs-section" id="themes">
+      <section class="doc-section" id="themes">
         <h2>Theme control</h2>
-        <p>Automatic mode follows the user's color preference. Explicit theme attributes override it at any level.</p>
-        <pre><code>&lt;html data-clover-theme="dark"&gt;</code></pre>
-        <p>Use light or dark. Remove the attribute for automatic mode.</p>
-        <pre><code>&lt;div data-clover-radius="soft" data-clover-density="comfortable"&gt;...&lt;/div&gt;</code></pre>
-        <p>Radius presets are sharp and soft. Density presets are compact and comfortable.</p>
+        <p>Set an explicit theme on the root element. Remove the attribute to follow the operating system preference.</p>
+        <pre class="doc-code">&lt;html data-clover-theme="dark"&gt;</pre>
       </section>
-      <section class="docs-section" id="layout">
+      <section class="doc-section" id="shape">
+        <h2>Shape and density</h2>
+        <pre class="doc-code">&lt;div data-clover-radius="soft" data-clover-density="comfortable"&gt;
+  ...
+&lt;/div&gt;</pre>
+        <p>Radius presets: sharp, default and soft. Density presets: compact, default and comfortable.</p>
+      </section>
+      <section class="doc-section" id="layout">
         <h2>Layout primitives</h2>
-        <p>Available patterns: container, stack, cluster, grid, grid-auto, split, center and flow.</p>
-        <pre><code>&lt;div class="clover-container"&gt;
+        <p>Compose responsive layouts without introducing a separate utility dependency.</p>
+        <pre class="doc-code">&lt;div class="clover-container"&gt;
   &lt;div class="clover-grid-auto" style="--clover-grid-min: 18rem"&gt;
     &lt;article class="clover-card"&gt;One&lt;/article&gt;
     &lt;article class="clover-card"&gt;Two&lt;/article&gt;
   &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+&lt;/div&gt;</pre>
+        <p>Container, stack, cluster, grid, grid-auto, split, center and flow.</p>
       </section>
-      <section class="docs-section" id="components">
+      <section class="doc-section" id="components">
         <h2>Components</h2>
-        <p>Variants use data attributes to keep the API compact and customizable.</p>
-        <div class="docs-demo"><button class="clover-button">Primary</button><button class="clover-button" data-variant="secondary">Secondary</button><button class="clover-button" data-variant="outline">Outline</button><button class="clover-button" data-variant="danger">Danger</button><span class="clover-badge" data-variant="warning">Pending</span></div>
-        <pre><code>&lt;button class="clover-button" data-variant="outline"&gt;Cancel&lt;/button&gt;
-&lt;div class="clover-card" data-variant="soft"&gt;...&lt;/div&gt;
-&lt;span class="clover-badge" data-variant="warning"&gt;Pending&lt;/span&gt;</code></pre>
-        <p>Components include cards, buttons, badges, fields, inputs, selects, textareas, checkboxes, radios, switches, tabs, accordions, breadcrumbs, tooltips, alerts, avatars, progress, skeletons, tables, navigation, panels, stats, pagination, empty states and dividers.</p>
+        <div class="doc-demo"><button class="clover-button">Primary</button><button class="clover-button" data-variant="secondary">Secondary</button><button class="clover-button" data-variant="outline">Outline</button><button class="clover-button" data-variant="danger">Emphasis</button><span class="clover-badge" data-variant="primary">Featured</span></div>
+        <p>Cards, buttons, badges, inputs, selects, textareas, alerts, avatars, progress, skeletons, tables, navigation, panels, checkboxes, radios, switches, tabs, accordions, breadcrumbs, tooltips, stats, pagination and empty states.</p>
       </section>
-      <section class="docs-section" id="effects">
-        <h2>Visual effects</h2>
-        <p>The original visual experiments remain available as a separate stylesheet, keeping the core focused and easy to adopt.</p>
-        <pre><code>&lt;link rel="stylesheet" href="clover.css"&gt;
-&lt;link rel="stylesheet" href="clover-effects.css"&gt;</code></pre>
-        <p>The effects sheet contains glass, clay, neubrutal, cyber, magnetic, liquid, typewriter, kaleidoscope, morphing, parallax and 3D treatments.</p>
+      <section class="doc-section" id="effects">
+        <h2>Original effects</h2>
+        <p>The previous visual experiments remain available as an optional companion stylesheet.</p>
+        <pre class="doc-code">&lt;link rel="stylesheet" href="clover.css"&gt;
+&lt;link rel="stylesheet" href="clover-effects.css"&gt;</pre>
       </section>
-      <section class="docs-section" id="accessibility">
+      <section class="doc-section" id="accessibility">
         <h2>Accessibility</h2>
-        <p>Use native HTML semantics first. Clover provides visible focus states, reduced-motion handling, responsive patterns and system-aware color schemes. Add accessible names, validation and keyboard interactions in your application.</p>
+        <p>Use semantic HTML and native controls. Clover includes visible focus styles, reduced-motion handling and responsive layout primitives. Application-specific keyboard behavior, labels, validation and ARIA remain with the consuming application.</p>
       </section>
-      <section class="docs-section" id="support">
-        <h2>Browser support</h2>
-        <p>The core targets current evergreen browsers and uses cascade layers, custom properties, grid and modern color functions. Test your target browser matrix before shipping critical interfaces.</p>
-      </section>
-      <footer class="docs-footer">Clover CSS · MIT License · <a href="https://github.com/spideythedev/clover-css">GitHub repository</a></footer>
+      <footer class="doc-footer">ChloroPhilix · Clover CSS v3 · MIT License · <a href="https://github.com/spideythedev/clover-css">GitHub</a></footer>
     </main>
   </div>
+  <script>
+    const root = document.documentElement;
+    const toggle = document.querySelector("#themeToggle");
+    toggle.addEventListener("click", () => {
+      const next = root.dataset.cloverTheme === "dark" ? "light" : "dark";
+      root.dataset.cloverTheme = next;
+      toggle.textContent = next === "dark" ? "Use light theme" : "Use dark theme";
+    });
+  </script>
 </body>
 </html>

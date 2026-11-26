@@ -1,6 +1,8 @@
 # Clover CSS
 
-A complete visual foundation for ambitious websites. Clover combines a design-token system, responsive layout primitives, reusable interface components and expressive visual effects in a framework that stays close to native CSS.
+**ChloroPhilix · Version 3.0**
+
+A single visual language for the whole interface. ChloroPhilix brings a violet-led color family, consistent geometry, responsive layout primitives and customizable components into a CSS-native design system.
 
 ## Install
 
@@ -9,53 +11,60 @@ npm install @spideythedev/clover-css
 ~~~
 
 ~~~html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spideythedev/clover-css@main/clover.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spideythedev/clover-css@v3.0.0/clover.css">
 ~~~
 
-The core stylesheet is **clover.css**. The original expressive effects library is preserved separately as **clover-effects.css**.
+The core framework is **clover.css**. The original expressive experiments remain available in **clover-effects.css** as an optional companion.
 
 ## Quick start
 
 ~~~html
-<div class="clover-container clover-stack">
+<main class="clover-container clover-stack">
   <section class="clover-card" data-variant="raised">
-    <span class="clover-badge" data-variant="success">Ready</span>
-    <h1>Make the web feel considered.</h1>
-    <p>Build interfaces with a coherent visual foundation.</p>
+    <span class="clover-badge" data-variant="primary">ChloroPhilix</span>
+    <h1>One visual language. Every detail in sync.</h1>
+    <p>Compose interfaces with a considered system of color, shape and rhythm.</p>
     <div class="clover-cluster">
       <button class="clover-button">Get started</button>
       <button class="clover-button" data-variant="outline">Explore</button>
     </div>
   </section>
-</div>
+</main>
 ~~~
 
-## Design system
+## The ChloroPhilix system
 
-Override a few tokens to reshape the entire interface.
+ChloroPhilix is built around one violet-indigo family. Surfaces, borders, accents, focus states, badges and controls share the same tonal language. Neutral ink and porcelain surfaces provide contrast without introducing competing accent families.
+
+The default theme is light. Dark mode uses the same color family with deeper surfaces and brighter violet tones.
+
+## Customize the system
+
+Override tokens at the root or on a component scope.
 
 ~~~css
 :root {
-  --clover-primary: #3159c9;
-  --clover-primary-hover: #2447aa;
+  --clover-primary: #6252dc;
+  --clover-primary-hover: #5142bd;
+  --clover-accent: #ebe8ff;
   --clover-radius-md: 1rem;
-  --clover-radius-lg: 1.5rem;
+  --clover-radius-lg: 1.4rem;
   --clover-font-sans: "Manrope", system-ui, sans-serif;
-  --clover-content-width: 82rem;
+  --clover-content-width: 84rem;
 }
 ~~~
 
-## Themes
+The full violet scale is available as **--clover-violet-50** through **--clover-violet-950**.
 
-Automatic mode follows the operating system. Set an explicit theme on any ancestor to override it.
+## Themes
 
 ~~~html
 <html data-clover-theme="dark">
 ~~~
 
-Supported values are **light** and **dark**. Remove the attribute to use automatic mode.
+Use **light** or **dark**. Remove the attribute to follow the operating system preference.
 
-## Global shape and density
+## Shape and density
 
 ~~~html
 <div data-clover-radius="soft" data-clover-density="comfortable">
@@ -75,8 +84,7 @@ Radius options: **sharp**, default, **soft**. Density options: **compact**, defa
 | Input | clover-input |
 | Select | clover-select |
 | Textarea | clover-textarea |
-| Field | clover-field |
-| Label | clover-label |
+| Field and label | clover-field, clover-label |
 | Alert | clover-alert |
 | Avatar | clover-avatar |
 | Progress | clover-progress |
@@ -95,12 +103,12 @@ Radius options: **sharp**, default, **soft**. Density options: **compact**, defa
 | Pagination | clover-pagination |
 | Empty state | clover-empty |
 
-Variants use data attributes instead of a growing collection of class names.
+Variants use data attributes.
 
 ~~~html
-<button class="clover-button" data-variant="secondary" data-size="sm">Cancel</button>
+<button class="clover-button" data-variant="outline">Cancel</button>
 <div class="clover-card" data-variant="soft">...</div>
-<span class="clover-badge" data-variant="warning">Pending</span>
+<span class="clover-badge" data-variant="primary">Featured</span>
 ~~~
 
 ## Layout
@@ -119,7 +127,7 @@ Available primitives: **clover-container**, **clover-stack**, **clover-cluster**
 
 ## Original effects
 
-The original Clover visual experiments remain available in **clover-effects.css**. Load it after the core stylesheet when you want the original glass, clay, cyber, magnetic, liquid, typewriter, kaleidoscope and motion effects.
+The original visual experiments remain in **clover-effects.css**. Load it after the core stylesheet when you want the legacy glass, clay, cyber, magnetic, liquid, typewriter, kaleidoscope and motion effects.
 
 ~~~html
 <link rel="stylesheet" href="clover.css">
@@ -128,11 +136,11 @@ The original Clover visual experiments remain available in **clover-effects.css*
 
 ## Accessibility
 
-Clover includes visible keyboard focus, native control semantics, reduced-motion handling, responsive layouts and system-aware color schemes. Components provide styling only; interactive behavior, labels, validation and ARIA semantics remain the responsibility of the application.
+Clover includes visible keyboard focus, native control semantics, reduced-motion handling, responsive layouts and system-aware color schemes. Components provide styling only; application behavior, labels, validation and ARIA semantics remain the responsibility of the consuming application.
 
 ## Browser support
 
-The core uses modern CSS features including custom properties, cascade layers, color-mix and grid. Use current versions of Chromium, Firefox and Safari.
+The core uses custom properties, cascade layers, grid, color-mix and modern selectors. Target current versions of Chromium, Firefox and Safari.
 
 ## License
 
