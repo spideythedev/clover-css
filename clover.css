@@ -250,3 +250,224 @@
     *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   }
 }
+
+@layer clover.components {
+  .clover-checkbox,
+  .clover-radio {
+    width: 1.05rem;
+    height: 1.05rem;
+    flex: 0 0 auto;
+    margin: 0;
+    accent-color: var(--clover-primary);
+    cursor: pointer;
+  }
+
+  .clover-check-row {
+    display: inline-flex;
+    align-items: center;
+    gap: .65rem;
+    color: var(--clover-text-soft);
+    font-size: .9rem;
+  }
+
+  .clover-switch {
+    position: relative;
+    display: inline-flex;
+    width: 2.8rem;
+    height: 1.6rem;
+    flex: 0 0 auto;
+    align-items: center;
+    padding: .18rem;
+    border: 1px solid var(--clover-border-strong);
+    border-radius: var(--clover-radius-full);
+    background: var(--clover-surface-muted);
+    cursor: pointer;
+    transition: background var(--clover-motion-base) var(--clover-ease);
+  }
+
+  .clover-switch input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+  }
+
+  .clover-switch span {
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--clover-surface);
+    box-shadow: var(--clover-shadow-xs);
+    transition: transform var(--clover-motion-base) var(--clover-ease-out);
+  }
+
+  .clover-switch:has(input:checked) {
+    border-color: var(--clover-primary);
+    background: var(--clover-primary);
+  }
+
+  .clover-switch input:checked + span { transform: translateX(1.2rem); }
+  .clover-switch:has(input:focus-visible) { outline: 3px solid var(--clover-ring); outline-offset: 3px; }
+
+  .clover-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem;
+    padding: .25rem;
+    border: 1px solid var(--clover-border);
+    border-radius: var(--clover-radius-md);
+    background: var(--clover-surface-muted);
+  }
+
+  .clover-tab {
+    display: inline-flex;
+    min-height: 2.35rem;
+    align-items: center;
+    justify-content: center;
+    padding: .5rem .9rem;
+    border: 0;
+    border-radius: var(--clover-radius-sm);
+    background: transparent;
+    color: var(--clover-text-muted);
+    font-size: .88rem;
+    font-weight: 650;
+    text-decoration: none;
+  }
+
+  .clover-tab[aria-selected="true"],
+  .clover-tab[aria-current="page"] {
+    background: var(--clover-surface);
+    color: var(--clover-text);
+    box-shadow: var(--clover-shadow-xs);
+  }
+
+  .clover-accordion {
+    overflow: hidden;
+    border: 1px solid var(--clover-border);
+    border-radius: var(--clover-radius-md);
+    background: var(--clover-surface);
+  }
+
+  .clover-accordion + .clover-accordion { margin-top: .65rem; }
+
+  .clover-accordion summary {
+    display: flex;
+    min-height: 3.25rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .85rem 1rem;
+    color: var(--clover-text);
+    font-weight: 650;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .clover-accordion summary::-webkit-details-marker { display: none; }
+  .clover-accordion summary::after { content: "+"; color: var(--clover-primary); font-size: 1.25rem; }
+  .clover-accordion[open] summary::after { content: "−"; }
+  .clover-accordion-content { padding: 0 1rem 1rem; color: var(--clover-text-soft); }
+
+  .clover-breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .55rem;
+    color: var(--clover-text-muted);
+    font-size: .85rem;
+  }
+
+  .clover-breadcrumb a { color: var(--clover-text-soft); text-decoration: none; }
+  .clover-breadcrumb a:hover { color: var(--clover-primary); }
+  .clover-breadcrumb [aria-current="page"] { color: var(--clover-text); font-weight: 650; }
+
+  .clover-tooltip { position: relative; display: inline-flex; }
+  .clover-tooltip [role="tooltip"] {
+    position: absolute;
+    z-index: 10;
+    bottom: calc(100% + .6rem);
+    left: 50%;
+    width: max-content;
+    max-width: 16rem;
+    padding: .45rem .65rem;
+    transform: translate(-50%, .25rem);
+    border: 1px solid var(--clover-border);
+    border-radius: var(--clover-radius-sm);
+    background: var(--clover-surface-raised);
+    color: var(--clover-text);
+    box-shadow: var(--clover-shadow-md);
+    font-size: .76rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--clover-motion-fast) var(--clover-ease), transform var(--clover-motion-fast) var(--clover-ease);
+  }
+
+  .clover-tooltip:hover [role="tooltip"],
+  .clover-tooltip:focus-within [role="tooltip"] {
+    transform: translate(-50%, 0);
+    opacity: 1;
+  }
+
+  .clover-stat {
+    display: grid;
+    gap: .25rem;
+    padding: var(--clover-space-5);
+    border: 1px solid var(--clover-border);
+    border-radius: var(--clover-radius-lg);
+    background: var(--clover-surface);
+  }
+
+  .clover-stat-value { color: var(--clover-text); font-size: clamp(1.8rem, 4vw, 2.7rem); font-weight: 750; letter-spacing: -.05em; line-height: 1.1; }
+  .clover-stat-label { color: var(--clover-text-muted); font-size: .82rem; font-weight: 600; }
+  .clover-quote { padding: 1rem 1.25rem; border-left: 3px solid var(--clover-primary); color: var(--clover-text-soft); }
+  .clover-link { color: var(--clover-primary); text-decoration-color: color-mix(in srgb, var(--clover-primary) 40%, transparent); text-underline-offset: .2em; }
+  .clover-link:hover { text-decoration-color: currentColor; }
+  .clover-code-block { overflow-x: auto; padding: 1rem 1.2rem; border: 1px solid var(--clover-border); border-radius: var(--clover-radius-md); background: var(--clover-surface-muted); color: var(--clover-text); font-size: .84rem; line-height: 1.7; }
+  .clover-empty { display: grid; min-height: 14rem; place-content: center; justify-items: center; gap: .6rem; padding: 2rem; border: 1px dashed var(--clover-border-strong); border-radius: var(--clover-radius-lg); text-align: center; }
+  .clover-empty p { max-width: 28rem; }
+  .clover-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem; }
+  .clover-page { display: inline-grid; min-width: 2.4rem; min-height: 2.4rem; place-items: center; padding: .35rem; border: 1px solid var(--clover-border); border-radius: var(--clover-radius-sm); background: var(--clover-surface); color: var(--clover-text-soft); text-decoration: none; }
+  .clover-page[aria-current="page"] { border-color: var(--clover-primary); background: var(--clover-accent); color: var(--clover-primary); }
+}
+
+@layer clover.utilities {
+  .clover-items-start { align-items: flex-start !important; }
+  .clover-items-center { align-items: center !important; }
+  .clover-items-end { align-items: flex-end !important; }
+  .clover-justify-start { justify-content: flex-start !important; }
+  .clover-justify-center { justify-content: center !important; }
+  .clover-justify-between { justify-content: space-between !important; }
+  .clover-flex-wrap { flex-wrap: wrap !important; }
+  .clover-flex-1 { flex: 1 1 0% !important; }
+  .clover-grow { flex-grow: 1 !important; }
+  .clover-shrink-0 { flex-shrink: 0 !important; }
+  .clover-w-screen { width: 100vw !important; }
+  .clover-h-auto { height: auto !important; }
+  .clover-rounded-sm { border-radius: var(--clover-radius-sm) !important; }
+  .clover-rounded-lg { border-radius: var(--clover-radius-lg) !important; }
+  .clover-shadow-sm { box-shadow: var(--clover-shadow-sm) !important; }
+  .clover-shadow-lg { box-shadow: var(--clover-shadow-lg) !important; }
+  .clover-p-0 { padding: 0 !important; }
+  .clover-p-2 { padding: var(--clover-space-2) !important; }
+  .clover-p-3 { padding: var(--clover-space-3) !important; }
+  .clover-p-5 { padding: var(--clover-space-5) !important; }
+  .clover-p-10 { padding: var(--clover-space-10) !important; }
+  .clover-m-0 { margin: 0 !important; }
+  .clover-mt-4 { margin-top: var(--clover-space-4) !important; }
+  .clover-mt-8 { margin-top: var(--clover-space-8) !important; }
+  .clover-mb-4 { margin-bottom: var(--clover-space-4) !important; }
+  .clover-mb-8 { margin-bottom: var(--clover-space-8) !important; }
+  .clover-text-sm { font-size: .875rem !important; }
+  .clover-text-lg { font-size: 1.125rem !important; }
+  .clover-text-xl { font-size: 1.25rem !important; }
+  .clover-leading-tight { line-height: 1.2 !important; }
+  .clover-leading-relaxed { line-height: 1.75 !important; }
+  .clover-truncate { overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
+  .clover-select-none { user-select: none !important; }
+  .clover-pointer-events-none { pointer-events: none !important; }
+  .clover-aspect-square { aspect-ratio: 1 !important; }
+  .clover-aspect-video { aspect-ratio: 16 / 9 !important; }
+}
