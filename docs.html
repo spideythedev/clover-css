@@ -56,7 +56,7 @@
         <span class="doc-label">Design language</span>
         <a href="#palette">Color family</a><a href="#tokens">Tokens</a><a href="#themes">Themes</a><a href="#shape">Shape and density</a>
         <span class="doc-label">Build</span>
-        <a href="#layout">Layout</a><a href="#components">Components</a><a href="#effects">Effects</a><a href="#accessibility">Accessibility</a>
+        <a href="#layout">Layout</a><a href="#components">50 components</a><a href="#effects">Effects</a><a href="#accessibility">Accessibility</a>
       </nav>
     </aside>
     <main class="doc-main">
@@ -130,9 +130,84 @@
         <p>Container, stack, cluster, grid, grid-auto, split, center and flow.</p>
       </section>
       <section class="doc-section" id="components">
-        <h2>Components</h2>
-        <div class="doc-demo"><button class="clover-button">Primary</button><button class="clover-button" data-variant="secondary">Secondary</button><button class="clover-button" data-variant="outline">Outline</button><button class="clover-button" data-variant="danger">Emphasis</button><span class="clover-badge" data-variant="primary">Featured</span></div>
-        <p>Cards, buttons, badges, inputs, selects, textareas, alerts, avatars, progress, skeletons, tables, navigation, panels, checkboxes, radios, switches, tabs, accordions, breadcrumbs, tooltips, stats, pagination and empty states.</p>
+        <h2>50 hyper-classified components</h2>
+        <p>Fifty distinct component primitives, organized into five practical systems. Each class is presentation-only: use native HTML for behavior, keyboard interaction, validation and accessible naming.</p>
+        <div class="doc-demo"><span class="clover-badge" data-variant="primary">50 components</span><span class="clover-badge">5 categories</span><span class="clover-badge">Responsive</span><span class="clover-badge">Token-driven</span></div>
+        <pre class="doc-code">&lt;div class="clover-metric"&gt;
+  &lt;span&gt;Monthly revenue&lt;/span&gt;
+  &lt;strong&gt;$24,800&lt;/strong&gt;
+  &lt;small&gt;+12.8% this month&lt;/small&gt;
+&lt;/div&gt;
+
+&lt;nav class="clover-segmented" aria-label="Period"&gt;
+  &lt;button type="button" aria-pressed="true"&gt;Week&lt;/button&gt;
+  &lt;button type="button" aria-pressed="false"&gt;Month&lt;/button&gt;
+&lt;/nav&gt;</pre>
+        <h3>Navigation & wayfinding</h3>
+<table class="doc-table"><thead><tr><th>Class</th><th>Component</th><th>Usage</th></tr></thead><tbody>
+<tr><td><code>.clover-topbar</code></td><td>Application top bar</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-sidebar</code></td><td>Application sidebar</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-menubar</code></td><td>Menu bar</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-commandbar</code></td><td>Command bar</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-stepper</code></td><td>Step indicator</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-segmented</code></td><td>Segmented control</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-rail</code></td><td>Navigation rail</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-linkcard</code></td><td>Navigation card</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-tree</code></td><td>Tree navigation</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-timeline</code></td><td>Timeline</td><td>CSS styling + semantic HTML</td></tr>
+</tbody></table>
+<h3>Data & visualization</h3>
+<table class="doc-table"><thead><tr><th>Class</th><th>Component</th><th>Usage</th></tr></thead><tbody>
+<tr><td><code>.clover-metric</code></td><td>Metric tile</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-sparkline</code></td><td>Sparkline</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-chartframe</code></td><td>Chart frame</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-datagrid</code></td><td>Data grid</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-listrow</code></td><td>Data row</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-kanban</code></td><td>Kanban board</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-activity</code></td><td>Activity feed</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-rating</code></td><td>Rating display</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-meter</code></td><td>Meter</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-comparison</code></td><td>Comparison panel</td><td>CSS styling + semantic HTML</td></tr>
+</tbody></table>
+<h3>Inputs & form controls</h3>
+<table class="doc-table"><thead><tr><th>Class</th><th>Component</th><th>Usage</th></tr></thead><tbody>
+<tr><td><code>.clover-search</code></td><td>Search field</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-combobox</code></td><td>Combobox</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-datefield</code></td><td>Date field</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-range</code></td><td>Range control</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-number</code></td><td>Number field</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-pin</code></td><td>PIN input</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-filedrop</code></td><td>File drop zone</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-upload</code></td><td>Upload item</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-togglegroup</code></td><td>Toggle group</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-formstep</code></td><td>Form step</td><td>CSS styling + semantic HTML</td></tr>
+</tbody></table>
+<h3>Feedback & states</h3>
+<table class="doc-table"><thead><tr><th>Class</th><th>Component</th><th>Usage</th></tr></thead><tbody>
+<tr><td><code>.clover-toast</code></td><td>Toast message</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-banner</code></td><td>Announcement banner</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-callout</code></td><td>Callout</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-status</code></td><td>Status indicator</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-notification</code></td><td>Notification item</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-progressring</code></td><td>Progress ring</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-skeletonblock</code></td><td>Skeleton block</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-emptypanel</code></td><td>Empty panel</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-errorpanel</code></td><td>Error panel</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-successpanel</code></td><td>Success panel</td><td>CSS styling + semantic HTML</td></tr>
+</tbody></table>
+<h3>Overlays, actions & media</h3>
+<table class="doc-table"><thead><tr><th>Class</th><th>Component</th><th>Usage</th></tr></thead><tbody>
+<tr><td><code>.clover-modal</code></td><td>Modal surface</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-drawer</code></td><td>Side drawer</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-popover</code></td><td>Popover surface</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-dropdown</code></td><td>Dropdown menu</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-contextmenu</code></td><td>Context menu</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-commandpalette</code></td><td>Command palette</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-media</code></td><td>Media card</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-image</code></td><td>Image frame</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-video</code></td><td>Video frame</td><td>CSS styling + semantic HTML</td></tr>
+<tr><td><code>.clover-codeblock</code></td><td>Code block</td><td>CSS styling + semantic HTML</td></tr>
+</tbody></table>
       </section>
       <section class="doc-section" id="effects">
         <h2>Original effects</h2>
