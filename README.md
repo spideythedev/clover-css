@@ -111,6 +111,10 @@ Variants use data attributes.
 <span class="clover-badge" data-variant="primary">Featured</span>
 ~~~
 
+## Interactive playground
+
+Open [`playground.html`](./playground.html) for live previews of all 50 components. Search by component name, filter the five categories, switch light/dark themes, adjust radius and density, inspect the HTML and copy snippets.
+
 ## 50 hyper-classified components
 
 The component library is organized into five groups:
