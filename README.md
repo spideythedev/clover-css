@@ -111,6 +111,77 @@ Variants use data attributes.
 <span class="clover-badge" data-variant="primary">Featured</span>
 ~~~
 
+## 50 hyper-classified components
+
+The component library is organized into five groups:
+
+### Navigation & wayfinding
+
+- **Application top bar** — `.clover-topbar`
+- **Application sidebar** — `.clover-sidebar`
+- **Menu bar** — `.clover-menubar`
+- **Command bar** — `.clover-commandbar`
+- **Step indicator** — `.clover-stepper`
+- **Segmented control** — `.clover-segmented`
+- **Navigation rail** — `.clover-rail`
+- **Navigation card** — `.clover-linkcard`
+- **Tree navigation** — `.clover-tree`
+- **Timeline** — `.clover-timeline`
+
+### Data & visualization
+
+- **Metric tile** — `.clover-metric`
+- **Sparkline** — `.clover-sparkline`
+- **Chart frame** — `.clover-chartframe`
+- **Data grid** — `.clover-datagrid`
+- **Data row** — `.clover-listrow`
+- **Kanban board** — `.clover-kanban`
+- **Activity feed** — `.clover-activity`
+- **Rating display** — `.clover-rating`
+- **Meter** — `.clover-meter`
+- **Comparison panel** — `.clover-comparison`
+
+### Inputs & form controls
+
+- **Search field** — `.clover-search`
+- **Combobox** — `.clover-combobox`
+- **Date field** — `.clover-datefield`
+- **Range control** — `.clover-range`
+- **Number field** — `.clover-number`
+- **PIN input** — `.clover-pin`
+- **File drop zone** — `.clover-filedrop`
+- **Upload item** — `.clover-upload`
+- **Toggle group** — `.clover-togglegroup`
+- **Form step** — `.clover-formstep`
+
+### Feedback & states
+
+- **Toast message** — `.clover-toast`
+- **Announcement banner** — `.clover-banner`
+- **Callout** — `.clover-callout`
+- **Status indicator** — `.clover-status`
+- **Notification item** — `.clover-notification`
+- **Progress ring** — `.clover-progressring`
+- **Skeleton block** — `.clover-skeletonblock`
+- **Empty panel** — `.clover-emptypanel`
+- **Error panel** — `.clover-errorpanel`
+- **Success panel** — `.clover-successpanel`
+
+### Overlays, actions & media
+
+- **Modal surface** — `.clover-modal`
+- **Side drawer** — `.clover-drawer`
+- **Popover surface** — `.clover-popover`
+- **Dropdown menu** — `.clover-dropdown`
+- **Context menu** — `.clover-contextmenu`
+- **Command palette** — `.clover-commandpalette`
+- **Media card** — `.clover-media`
+- **Image frame** — `.clover-image`
+- **Video frame** — `.clover-video`
+- **Code block** — `.clover-codeblock`
+
+These classes provide visual structure only. Use semantic HTML and add the required JavaScript, ARIA state, focus management and keyboard behavior in your application.
+
 ## Layout
 
 ~~~html
