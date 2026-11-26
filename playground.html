@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en" data-clover-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f7fc">
+  <meta name="description" content="Explore, preview and copy all 50 ChloroPhilix components in the Clover CSS v3 interactive playground.">
+  <title>Component Playground — ChloroPhilix</title>
+  <link rel="stylesheet" href="./clover.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing:border-box }
+    body { min-height:100vh; background:var(--clover-bg); color:var(--clover-text); font-family:var(--clover-font-sans) }
+    button,input,select { font:inherit }
+    .play-shell { width:min(100% - 2rem,88rem); margin:auto }
+    .play-header { position:sticky; z-index:30; top:0; border-bottom:1px solid var(--clover-border); background:color-mix(in srgb,var(--clover-bg) 90%,transparent); backdrop-filter:blur(18px) }
+    .play-header-inner { display:flex; min-height:4.5rem; align-items:center; justify-content:space-between; gap:1rem }
+    .play-brand { display:flex; align-items:center; gap:.7rem; color:var(--clover-text); font-weight:800; letter-spacing:-.04em; text-decoration:none }
+    .play-mark { display:grid; width:2.2rem; aspect-ratio:1; place-items:center; border-radius:.75rem; background:var(--clover-primary); color:var(--clover-primary-contrast) }
+    .play-nav { display:flex; align-items:center; gap:.7rem }
+    .play-nav a { color:var(--clover-text-soft); font-size:.82rem; font-weight:700; text-decoration:none }
+    .play-hero { display:flex; align-items:end; justify-content:space-between; gap:2rem; padding:3.5rem 0 2rem }
+    .play-kicker { color:var(--clover-primary); font-size:.7rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase }
+    h1 { margin-top:.6rem; font-size:clamp(2.5rem,6vw,4.8rem); letter-spacing:-.085em; line-height:1 }
+    .play-hero p { max-width:36rem; margin-top:1rem; color:var(--clover-text-soft); line-height:1.75 }
+    .play-count { flex:none; padding:.75rem 1rem; border:1px solid var(--clover-border); border-radius:var(--clover-radius-lg); background:var(--clover-surface); font-size:.8rem; font-weight:800 }
+    .toolbar { position:sticky; z-index:20; top:4.5rem; display:grid; grid-template-columns:minmax(14rem,1fr) auto auto auto; gap:.65rem; padding:1rem 0; border-bottom:1px solid var(--clover-border); background:var(--clover-bg) }
+    .search-wrap { display:flex; align-items:center; gap:.6rem; min-height:2.8rem; padding:0 .9rem; border:1px solid var(--clover-border-strong); border-radius:var(--clover-radius-md); background:var(--clover-surface) }
+    .search-wrap input { width:100%; border:0; outline:0; background:transparent; color:var(--clover-text) }
+    .toolbar select { min-width:8rem; padding:.65rem .8rem; border:1px solid var(--clover-border-strong); border-radius:var(--clover-radius-md); background:var(--clover-surface); color:var(--clover-text) }
+    .filters { display:flex; flex-wrap:wrap; gap:.45rem; padding:1rem 0 }
+    .filter { padding:.55rem .85rem; border:1px solid var(--clover-border); border-radius:var(--clover-radius-full); background:var(--clover-surface); color:var(--clover-text-soft); cursor:pointer; font-size:.76rem; font-weight:750 }
+    .filter[aria-pressed="true"] { border-color:var(--clover-primary); background:var(--clover-accent); color:var(--clover-primary) }
+    .result-line { display:flex; justify-content:space-between; gap:1rem; padding:.3rem 0 1rem; color:var(--clover-text-muted); font-size:.75rem }
+    .component-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; padding-bottom:4rem }
+    .component-card { min-width:0; overflow:hidden; border:1px solid var(--clover-border); border-radius:var(--clover-radius-lg); background:var(--clover-surface); box-shadow:var(--clover-shadow-xs) }
+    .component-head { display:flex; align-items:start; justify-content:space-between; gap:.8rem; padding:1rem 1.1rem .8rem }
+    .component-index { color:var(--clover-primary); font:700 .65rem var(--clover-font-mono) }
+    .component-head h2 { margin-top:.25rem; font-size:1rem; letter-spacing:-.035em }
+    .component-head p { margin-top:.3rem; color:var(--clover-text-muted); font-size:.75rem; line-height:1.55 }
+    .component-category { flex:none; padding:.3rem .55rem; border-radius:var(--clover-radius-full); background:var(--clover-surface-muted); color:var(--clover-text-soft); font-size:.62rem; font-weight:800 }
+    .component-preview { display:flex; min-height:10rem; align-items:center; justify-content:center; overflow:auto; padding:1.2rem; border-block:1px solid var(--clover-border); background:var(--clover-bg) }
+    .component-preview > * { max-width:100% }
+    .component-preview .wide { width:100% }
+    .component-preview .demo-stack { display:grid; width:100%; gap:.55rem }
+    .component-preview .demo-inline { display:flex; flex-wrap:wrap; align-items:center; gap:.55rem }
+    .component-preview small { color:var(--clover-text-muted) }
+    .component-preview button { cursor:pointer }
+    .component-preview input,.component-preview select { max-width:100% }
+    .component-preview .clover-modal,.component-preview .clover-commandpalette { margin:auto }
+    .component-preview .clover-sidebar { min-height:auto }
+    .component-preview .clover-rail { min-height:auto }
+    .component-preview .clover-kanban { width:100% }
+    .component-preview .clover-datagrid { width:100% }
+    .component-preview .clover-comparison { width:100% }
+    .component-preview .clover-chartframe svg { width:100%; max-height:8rem }
+    .component-preview .clover-sparkline { width:100%; max-width:13rem }
+    .component-preview .clover-video { width:100%; max-width:20rem }
+    .component-preview .clover-image { width:9rem; height:6rem }
+    .component-preview .clover-codeblock { width:100%; white-space:pre-wrap }
+    .component-preview .clover-toast { width:100% }
+    .component-preview .clover-banner { width:100% }
+    .component-preview .clover-formstep { width:100% }
+    .component-preview .clover-filedrop { width:100% }
+    .component-preview .clover-timeline { width:100% }
+    .component-preview .clover-tree { width:100% }
+    .component-preview .clover-activity { width:100% }
+    .component-preview .clover-dropdown,.component-preview .clover-contextmenu { width:100% }
+    .component-preview .clover-drawer { min-height:auto; width:100% }
+    .component-preview .clover-media { width:100%; max-width:18rem }
+    .component-preview .clover-datagrid td,.component-preview .clover-datagrid th { padding:.55rem }
+    .component-preview .clover-datagrid table { font-size:.72rem }
+    .component-preview .clover-topbar { width:100%; padding:.6rem }
+    .component-preview .clover-topbar .clover-button { padding:.45rem .7rem }
+    .component-preview .clover-listrow { width:100%; padding:.6rem }
+    .component-preview .clover-kanban [data-task] { font-size:.75rem }
+    .component-preview .clover-comparison [data-plan] { padding:.7rem; font-size:.75rem }
+    .component-preview .clover-pin input { width:2rem; height:2.5rem }
+    .component-preview .clover-stepper { width:100% }
+    .component-preview .clover-segmented { max-width:100% }
+    .component-preview .clover-progressring { flex:none }
+    .component-preview .clover-notification { width:100% }
+    .component-preview .clover-emptypanel,.component-preview .clover-errorpanel,.component-preview .clover-successpanel { min-height:8rem; width:100%; padding:.8rem }
+    .component-preview .clover-modal { padding:1rem }
+    .component-preview .clover-chartframe { width:100% }
+    .component-preview .clover-rating { font-size:1.2rem }
+    .component-preview .clover-search,.component-preview .clover-combobox,.component-preview .clover-datefield,.component-preview .clover-number { width:100% }
+    .component-preview .clover-upload { width:100% }
+    .component-preview .clover-commandbar { width:100% }
+    .component-preview .clover-menubar { width:100% }
+    .component-preview .clover-linkcard { width:100% }
+    .component-preview .clover-popover { width:100% }
+    .component-preview .clover-contextmenu { width:100% }
+    .component-preview .clover-commandpalette { width:100% }
+    .component-preview .clover-skeletonblock { width:100% }
+    .component-preview .clover-meter { width:100% }
+    .component-preview .clover-range { width:100% }
+    .component-preview .clover-datefield input { min-width:0 }
+    .component-preview .clover-pin { justify-content:center }
+    .component-preview .clover-rating span:last-child { color:var(--clover-text-muted); font-size:.7rem; letter-spacing:0 }
+    .component-foot { display:flex; align-items:center; justify-content:space-between; gap:.6rem; padding:.7rem 1rem }
+    .component-foot code { overflow:hidden; color:var(--clover-text-muted); font-size:.68rem; text-overflow:ellipsis; white-space:nowrap }
+    .component-actions { display:flex; gap:.4rem }
+    .mini-btn { padding:.4rem .6rem; border:1px solid var(--clover-border); border-radius:var(--clover-radius-sm); background:var(--clover-surface); color:var(--clover-text-soft); cursor:pointer; font-size:.68rem; font-weight:750 }
+    .mini-btn:hover { border-color:var(--clover-primary); color:var(--clover-primary) }
+    .code-view { display:none; padding:1rem; border-top:1px solid var(--clover-border); background:var(--clover-surface-muted) }
+    .code-view[data-open="true"] { display:block }
+    .code-view pre { overflow:auto; margin:0; color:var(--clover-text); font: .72rem/1.65 var(--clover-font-mono); white-space:pre-wrap; overflow-wrap:anywhere }
+    .empty-state { display:none; padding:4rem 1rem; border:1px dashed var(--clover-border-strong); border-radius:var(--clover-radius-lg); color:var(--clover-text-muted); text-align:center }
+    .play-footer { display:flex; justify-content:space-between; gap:1rem; padding:1.5rem 0 2.5rem; border-top:1px solid var(--clover-border); color:var(--clover-text-muted); font-size:.78rem }
+    .play-footer a { color:var(--clover-text-soft); text-decoration:none }
+    @media(max-width:760px) { .toolbar { grid-template-columns:1fr 1fr; top:4.5rem } .search-wrap { grid-column:1/-1 } .play-hero { align-items:start; flex-direction:column } .component-grid { grid-template-columns:1fr } }
+    @media(max-width:480px) { .play-shell { width:min(100% - 1.2rem,88rem) } .play-nav a { display:none } .toolbar select { min-width:0; width:100% } .play-count { font-size:.7rem } .component-preview { padding:.8rem } .play-footer { flex-direction:column } }
+    @media(prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto!important; animation-duration:.01ms!important; transition-duration:.01ms!important } }
+  </style>
+</head>
+<body>
+  <header class="play-header">
+    <div class="play-shell play-header-inner">
+      <a class="play-brand" href="./index.html"><span class="play-mark">C</span><span>ChloroPhilix <small style="display:block;color:var(--clover-text-muted);font-size:.58rem;letter-spacing:.15em">CLOVER CSS / V3</small></span></a>
+      <nav class="play-nav" aria-label="Playground navigation"><a href="./index.html">Home</a><a href="./docs.html">Documentation</a><a href="https://github.com/spideythedev/clover-css">GitHub</a><button class="clover-button" id="themeToggle" type="button" data-variant="outline">Dark mode</button></nav>
+    </div>
+  </header>
+  <main class="play-shell">
+    <section class="play-hero">
+      <div><span class="play-kicker">Interactive component lab / 003</span><h1>Build with<br>the whole family.</h1><p>Explore all 50 ChloroPhilix components. Search by name, filter by system, tune the design tokens and copy the markup straight into your project.</p></div>
+      <div class="play-count"><strong id="totalCount">50</strong><br><small>COMPONENTS / 05 SYSTEMS</small></div>
+    </section>
+    <section class="toolbar" aria-label="Playground controls">
+      <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search components..." autocomplete="off" aria-label="Search components"></label>
+      <select id="themeSelect" aria-label="Theme"><option value="light">Light theme</option><option value="dark">Dark theme</option></select>
+      <select id="radiusSelect" aria-label="Geometry"><option value="default">Signature shape</option><option value="sharp">Sharp shape</option><option value="soft">Soft shape</option></select>
+      <select id="densitySelect" aria-label="Density"><option value="default">Balanced density</option><option value="compact">Compact density</option><option value="comfortable">Comfortable density</option></select>
+    </section>
+    <nav class="filters" id="filters" aria-label="Filter component categories"></nav>
+    <div class="result-line"><span id="resultCount" aria-live="polite">Showing 50 components</span><span>PREVIEW · INSPECT · COPY</span></div>
+    <section class="component-grid" id="componentGrid" aria-label="Component previews"></section>
+    <div class="empty-state" id="emptyState"><strong>No components found.</strong><p>Try another search or choose a different category.</p></div>
+    <footer class="play-footer"><span>ChloroPhilix · Clover CSS v3 · MIT</span><span><a href="./docs.html">Documentation</a> · <a href="https://github.com/spideythedev/clover-css">Repository</a></span></footer>
+  </main>
+  <script>
+    const components = [
+      ["Navigation & wayfinding","topbar","Application top bar","A compact header for product identity and primary actions.",'<header class="clover-topbar"><strong>Studio / Workspace</strong><div class="demo-inline"><span class="clover-badge">Team</span><button class="clover-button">Publish</button></div></header>'],
+      ["Navigation & wayfinding","sidebar","Application sidebar","A vertical navigation surface with a clear active destination.",'<nav class="clover-sidebar" aria-label="Workspace"><strong>Workspace</strong><a href="#" aria-current="page">Overview</a><a href="#">Projects</a><a href="#">Settings</a></nav>'],
+      ["Navigation & wayfinding","menubar","Menu bar","A horizontal group of related application commands.",'<nav class="clover-menubar" aria-label="Editor menu"><button type="button">File</button><button type="button">Edit</button><button type="button">View</button><button type="button">Help</button></nav>'],
+      ["Navigation & wayfinding","commandbar","Command bar","A contextual toolbar for frequent actions.",'<div class="clover-commandbar"><button type="button">↶ Undo</button><button type="button">↷ Redo</button><button type="button">＋ Insert</button><button type="button">⋯ More</button></div>'],
+      ["Navigation & wayfinding","stepper","Step indicator","A clear visual sequence for multi-stage workflows.",'<div class="clover-stepper"><span data-step="1" aria-current="step">Details</span><span data-step="2">Review</span><span data-step="3">Finish</span></div>'],
+      ["Navigation & wayfinding","segmented","Segmented control","A compact selector for mutually exclusive views.",'<div class="clover-segmented"><button type="button" aria-pressed="true">Day</button><button type="button" aria-pressed="false">Week</button><button type="button" aria-pressed="false">Month</button></div>'],
+      ["Navigation & wayfinding","rail","Navigation rail","A narrow icon-first navigation column.",'<nav class="clover-rail" aria-label="Primary"><a href="#" aria-current="page" aria-label="Home">⌂</a><a href="#" aria-label="Search">⌕</a><a href="#" aria-label="Files">▤</a><a href="#" aria-label="Settings">⚙</a></nav>'],
+      ["Navigation & wayfinding","linkcard","Navigation card","A full-surface link that previews a destination.",'<a class="clover-linkcard" href="#"><span><strong>Design tokens</strong><small style="display:block">Explore the visual foundation</small></span><span aria-hidden="true">↗</span></a>'],
+      ["Navigation & wayfinding","tree","Tree navigation","Nested navigation for hierarchical content.",'<nav class="clover-tree" aria-label="Files"><a href="#" aria-current="page">▣ src</a><a href="#" data-depth="1">▤ index.js</a><a href="#" data-depth="1">▤ app.css</a><a href="#">▣ public</a></nav>'],
+      ["Navigation & wayfinding","timeline","Timeline","Chronological events with a connected visual track.",'<div class="clover-timeline"><div data-event><strong>Project created</strong><small>Today · 09:20</small></div><div data-event><strong>First review</strong><small>Yesterday · 16:45</small></div></div>'],
+      ["Data & visualization","metric","Metric tile","A focused KPI with supporting context.",'<article class="clover-metric"><small>Monthly revenue</small><strong>$24,800</strong><span class="clover-badge" data-variant="primary">↗ 12.8%</span></article>'],
+      ["Data & visualization","sparkline","Sparkline","A minimal trend line for compact data contexts.",'<div class="demo-stack"><small>Weekly activity</small><div class="clover-sparkline"><svg viewBox="0 0 180 48" role="img" aria-label="Upward activity trend"><path d="M2 38 L25 31 L48 34 L70 18 L92 25 L115 12 L138 17 L160 5 L178 8"/></svg></div></div>'],
+      ["Data & visualization","chartframe","Chart frame","A neutral plotting surface for charts and custom SVG.",'<div class="clover-chartframe"><svg viewBox="0 0 240 110" role="img" aria-label="Example bar chart"><path d="M8 96H232" stroke="currentColor" opacity=".2"/><rect x="25" y="55" width="28" height="41" rx="5" fill="var(--clover-primary)" opacity=".55"/><rect x="78" y="32" width="28" height="64" rx="5" fill="var(--clover-primary)" opacity=".7"/><rect x="131" y="18" width="28" height="78" rx="5" fill="var(--clover-primary)"/><rect x="184" y="42" width="28" height="54" rx="5" fill="var(--clover-primary)" opacity=".8"/></svg></div>'],
+      ["Data & visualization","datagrid","Data grid","A responsive table wrapper with structured headers.",'<div class="clover-datagrid"><table><thead><tr><th>Project</th><th>Status</th></tr></thead><tbody><tr><td>Website</td><td>Active</td></tr><tr><td>Mobile app</td><td>Review</td></tr></tbody></table></div>'],
+      ["Data & visualization","listrow","Data row","A reusable horizontal row for lists and settings.",'<div class="clover-listrow"><span>◈</span><span style="flex:1"><strong>Workspace assets</strong><small style="display:block">Updated 4 minutes ago</small></span><span>→</span></div>'],
+      ["Data & visualization","kanban","Kanban board","A responsive board with columns and task cards.",'<div class="clover-kanban"><section data-column><strong>In progress</strong><article data-task>Refine interface</article><article data-task>Review tokens</article></section><section data-column><strong>Done</strong><article data-task>Set up project</article></section></div>'],
+      ["Data & visualization","activity","Activity feed","A chronological stream of user or system activity.",'<div class="clover-activity"><div data-activity><span>●</span><span><strong>Fahad updated the design</strong><small style="display:block">12 minutes ago</small></span></div><div data-activity><span>○</span><span><strong>New component added</strong><small style="display:block">1 hour ago</small></span></div></div>'],
+      ["Data & visualization","rating","Rating display","A compact visual rating with an optional numeric value.",'<div class="clover-rating" role="img" aria-label="Rated 4.8 out of 5">★★★★★ <span>4.8 / 5</span></div>'],
+      ["Data & visualization","meter","Meter","A token-colored horizontal measure.",'<div class="demo-stack"><div class="demo-inline" style="justify-content:space-between"><strong>Storage</strong><small>68%</small></div><div class="clover-meter" role="meter" aria-valuenow="68" aria-valuemin="0" aria-valuemax="100"><span style="--clover-meter-value:68%"></span></div></div>'],
+      ["Data & visualization","comparison","Comparison panel","Side-by-side plans, features or option summaries.",'<div class="clover-comparison"><section data-plan><strong>Basic</strong><h3>$8</h3><small>For individuals</small></section><section data-plan><strong>Studio</strong><h3>$18</h3><small>For teams</small></section></div>'],
+      ["Inputs & form controls","search","Search field","A search input with a leading visual cue.",'<label class="clover-search"><span>⌕</span><input type="search" placeholder="Search projects..." aria-label="Search projects"></label>'],
+      ["Inputs & form controls","combobox","Combobox","An editable field paired with suggested values.",'<label class="clover-combobox"><span>⌄</span><input list="clover-suggestions" placeholder="Choose a framework" aria-label="Framework"><datalist id="clover-suggestions"><option value="React"><option value="Vue"><option value="Svelte"></datalist></label>'],
+      ["Inputs & form controls","datefield","Date field","A date input wrapped in the shared control style.",'<label class="clover-datefield"><span>▦</span><input type="date" aria-label="Choose date" value="2026-11-26"></label>'],
+      ["Inputs & form controls","range","Range control","A slider for selecting a numeric value.",'<label class="clover-range"><span class="demo-inline" style="justify-content:space-between"><strong>Intensity</strong><small>72%</small></span><input type="range" min="0" max="100" value="72" aria-label="Intensity"></label>'],
+      ["Inputs & form controls","number","Number field","A numeric input with aligned supporting affordance.",'<label class="clover-number"><span>№</span><input type="number" value="24" min="0" aria-label="Quantity"></label>'],
+      ["Inputs & form controls","pin","PIN input","A visual grouping for short verification codes.",'<div class="clover-pin" aria-label="Verification code"><input aria-label="Digit one" value="4" maxlength="1"><input aria-label="Digit two" value="8" maxlength="1"><input aria-label="Digit three" value="2" maxlength="1"><input aria-label="Digit four" value="6" maxlength="1"></div>'],
+      ["Inputs & form controls","filedrop","File drop zone","A clear upload target with a native file picker.",'<label class="clover-filedrop"><strong>Drop files here</strong><small>or choose from your device</small><input type="file" aria-label="Choose files"></label>'],
+      ["Inputs & form controls","upload","Upload item","A file row with upload progress.",'<div class="clover-upload"><span>▧</span><div style="flex:1"><strong>brand-assets.zip</strong><div data-progress style="margin-top:.4rem"><span style="--clover-upload-progress:72%"></span></div></div><small>72%</small></div>'],
+      ["Inputs & form controls","togglegroup","Toggle group","A compact set of pressed-state options.",'<div class="clover-togglegroup"><button type="button" aria-pressed="true">Grid</button><button type="button" aria-pressed="false">List</button><button type="button" aria-pressed="false">Board</button></div>'],
+      ["Inputs & form controls","formstep","Form step","A grouped form section with a clear required field.",'<form class="clover-formstep"><strong>Personal details</strong><label><span data-required="true">Display name</span><input class="clover-input wide" placeholder="Your name" required></label><button class="clover-button" type="button">Continue</button></form>'],
+      ["Feedback & states","toast","Toast message","A compact status message for transient feedback.",'<div class="clover-toast"><span class="clover-badge" data-variant="primary">✓</span><span><strong>Changes saved</strong><small style="display:block">Your work is up to date.</small></span></div>'],
+      ["Feedback & states","banner","Announcement banner","A full-width notice with an optional action.",'<div class="clover-banner"><span><strong>New version available</strong><small style="display:block">Explore the latest improvements.</small></span><button class="clover-button" type="button">View update</button></div>'],
+      ["Feedback & states","callout","Callout","An inline note that draws attention without breaking flow.",'<aside class="clover-callout"><strong>Heads up</strong><p style="margin-top:.3rem;font-size:.8rem">Your workspace is using the latest token set.</p></aside>'],
+      ["Feedback & states","status","Status indicator","A small state marker for live system conditions.",'<div class="demo-stack"><span class="clover-status" data-state="online">All systems operational</span><span class="clover-status" data-state="busy">Deploying update</span><span class="clover-status" data-state="offline">Offline</span></div>'],
+      ["Feedback & states","notification","Notification item","A structured notification with a clear message hierarchy.",'<article class="clover-notification"><span class="clover-badge" data-variant="primary">↗</span><span><strong>Deployment completed</strong><small style="display:block">Production is running the latest build.</small><small>Just now</small></span></article>'],
+      ["Feedback & states","progressring","Progress ring","A circular progress indicator driven by a percentage token.",'<div class="clover-progressring" style="--ring-progress:72" data-value="72%"></div>'],
+      ["Feedback & states","skeletonblock","Skeleton block","A loading placeholder for content not yet available.",'<div class="demo-stack" style="width:100%"><div class="clover-skeletonblock" style="height:1.1rem;width:42%"></div><div class="clover-skeletonblock" style="height:.8rem"></div><div class="clover-skeletonblock" style="height:.8rem;width:76%"></div></div>'],
+      ["Feedback & states","emptypanel","Empty panel","A calm empty state with a useful next action.",'<section class="clover-emptypanel"><strong>Nothing here yet</strong><small>Create your first project to get started.</small><button class="clover-button" type="button">Create project</button></section>'],
+      ["Feedback & states","errorpanel","Error panel","A contained error state with recovery guidance.",'<section class="clover-errorpanel"><strong>Unable to load data</strong><small>Check your connection and try again.</small><button class="clover-button" data-variant="outline" type="button">Retry</button></section>'],
+      ["Feedback & states","successpanel","Success panel","A confirmation state for completed workflows.",'<section class="clover-successpanel"><strong>✓ All done</strong><small>Your changes have been published.</small></section>'],
+      ["Overlays, actions & media","modal","Modal surface","A dialog-like surface; wire it to a native dialog or accessible overlay.",'<section class="clover-modal" role="dialog" aria-label="Publish project"><span class="clover-badge">Ready</span><h3 style="margin-top:.7rem">Publish project?</h3><p style="margin:.4rem 0 1rem;font-size:.8rem">Your latest changes will become available to everyone.</p><div class="demo-inline"><button class="clover-button" type="button">Publish</button><button class="clover-button" data-variant="outline" type="button">Cancel</button></div></section>'],
+      ["Overlays, actions & media","drawer","Side drawer","A side-panel surface for secondary workflows.",'<aside class="clover-drawer"><div class="demo-inline" style="justify-content:space-between"><strong>Project settings</strong><button class="mini-btn" type="button" aria-label="Close">×</button></div><p style="margin-top:1rem;font-size:.8rem">Manage workspace preferences and access.</p><hr style="border:0;border-top:1px solid var(--clover-border);margin:1rem 0"><span class="clover-status">Private workspace</span></aside>'],
+      ["Overlays, actions & media","popover","Popover surface","A small floating content surface for contextual detail.",'<div class="clover-popover"><strong>Quick information</strong><small style="display:block;margin-top:.3rem">A contextual detail panel.</small></div>'],
+      ["Overlays, actions & media","dropdown","Dropdown menu","A menu surface for a short list of actions.",'<div class="clover-dropdown" role="menu"><button type="button" role="menuitem">Open project</button><button type="button" role="menuitem">Duplicate</button><button type="button" role="menuitem">Archive</button></div>'],
+      ["Overlays, actions & media","contextmenu","Context menu","A contextual command list for an item or selection.",'<div class="clover-contextmenu" role="menu"><button type="button" role="menuitem">✎ Rename</button><button type="button" role="menuitem">⧉ Copy link</button><button type="button" role="menuitem">⌫ Delete</button></div>'],
+      ["Overlays, actions & media","commandpalette","Command palette","A searchable command surface for power-user workflows.",'<div class="clover-commandpalette"><input type="search" placeholder="Type a command..." aria-label="Command search"><div data-command aria-selected="true">⌕ Search files</div><div data-command>＋ Create project</div><div data-command>⚙ Open settings</div></div>'],
+      ["Overlays, actions & media","media","Media card","A media-led card with a caption region.",'<article class="clover-media"><div style="aspect-ratio:16/9;background:linear-gradient(135deg,var(--clover-accent),var(--clover-surface-muted));display:grid;place-items:center;font-size:2rem">◈</div><div data-media-body><strong>Creative workspace</strong><small>Visual overview · 3 min</small></div></article>'],
+      ["Overlays, actions & media","image","Image frame","A cropped image container with a subtle hover treatment.",'<figure class="clover-image"><img alt="Abstract violet and lavender geometric composition" src="https://images.unsplash.com/photo-1550859492-d5da9d8e45f3?w=480&auto=format&fit=crop&q=80"></figure>'],
+      ["Overlays, actions & media","video","Video frame","A responsive 16:9 frame for video or embedded media.",'<div class="clover-video"><div style="display:grid;width:100%;height:100%;place-items:center;color:white;font-size:2rem">▶</div></div>'],
+      ["Overlays, actions & media","codeblock","Code block","A styled surface for code examples and technical output.",'<pre class="clover-codeblock"><code>const theme = "chloroPhilix";\nconst components = 50;</code></pre>']
+    ];
+    const categories = ["All components","Navigation & wayfinding","Data & visualization","Inputs & form controls","Feedback & states","Overlays, actions & media"];
+    const grid = document.querySelector("#componentGrid");
+    const filters = document.querySelector("#filters");
+    const search = document.querySelector("#searchInput");
+    const empty = document.querySelector("#emptyState");
+    const resultCount = document.querySelector("#resultCount");
+    const root = document.documentElement;
+    let activeCategory = "All components";
+    filters.innerHTML = categories.map((category,index) => '<button class="filter" type="button" data-category="'+category+'" aria-pressed="'+(index===0)+'">'+(index===0?"All · 50":category.replace(" & wayfinding","").replace(" & visualization","").replace(" & form controls","").replace(" & states","").replace(", actions & media",""))+'</button>').join("");
+    function render() {
+      const query = search.value.trim().toLowerCase();
+      const visible = components.filter(item => (activeCategory==="All components" || item[0]===activeCategory) && (!query || (item[1]+" "+item[2]+" "+item[3]+" "+item[0]).toLowerCase().includes(query)));
+      grid.innerHTML = visible.map(item => {
+        const index = components.indexOf(item)+1;
+        const snippet = item[4].replace(/</g,"&lt;").replace(/>/g,"&gt;");
+        return '<article class="component-card" data-component="'+item[1]+'"><header class="component-head"><div><span class="component-index">COMPONENT / '+String(index).padStart(2,"0")+'</span><h2>'+item[2]+'</h2><p>'+item[3]+'</p></div><span class="component-category">'+item[0].split(" ")[0]+'</span></header><div class="component-preview">'+item[4]+'</div><footer class="component-foot"><code>.clover-'+item[1]+'</code><div class="component-actions"><button class="mini-btn" type="button" data-code="'+item[1]+'">View HTML</button><button class="mini-btn" type="button" data-copy="'+item[1]+'">Copy</button></div></footer><div class="code-view" id="code-'+item[1]+'" data-open="false"><pre>'+snippet+'</pre></div></article>';
+      }).join("");
+      resultCount.textContent = "Showing "+visible.length+" of 50 components";
+      empty.style.display = visible.length ? "none" : "block";
+      grid.style.display = visible.length ? "grid" : "none";
+    }
+    filters.addEventListener("click",event => {
+      const button = event.target.closest("[data-category]");
+      if (!button) return;
+      activeCategory = button.dataset.category;
+      filters.querySelectorAll("button").forEach(item => item.setAttribute("aria-pressed",String(item===button)));
+      render();
+    });
+    search.addEventListener("input",render);
+    grid.addEventListener("click",async event => {
+      const codeButton = event.target.closest("[data-code]");
+      const copyButton = event.target.closest("[data-copy]");
+      if (codeButton) {
+        const panel = document.querySelector("#code-"+codeButton.dataset.code);
+        const open = panel.dataset.open !== "true";
+        panel.dataset.open = String(open);
+        codeButton.textContent = open ? "Hide HTML" : "View HTML";
+      }
+      if (copyButton) {
+        const item = components.find(entry => entry[1]===copyButton.dataset.copy);
+        try {
+          await navigator.clipboard.writeText(item[4]);
+          copyButton.textContent = "Copied";
+        } catch {
+          const field = document.createElement("textarea");
+          field.value = item[4];
+          document.body.appendChild(field);
+          field.select();
+          document.execCommand("copy");
+          field.remove();
+          copyButton.textContent = "Copied";
+        }
+        setTimeout(() => { copyButton.textContent = "Copy"; },1400);
+      }
+      const pressed = event.target.closest(".clover-segmented button,.clover-togglegroup button");
+      if (pressed) {
+        pressed.parentElement.querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed",String(button===pressed)));
+      }
+    });
+    document.querySelector("#themeSelect").addEventListener("change",event => {
+      root.dataset.cloverTheme=event.target.value;
+      document.querySelector("#themeToggle").textContent=event.target.value==="dark"?"Light mode":"Dark mode";
+    });
+    document.querySelector("#radiusSelect").addEventListener("change",event => {
+      if(event.target.value==="default") delete root.dataset.cloverRadius;
+      else root.dataset.cloverRadius=event.target.value;
+    });
+    document.querySelector("#densitySelect").addEventListener("change",event => {
+      if(event.target.value==="default") delete root.dataset.cloverDensity;
+      else root.dataset.cloverDensity=event.target.value;
+    });
+    document.querySelector("#themeToggle").addEventListener("click",() => {
+      const next=root.dataset.cloverTheme==="dark"?"light":"dark";
+      root.dataset.cloverTheme=next;
+      document.querySelector("#themeSelect").value=next;
+      document.querySelector("#themeToggle").textContent=next==="dark"?"Light mode":"Dark mode";
+    });
+    render();
+  </script>
+</body>
+</html>
