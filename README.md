@@ -1,130 +1,130 @@
-# 🍀 Clover CSS
+# Clover CSS
 
-Modern CSS components with advanced visual effects, theming, and accessibility built in
+A complete visual foundation for ambitious websites. Clover combines a design-token system, responsive layout primitives, reusable interface components and expressive visual effects in a framework that stays close to native CSS.
 
-## ✨ Features
+## Install
 
-- 🎨 20 handcrafted CSS components
-- ⚙️ CSS variable customization
-- 🌙 Automatic dark mode support
-- ♿ Accessibility-focused design
-- 🚀 Modern browser compatibility
-- 📦 Single-file distribution
-- 🧩 Zero build configuration
+~~~bash
+npm install @spideythedev/clover-css
+~~~
 
-## 📦 Installation
+~~~html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/spideythedev/clover-css@main/clover.css">
+~~~
 
-### NPM
+The core stylesheet is **clover.css**. The original expressive effects library is preserved separately as **clover-effects.css**.
 
-```bash
-npm install clover-css-lib
-```
-### Import CSS
+## Quick start
 
-```css
-@import 'clover-css-lib/clover.css';
-```
-### CDN
-
-```html
-<link rel="stylesheet" href="https://unpkg.com/clover-css-lib/clover.css">
-```
-## 🚀 Quick Start
-
-```html
-<div class="clover-glass-card">
-  <h2>Hello Clover 🍀</h2>
-  <p>Beautiful UI with a single class.</p>
+~~~html
+<div class="clover-container clover-stack">
+  <section class="clover-card" data-variant="raised">
+    <span class="clover-badge" data-variant="success">Ready</span>
+    <h1>Make the web feel considered.</h1>
+    <p>Build interfaces with a coherent visual foundation.</p>
+    <div class="clover-cluster">
+      <button class="clover-button">Get started</button>
+      <button class="clover-button" data-variant="outline">Explore</button>
+    </div>
+  </section>
 </div>
+~~~
 
-<button class="clover-clay-button">
-  Click Me
-</button>
-```
-## 🧩 Components
+## Design system
 
-- 🪟 Glass Card
-- 🔘 Clay Button
-- 🟨 Neubrutal Card
-- 💻 Cyber Panel
-- 🧲 Magnetic Container
-- 🫧 Liquid Blob
-- ⌨️ Typewriter
-- 🌈 Kaleidoscope
-- 🔄 Morphing Shape
-- 🌀 Rainbow Spinner
-- 🌌 Parallax Section
-- 🎴 Flip Card 3D
-- 🔍 Expand Search
-- 🔔 Notification Bell
-- 👻 Drag Ghost
-- 🔦 Spotlight Card
-- 🎚️ Toggle Realm
-- 💬 Tooltip Magic
-- 📢 Marquee Banner
-- 📊 Progress Cosmic
+Override a few tokens to reshape the entire interface.
 
-📖 See the documentation for complete examples, customization options, and component-specific settings.
-
-## 🎨 Theming
-
-Customize components globally using CSS variables.
-
-```css
+~~~css
 :root {
-  --clover-accent: #6c5ce7;
+  --clover-primary: #3159c9;
+  --clover-primary-hover: #2447aa;
+  --clover-radius-md: 1rem;
+  --clover-radius-lg: 1.5rem;
+  --clover-font-sans: "Manrope", system-ui, sans-serif;
+  --clover-content-width: 82rem;
 }
-```
-## 🌙 Dark Mode
+~~~
 
-Dark mode is supported automatically through `prefers-color-scheme`.
+## Themes
 
-## ♿ Accessibility
+Automatic mode follows the operating system. Set an explicit theme on any ancestor to override it.
 
-- ⌨️ Keyboard-friendly interactions
-- 🎯 Focus-visible states
-- 🏃 Reduced-motion support
-- 📱 Responsive layouts
-- 🎨 Accessible color contrast
+~~~html
+<html data-clover-theme="dark">
+~~~
 
-## 🌐 Browser Support
+Supported values are **light** and **dark**. Remove the attribute to use automatic mode.
 
-Supports modern versions of:
+## Global shape and density
 
-- Chrome
-- Firefox
-- Safari
-- Edge
+~~~html
+<div data-clover-radius="soft" data-clover-density="comfortable">
+  ...
+</div>
+~~~
 
-## 📂 Project Structure
+Radius options: **sharp**, default, **soft**. Density options: **compact**, default, **comfortable**.
 
-```
-clover-css/
-├── clover.css
-├── index.html
-├── docs.html
-├── README.md
-└── package.json
-```
-## 🤝 Contributing
+## Components
 
-Contributions, bug reports, and feature requests are welcome.
+| Component | Class |
+| --- | --- |
+| Card | clover-card |
+| Button | clover-button |
+| Badge | clover-badge |
+| Input | clover-input |
+| Select | clover-select |
+| Textarea | clover-textarea |
+| Field | clover-field |
+| Label | clover-label |
+| Alert | clover-alert |
+| Avatar | clover-avatar |
+| Progress | clover-progress |
+| Skeleton | clover-skeleton |
+| Table | clover-table |
+| Navigation | clover-nav |
+| Panel | clover-panel |
+| Divider | clover-divider |
 
-1. 🍴 Fork the repository
-2. 🌱 Create a feature branch
-3. 💻 Make your changes
-4. 🚀 Submit a pull request
+Variants use data attributes instead of a growing collection of class names.
 
-## 📄 License
+~~~html
+<button class="clover-button" data-variant="secondary" data-size="sm">Cancel</button>
+<div class="clover-card" data-variant="soft">...</div>
+<span class="clover-badge" data-variant="warning">Pending</span>
+~~~
 
-MIT License.
+## Layout
 
-## 🔗 Links
+~~~html
+<div class="clover-container">
+  <div class="clover-grid-auto" style="--clover-grid-min: 18rem">
+    <article class="clover-card">One</article>
+    <article class="clover-card">Two</article>
+    <article class="clover-card">Three</article>
+  </div>
+</div>
+~~~
 
-- 📦 NPM: https://npmjs.com/package/clover-css-lib
-- ⭐ GitHub: https://github.com/spideythedev/clover-css
-- 🌐 Demo: https://clover-css.vercel.app
+Available primitives: **clover-container**, **clover-stack**, **clover-cluster**, **clover-grid**, **clover-grid-auto**, **clover-split**, **clover-center** and **clover-flow**.
 
----
+## Original effects
 
-Built with 🍀 Clover CSS.
+The original Clover visual experiments remain available in **clover-effects.css**. Load it after the core stylesheet when you want the original glass, clay, cyber, magnetic, liquid, typewriter, kaleidoscope and motion effects.
+
+~~~html
+<link rel="stylesheet" href="clover.css">
+<link rel="stylesheet" href="clover-effects.css">
+~~~
+
+## Accessibility
+
+Clover includes visible keyboard focus, native control semantics, reduced-motion handling, responsive layouts and system-aware color schemes. Components provide styling only; interactive behavior, labels, validation and ARIA semantics remain the responsibility of the application.
+
+## Browser support
+
+The core uses modern CSS features including custom properties, cascade layers, color-mix and grid. Use current versions of Chromium, Firefox and Safari.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

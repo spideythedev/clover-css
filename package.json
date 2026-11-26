@@ -1,27 +1,27 @@
 {
   "name": "@spideythedev/clover-css",
-  "version": "1.0.0",
-  "description": "An intentionally overcomplicated CSS library — 15 components, one class each, 5,200+ lines of pure CSS chaos",
+  "version": "2.0.0",
+  "description": "A highly customizable CSS design system with expressive components and visual effects.",
   "main": "clover.css",
   "style": "clover.css",
   "files": [
     "clover.css",
+    "clover-effects.css",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "NOTICE"
   ],
   "keywords": [
     "css",
-    "css-library",
-    "components",
-    "ui-components",
-    "glassmorphism",
-    "neumorphism",
-    "brutalism",
-    "cyberpunk",
-    "animations",
-    "no-javascript",
+    "css-framework",
+    "design-system",
+    "css-components",
+    "design-tokens",
+    "theming",
+    "responsive",
+    "accessibility",
     "css-only",
-    "overcomplicated"
+    "ui"
   ],
   "author": "spideythedev",
   "license": "MIT",
