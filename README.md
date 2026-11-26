@@ -85,6 +85,15 @@ Radius options: **sharp**, default, **soft**. Density options: **compact**, defa
 | Navigation | clover-nav |
 | Panel | clover-panel |
 | Divider | clover-divider |
+| Checkbox and radio | clover-checkbox, clover-radio |
+| Switch | clover-switch |
+| Tabs | clover-tabs, clover-tab |
+| Accordion | clover-accordion |
+| Breadcrumb | clover-breadcrumb |
+| Tooltip | clover-tooltip |
+| Stat | clover-stat |
+| Pagination | clover-pagination |
+| Empty state | clover-empty |
 
 Variants use data attributes instead of a growing collection of class names.
 
